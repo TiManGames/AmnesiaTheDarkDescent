@@ -2,12 +2,10 @@
 
 This is a fork of the Amnesia the Dark Descent repository from FrictionalGames. We will mostly play with different parts of the engine and perhaps even fix some bugs :)
 
-The game is built from two separate solutions: The HPL2 Engine and the game itself.
-
 ## Index
 
-* [Windows](https://github.com/TiManGames/AmnesiaTheDarkDescent/tree/fix/linux-compilation#project-overview-windows) - Compiling instructions for Windows.
-* [Linux](https://github.com/TiManGames/AmnesiaTheDarkDescent/tree/fix/linux-compilation#building--playing-linux) - Compiling instructions for Linux.
+* [Windows](#project-overview-windows) - Compiling instructions for Windows.
+* [Linux](#building--playing-linux) - Compiling instructions for Linux.
 
 ## Prerequisites
 
