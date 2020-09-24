@@ -61,6 +61,7 @@ There are quite a few extra steps required to be able to successfully build ever
 
 ### Building the Engine, Game & Editors
 
+0. Ensure you have `make` and `cmake` installed.
 1. Clone the project and enter the folder
 2. Extract `./HPL2/dependencies.zip` to the same folder it's in
 3. Edit `./HPL2/core/CMakeLists.txt` and remove the line near the bottom about adding the `../tests` subdirectory.
