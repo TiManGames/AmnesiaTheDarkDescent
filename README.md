@@ -59,7 +59,7 @@ Copy `Amnesia.exe` into your Amnesia game folder and launch it. The main menu sh
 
 There are quite a few extra steps required to be able to successfully build everything on Linux. This is partially due to incorrect configuration in the default repository.
 
-### Building the Engine
+### Building the Engine, Game & Editors
 
 1. Clone the project and enter the folder
 2. Extract `./HPL2/dependencies.zip` to the same folder it's in
@@ -82,11 +82,9 @@ There are quite a few extra steps required to be able to successfully build ever
 8. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads)
 9. The build will compile and the resulting binaries will be found in `./amnesia/src`
 
-### Building the Game
-
 ### Playing the Game
 
-### Building the Editors
+To run the compiled binary, copy it to your Amnesia installation folder. For example copy the `Amnesia.bin.x86_64` to your game folder. Run it, and the game should start directly.
 
 ## Toubleshooting
 * **"When I compile `Lux`, I get an error message "fatal error RC1015: cannot open include file 'afxres.h'".**"
