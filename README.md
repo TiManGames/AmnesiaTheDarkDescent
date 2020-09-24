@@ -67,12 +67,12 @@ There are quite a few extra steps required to be able to successfully build ever
 4. Open a terminal in `./amnesia/src` and run `cmake .`
 5. Search for "BuildID" in the file system and you will see 5 sets of .h and .cpp files. The .cpp filenames end with "Win32". Create duplicates of these files and rename from "Win32" to "Linux". For example: `BuildID_HPL2_0_Win32.cpp` > `BuildID_HPL2_0_Linux.cpp`.
 6. Add the following CMake line into the files listed below: `set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")`
-	- ./amnesia/src/CMakeLists.txt
-	- ./amnesia/src/launcher/CMakeLists.txt
-	- ./amnesia/src/game/CMakeLists.txt
-	- ./HPL2/core/CMakeLists.txt
-	- ./HPL2/tools/CMakeLists.txt
-	- ./HPL2/tools/editors/CMakeLists.txt
+	- `./amnesia/src/CMakeLists.txt`
+	- `./amnesia/src/launcher/CMakeLists.txt`
+	- `./amnesia/src/game/CMakeLists.txt`
+	- `./HPL2/core/CMakeLists.txt`
+	- `./HPL2/tools/CMakeLists.txt`
+	- `./HPL2/tools/editors/CMakeLists.txt`
 7. Open a terminal in `./HPL2/dependencies/lib/linux/lib64` and run:
     for f in \`file * | grep ASCII | cut -d: -f1\`; do ln -fs \`cut -d' ' -f2 $f\` $f; done
 8. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads)
