@@ -13,3 +13,4 @@ add_executable(Launcher
 target_link_libraries(Launcher HPL2 ${FLTK_IMAGES_LIBRARY} ${FLTK_LIBRARY} X11 Xext Xft fontconfig ${JPEG_LIBRARY})
 
 # vim: et ts=4
+set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")

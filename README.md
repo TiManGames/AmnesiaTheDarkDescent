@@ -61,27 +61,18 @@ There are quite a few extra steps required to be able to successfully build ever
 
 ### Building the Engine, Game & Editors
 
-0. Ensure you have `make` and `cmake` installed.
-1. Clone the project and enter the folder
-2. Extract `./HPL2/dependencies.zip` to the same folder it's in
-3. Edit `./HPL2/core/CMakeLists.txt` and remove the line near the bottom about adding the `../tests` subdirectory.
+1. Ensure you have `make` and `cmake` installed.
+2. Clone the project and enter the folder
+3. Extract `./HPL2/dependencies.zip` to the same folder it's in
 4. Open a terminal in `./amnesia/src` and run `cmake .`
-5. Search for "BuildID" in the file system and you will see 5 sets of .h and .cpp files. The .cpp filenames end with "Win32". Create duplicates of these files and rename from "Win32" to "Linux". For example: `BuildID_HPL2_0_Win32.cpp` > `BuildID_HPL2_0_Linux.cpp`.
-6. Add the following CMake line into the files listed below: `set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")`
-	- `./amnesia/src/CMakeLists.txt`
-	- `./amnesia/src/launcher/CMakeLists.txt`
-	- `./amnesia/src/game/CMakeLists.txt`
-	- `./HPL2/core/CMakeLists.txt`
-	- `./HPL2/tools/CMakeLists.txt`
-	- `./HPL2/tools/editors/CMakeLists.txt`
-7. Open a terminal in `./HPL2/dependencies/lib/linux/lib64` and run ([credit](https://github.com/FrictionalGames/AmnesiaTheDarkDescent/pull/2#issuecomment-697648592)):
+5. Open a terminal in `./HPL2/dependencies/lib/linux/lib64` and run ([credit](https://github.com/FrictionalGames/AmnesiaTheDarkDescent/pull/2#issuecomment-697648592)):
 
     ```
 	for f in `file * | grep ASCII | cut -d: -f1`; do ln -fs `cut -d' ' -f2 $f` $f; done
 	```
 
-8. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads)
-9. The build will compile and the resulting binaries will be found in `./amnesia/src`
+6. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads)
+7. The build should compile and the resulting binaries will be found in `./amnesia/src`
 
 ### Playing the Game
 

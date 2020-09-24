@@ -44,3 +44,5 @@ endif()
 add_custom_target(GameRelease
     DEPENDS Amnesia Launcher
 )
+
+set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")
