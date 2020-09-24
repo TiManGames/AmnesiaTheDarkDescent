@@ -2,17 +2,16 @@
 
 This is a fork of the Amnesia the Dark Descent repository from FrictionalGames. We will mostly play with different parts of the engine and perhaps even fix some bugs :)
 
-## Project Overview
 The game is built from two separate solutions: The HPL2 Engine and the game itself.
 
 ## Prerequisites
 
 - A copy of Amnesia: the Dark Descent (For playing the game)
-- Visual Studio 2010 (For compiling the engine)
-- Visual Studio 2017 (For compiling the game)
-- CMake
+- Visual Studio 2010 (Windows, for compiling the engine)
+- Visual Studio 2017 (Windows, for compiling the game)
+- CMake, Make (Linux, for compiling)
 
-## Project Overview
+## Project Overview (Windows)
 The game is built from two separate solutions: The engine solution named `HPL2_2010` and the main game solution named `Lux`.
 The project also includes all the different editors and additional tools, such as the Level Editor and the Model Editor.
 
@@ -57,7 +56,7 @@ Copy `Amnesia.exe` into your Amnesia game folder and launch it. The main menu sh
 
 ## Building & Playing (Linux)
 
-There are quite a few extra steps required to be able to successfully build everything on Linux. This is partially due to incorrect configuration in the default repository.
+There are a few extra steps required to be able to successfully build everything on Linux compared to Windows.
 
 ### Building the Engine, Game & Editors
 
