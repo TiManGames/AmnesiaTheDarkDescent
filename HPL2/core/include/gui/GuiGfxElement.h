@@ -82,6 +82,7 @@ namespace hpl {
         void AddImage(cFrameSubImage *apImage);
 
         void AddTexture(iTexture *apTexture, const cVector2f &avStartUV = 0, const cVector2f &avEndUV = 1);
+        void AddTexture(iTexture* apTexture, const cVector2f& avUVUpperLeft, const cVector2f& avUVUpperRight, const cVector2f& avUVLowerRight, const cVector2f& avUVLowerLeft);
 
         void AddImageToBuffer(cFrameSubImage *apImage);
 
