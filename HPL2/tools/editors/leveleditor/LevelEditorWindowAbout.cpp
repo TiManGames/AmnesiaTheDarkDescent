@@ -14,12 +14,6 @@ cLevelEditorWindowAbout::~cLevelEditorWindowAbout()
 {
 }
 
-//---------------------------------------------------------------------------------
-
-void cLevelEditorWindowAbout::OnUpdate(float afTimeStep)
-{
-
-}
 
 //---------------------------------------------------------------------------------
 
@@ -55,9 +49,6 @@ kGuiCallbackDeclaredFuncEnd(cLevelEditorWindowAbout, WebsiteCallback);
 void cLevelEditorWindowAbout::OnSetActive(bool abX)
 {
 	iEditorWindowPopUp::OnSetActive(abX);
-
-	if(abX)
-		OnUpdate(0);
 }
 
 //---------------------------------------------------------------------------------
