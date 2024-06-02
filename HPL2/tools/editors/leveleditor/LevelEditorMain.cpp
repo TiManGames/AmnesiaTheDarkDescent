@@ -49,7 +49,6 @@ int hplMain(const tString& asCommandLine)
 
 	cLevelEditor* pEditor = hplNew(cLevelEditor, ());
 
-
 	cEngine* pEngine = pEditor->Init(NULL, "LevelEditor", GetBuildID_LevelEditor(), false);
 
 	pEngine->Run();

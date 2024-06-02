@@ -25,9 +25,6 @@ iEditor::iEditor(const tWString& asName, const tWString& asCaption) : iUpdateabl
 	msCaption = asCaption;
 }
 
-
-
-
 iEditor::~iEditor(void)
 {
 }
@@ -35,5 +32,4 @@ iEditor::~iEditor(void)
 void iEditor::SetUpDirectories(void)
 {
 }
-
 
