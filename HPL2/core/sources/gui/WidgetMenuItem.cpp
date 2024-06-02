@@ -336,8 +336,7 @@ namespace hpl {
 
 	bool cWidgetMenuItem::OnMouseMove(const cGuiMessageData& aData)
 	{
-		if(IsVisible()==false || 
-			mpSet->GetDrawMouse()==false || 
+		if(IsVisible()==false ||
 			(mpSet->GetAttentionWidget()!=NULL && IsConnectedTo(mpSet->GetAttentionWidget())==false))
 			return true;
 

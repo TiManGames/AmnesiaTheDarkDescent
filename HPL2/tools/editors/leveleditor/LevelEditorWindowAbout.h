@@ -14,7 +14,6 @@ public:
 	kGuiCallbackDeclarationEnd(WebsiteCallback);
 
 protected:
-	void OnUpdate(float afTimeStep);
 	void OnInitLayout();
 	void OnSetActive(bool abX);
 
@@ -22,7 +21,6 @@ protected:
 
     cWidgetLabel* mpLabelTitle;
     cWidgetLabel* mpLabelVersion;
-
 	cWidgetLabel* mpLabelDescription;
 
     cWidgetButton* mpButtonGithub;

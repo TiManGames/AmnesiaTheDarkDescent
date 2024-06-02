@@ -50,6 +50,8 @@ namespace hpl {
 
         const cColor &GetBackGroundColor() { return mBackGroundColor; }
 
+        void ChangeBackgroundForColorPicking();
+
         void OnAttachChild(iWidget *apChild);
 
         void OnRemoveChild(iWidget *apChild);

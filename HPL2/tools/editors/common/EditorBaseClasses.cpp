@@ -750,6 +750,7 @@ cEngine* iEditorBase::Init(cEngine* apEngine, const char* asName, const char* as
 	
 	mpEngine->SetLimitFPS(false);
 	mpEngine->SetWaitIfAppOutOfFocus(true);
+	mpEngine->GetGraphics()->GetLowLevel()->ShowCursor(true);  // Enable system cursor
 
 	mpViewport = mpEngine->GetScene()->CreateViewport(NULL,NULL);
 	
@@ -763,7 +764,7 @@ cEngine* iEditorBase::Init(cEngine* apEngine, const char* asName, const char* as
 	mpSkin = mpEngine->GetGui()->CreateSkin("gui_default.skin");
 	mpSet = mpEngine->GetGui()->CreateSet("MainSet",mpSkin);
 
-	mpSet->SetDrawMouse(true);
+	mpSet->SetDrawMouse(false);  // Disable virtual cursor
 	mpSet->SetMouseZ(1000);
 
 	//If the engine was already created, we are inside another app and to not want to set focus
@@ -1619,14 +1620,15 @@ kGuiCallbackDeclaredFuncEnd(iEditorBase, EscapeKeyHandlerCallback);
 
 void iEditorBase::AppGotMouseFocus()
 {
-	mpSet->SetDrawMouse(true);
+	// Not using the virtual cursor, so comment this out
+	// mpSet->SetDrawMouse(true);
 }
 
 //----------------------------------------------------------------------------
 
 void iEditorBase::AppLostMouseFocus()
 {
-	mpSet->SetDrawMouse(false);
+	// mpSet->SetDrawMouse(false);
 }
 
 //----------------------------------------------------------------------------
