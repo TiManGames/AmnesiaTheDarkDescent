@@ -23,6 +23,7 @@ It's a bug which was present in the source code and is being currently examined.
 
 v0.3.0
 - Made the editors use the system mouse instead of a simulated one
+- Fix a few source code issues
 
 v0.2.3
 - Added exit shortcuts to the Material Editor
