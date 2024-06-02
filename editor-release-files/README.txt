@@ -53,3 +53,6 @@ Level and Model Editors:
 - Toggle grid snapping: R
 - Lock grid tracking:   T
 - Exit: Ctrl+Q instead of Alt+F4 (Escape also works but only in some editors)
+
+Previously unknown shortcuts:
+- Move clip planes with O and L
