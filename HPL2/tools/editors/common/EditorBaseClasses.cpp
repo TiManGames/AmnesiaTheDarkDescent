@@ -1530,7 +1530,7 @@ void iEditorBase::SetUpWindowAreas()
 {
 	cVector2f vMenuSize = mpMainMenu->GetSize();
 	SetLayoutVec2f(eLayoutVec2_ViewportAreaSize, cVector2f(0.77f * mvScreenSize.x, mvScreenSize.y-50 - vMenuSize.y-4));
-	SetLayoutVec3f(eLayoutVec3_ViewportAreaPos, cVector3f(33, vMenuSize.y+2, 1));
+	SetLayoutVec3f(eLayoutVec3_ViewportAreaPos, cVector3f(48, vMenuSize.y+2, 1));
 }
 
 //----------------------------------------------------------------------------

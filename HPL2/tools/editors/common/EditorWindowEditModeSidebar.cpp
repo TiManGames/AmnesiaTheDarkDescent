@@ -38,7 +38,7 @@ iEditorWindowEditModeSidebar::~iEditorWindowEditModeSidebar()
 void iEditorWindowEditModeSidebar::OnInitLayout()
 {
 	cVector3f vPos = cVector3f(3,5,0.1f);
-	float fButtonSize = 25.0f;
+	float fButtonSize = 40.0f;
 	eKey key = eKey_1;
 	int lKeyMod = 0;
 	tWString sModStrings[] = { _W("Ctrl"), _W("Shift"), _W("Alt") };

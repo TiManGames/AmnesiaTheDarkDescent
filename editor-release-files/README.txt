@@ -21,9 +21,12 @@ It's a bug which was present in the source code and is being currently examined.
 
 # Changelog
 
-v0.3.0
+v0.3.1
 - Made the editors use the system mouse instead of a simulated one
 - Fix a few source code issues
+- Added a missing shortcut label (F for focusing on selection)
+- Increased menu widget spacing
+- Increased the size of edit mode buttons
 
 v0.2.3
 - Added exit shortcuts to the Material Editor
