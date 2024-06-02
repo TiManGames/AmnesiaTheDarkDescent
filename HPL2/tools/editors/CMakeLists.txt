@@ -385,4 +385,4 @@ AddToolTarget(MaterialEditor
 
 # vim: noet ts=4:
 
-set(CMAKE_CXX_FLAGS "-fpermissive -no-pie -std=c++0x")
+set(CMAKE_CXX_FLAGS "-fpermissive -no-pie -std=c++17")
