@@ -3,6 +3,6 @@
 
 #include "hpl.h"
 
-#define COMMUNITY_VERSION L"0.3.2"
+#define COMMUNITY_VERSION L"0.4.0"
 
 #endif //COMMUNITY_EDITION_H
