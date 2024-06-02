@@ -1,0 +1,237 @@
+<GuiSkin>
+	<GfxElements>
+		<!-- POINTER GRAPHICS -->
+		<Gfx type="PointerNormal" 	file="gui_def_pointer_normal.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="PointerText" 	file="gui_def_pointer_text.tga"		offset="-7 -11" active_size="-1 -1" color="1 1 1 1"/>
+		
+		
+		<!-- WINDOW GRAPHICS -->
+		<Gfx type="WindowBorderRight" 	file="gui_def_window_border_r.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowBorderLeft" 	file="gui_def_window_border_l.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowBorderUp" 		file="gui_def_window_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowBorderDown" 	file="gui_def_window_border_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="WindowCornerLU" 	file="gui_def_window_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowCornerRU" 	file="gui_def_window_corner_ru.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowCornerRD" 	file="gui_def_window_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="WindowCornerLD" 	file="gui_def_window_corner_ld.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="WindowLabel" 	file="gui_def_window_label.tga" 	offset="0 0" active_size="-1 -1" color="0.36 0.55 1 1"/>
+		<Gfx type="WindowBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="WindowButtonCross"		file="gui_def_window_cross.tga"		offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<!-- FRAME GRAPHICS -->
+		<Gfx type="FrameBorderRight" 	file="gui_def_frame_border_r.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameBorderLeft" 	file="gui_def_frame_border_l.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameBorderUp" 	file="gui_def_frame_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameBorderDown" 	file="gui_def_frame_border_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="FrameCornerLU" 	file="gui_def_frame_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameCornerRU" 	file="gui_def_frame_corner_ru.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameCornerRD" 	file="gui_def_frame_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FrameCornerLD" 	file="gui_def_frame_corner_ld.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="FrameBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<!-- CHECK BOX GRAPHICS -->
+		<Gfx type="CheckBoxEnabledUnchecked" 	file="gui_def_checkbox_unchecked.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="CheckBoxEnabledChecked" 	file="gui_def_checkbox_checked.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="CheckBoxDisabledUnchecked" 	file="gui_def_checkbox_unchecked.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 0.4"/>
+		<Gfx type="CheckBoxDisabledChecked" 	file="gui_def_checkbox_checked.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 0.4"/>
+				
+		
+		<!-- TEXT BOX GRAPHICS -->
+		<Gfx type="TextBoxBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="TextBoxSelectedTextBack" file=""				color="0.04 0.14 0.42 1.0" material="modulative" />
+		<Gfx type="TextBoxMarker"	file="gui_def_textbox_marker.tga"	animated="true" anim_frame_time="0.5" anim_mode="loop"/>
+		
+		<!-- COMBO BOX GRAPHICS -->
+		<Gfx type="ComboBoxButtonIcon" 	file="gui_def_slider_vert_arrow_d.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ComboBoxBorderRight" file="gui_def_combobox_border.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxBorderLeft" 	file="gui_def_combobox_border.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxBorderUp" 	file="gui_def_combobox_border.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxBorderDown" 	file="gui_def_combobox_border.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ComboBoxCornerLU" 	file="gui_def_combobox_border.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxCornerRU" 	file="gui_def_combobox_border.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxCornerRD" 	file="gui_def_combobox_border.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ComboBoxCornerLD" 	file="gui_def_combobox_border.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ComboBoxBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		
+		<!-- LIST BOX GRAPHICS -->
+		<Gfx type="ListBoxBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+			
+		
+		<!-- SLIDER GRAPHICS -->
+		<Gfx type="SliderHandleBorderRight" file="gui_def_button_up_border_r.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleBorderLeft" 	file="gui_def_button_up_border_l.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleBorderUp" 	file="gui_def_button_up_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleBorderDown" 	file="gui_def_button_up_border_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="SliderHandleCornerLU" 	file="gui_def_button_up_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleCornerRU" 	file="gui_def_button_up_corner_ru.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleCornerRD" 	file="gui_def_button_up_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHandleCornerLD" 	file="gui_def_button_up_corner_ld.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="SliderHandleBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="SliderVertArrowUp" 	file="gui_def_slider_vert_arrow_u.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderVertArrowDown" file="gui_def_slider_vert_arrow_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderVertBackground" file=""				offset="0 0" active_size="-1 -1" color="0.90 0.89 0.85 1"/>
+		
+		<Gfx type="SliderHoriArrowUp" 	file="gui_def_slider_hori_arrow_u.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHoriArrowDown" file="gui_def_slider_hori_arrow_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="SliderHoriBackground" file=""				offset="0 0" active_size="-1 -1" color="0.93 0.92 0.88 1"/>
+		
+		
+		<!-- BUTTON GRAPHICS -->
+		<Gfx type="ButtonUpBorderRight" file="gui_def_button_up_border_r.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpBorderLeft" 	file="gui_def_button_up_border_l.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpBorderUp" 	file="gui_def_button_up_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpBorderDown" 	file="gui_def_button_up_border_d.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ButtonUpCornerLU" 	file="gui_def_button_up_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpCornerRU" 	file="gui_def_button_up_corner_ru.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpCornerRD" 	file="gui_def_button_up_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonUpCornerLD" 	file="gui_def_button_up_corner_ld.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ButtonUpBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="ButtonDownBorderRight" file="gui_def_button_up_border_l.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonDownBorderLeft" file="gui_def_button_up_border_r.tga"	offset="0 0" active_size="-1 -1" color="0.6 0.6 0.6 1"/>
+		<Gfx type="ButtonDownBorderUp" 	 file="gui_def_button_up_border_d.tga"	offset="0 0" active_size="-1 -1" color="0.6 0.6 0.6 1"/>
+		<Gfx type="ButtonDownBorderDown" file="gui_def_button_up_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="ButtonDownCornerLU" 	file="gui_def_button_up_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="0.6 0.6 0.6 1"/>
+		<Gfx type="ButtonDownCornerRU" 	file="gui_def_button_down_corner_ru.tga" offset="0 0" active_size="-1 -1" color="0.6 0.6 0.6 1" />
+		<Gfx type="ButtonDownCornerRD" 	file="gui_def_button_up_corner_lu.tga" 	 offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="ButtonDownCornerLD" 	file="gui_def_button_down_corner_ld.tga" offset="0 0" active_size="-1 -1" color="0.6 0.6 0.6 1"/>
+		
+		<Gfx type="ButtonDownBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.8 0.79 0.75 1"/>
+		
+		<!-- MENU GRAPHICS -->
+		<Gfx type="MenuEnabledChecked" file="gui_def_menu_checked.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="MenuDisabledChecked" file="gui_def_menu_checked.tga" offset="0 0" active_size="-1 -1" color="1 1 1 0.4"/>
+		
+		<Gfx type="MenuSeparatorLine" file="" offset="0 0" active_size="-1 -1" color="0.23 0.22 0.18 1"/>
+		<Gfx type="MenuItemArrow" 	file="gui_def_menu_arrow.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<!-- TAB GRAPHICS -->
+		<Gfx type="TabLabelBorderRight" file="gui_def_tab_border_r.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabLabelBorderLeft" 	file="gui_def_tab_border_l.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabLabelBorderUp" 	file="gui_def_tab_border_u.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabLabelBorderDown" 	file=""							offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="TabLabelCornerLU" 	file="gui_def_tab_corner_lu.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabLabelCornerRU" 	file="gui_def_tab_corner_ru.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabLabelCornerRD" 	file="" 							offset="0 0" active_size="4 0" color="0.83 0.82 0.78 1"/>
+		<Gfx type="TabLabelCornerLD" 	file=""								offset="0 0" active_size="4 0" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="TabBorderRight"	file="gui_def_tab_border_r.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabBorderLeft" 	file="gui_def_tab_border_l.tga"		offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabBorderUp" 	file="gui_def_tab_border_u.tga"		offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabBorderDown" 	file="gui_def_tab_border_d.tga"		offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="TabCornerLU" 	file="gui_def_tab_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabCornerRU" 	file="gui_def_tab_corner_ru.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabCornerRD" 	file="gui_def_tab_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabCornerLD" 	file="gui_def_tab_corner_ld.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="TabLabelBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		<Gfx type="TabLabelBackgroundActive" 	file="" 		offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="TabBackground" 	file="" 				offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 1"/>
+		
+		<Gfx type="TabFrameArrowLeft" 	file="gui_def_slider_hori_arrow_u.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="TabFrameArrowRight" 	file="gui_def_slider_hori_arrow_d.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		
+		<!-- GROUP GRAPHICS -->
+		<Gfx type="GroupBorderRight" 	file="gui_def_group_border_lr.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupBorderLeft" 	file="gui_def_group_border_lr.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupBorderUp" 	file="gui_def_group_border_ud.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupBorderDown" 	file="gui_def_group_border_ud.tga"	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="GroupCornerLU" 	file="gui_def_group_corner_lu.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupCornerRU" 	file="gui_def_group_border_lr.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupCornerRD" 	file="gui_def_group_corner_rd.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="GroupCornerLD" 	file="gui_def_group_border_ud.tga" 	offset="0 0" active_size="-1 -1" color="1 1 1 1"/>		
+		
+		<Gfx type="GroupBackground" file=""						offset="0 0" active_size="-1 -1" color="0.83 0.82 0.78 0"/>
+		
+		
+		<!-- FILE PICKER POPUP GRAPHICS -->
+		<Gfx type="FilePickerUpButton" file="gui_def_filepicker_upbutton.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		<Gfx type="FilePickerIconGraphics" file="gui_def_filepicker_icon_graphics.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FilePickerIconModels" file="gui_def_filepicker_icon_models.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FilePickerIconSounds" file="gui_def_filepicker_icon_sounds.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FilePickerIconText" file="gui_def_filepicker_icon_text.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FilePickerIconOther" file="gui_def_filepicker_icon_rest.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		<Gfx type="FilePickerIconFolder" file="gui_def_filepicker_icon_folder.tga" offset="0 0" active_size="-1 -1" color="1 1 1 1"/>
+		
+		
+		
+	</GfxElements>
+	
+	<Fonts>
+		<Font type="Default"			file="vera.fnt"	size = "14 14"	color="0 0 0 1"/>
+		<Font type="Disabled"			file="vera.fnt"	size = "14 14"	color="0.3 0.3 0.3 1"/>
+		<Font type="WindowLabel"		file="viewer.fnt"	size = "16 16"	color="1 1 1 1"/>				
+	</Fonts>
+	
+	<Attributes>
+		<Attribute type="WindowLabelTextOffset"		value="4 2"/>
+		<Attribute type="WindowButtonSize"			value="18"/>
+		<Attribute type="WindowBordersOutside"		value="0"/>
+		
+		<Attribute type="ButtonPressedContentOffset" 	value="1 1"/>
+		
+		<Attribute type="SliderButtonSize" 		value="18"/>
+		
+		<Attribute type="ListBoxSliderWidth"		value="18"/>
+		
+		<Attribute type="ComboBoxButtonWidth"		value="18"/>
+		<Attribute type="ComboBoxSliderWidth"		value="18"/>
+		
+		<Attribute type="ContextMenuItemArrowSize"		value="10"/>
+		<Attribute type="ContextMenuItemCheckSize"		value="18"/>
+		<Attribute type="ContextMenuItemHPadding"		value="5"/>
+		<Attribute type="ContextMenuItemVPadding"		value="2"/>
+		<Attribute type="ContextMenuItemTextLeftPadding"	value="5"/>
+		<Attribute type="ContextMenuItemTextRightPadding"	value="15"/>
+		<Attribute type="ContextMenuItemSeparation" 	value="0"/>
+		<Attribute type="ContextMenuSeparatorPadding"	value="0"/>
+				
+		<Attribute type="MainMenuItemTextPadding"		value="4"/>
+		<Attribute type="MainMenuItemVPadding"			value="2"/>
+		<Attribute type="MainMenuItemSeparation"		value="5"/>
+		
+		<Attribute type="MenuSeparatorPadding"			value="6"/>
+		<Attribute type="MenuSeparatorHeight"			value="1"/>
+		
+		<Attribute type="TabFrameButtonSize"		value="18"/>
+		<Attribute type="TabFrameIconPadding"		value="2"/>
+		<Attribute type="TabFrameTextLeftPadding"		value="3"/>
+		<Attribute type="TabFrameTextRightPadding"		value="3"/>
+		<Attribute type="TabFrameLabelActiveOffset"		value="0"/>
+		<Attribute type="TabFrameLabelInactiveOffset"		value="-3"/>
+		<Attribute type="FirstTabOffset"				value="0"/>
+		<Attribute type="TabSeparation"					value="0"/>
+		
+		
+		<Attribute type="GroupHeaderOffset"				value="20"/>	
+		<Attribute type="GroupHeaderOverUpperBorder"	value="0"/>	
+		
+		<Attribute type="DefaultFontHighlightColor" value="1 1 1"/>
+	</Attributes>
+</GuiSkin>
+
+
+
