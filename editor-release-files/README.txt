@@ -21,7 +21,7 @@ It's a bug which was present in the source code and is being currently examined.
 
 # Changelog
 
-v0.3.1
+v0.3.2
 - Made the editors use the system mouse instead of a simulated one
 - Fix a few source code issues
 - Added a missing shortcut label (F for focusing on selection)
