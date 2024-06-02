@@ -205,7 +205,7 @@ iWidget* iEditorWindowLowerToolbar::AddCameraControls()
 	mpBCameraFocusOnSelection = mpSet->CreateWidgetButton(cVector3f(0,21,0), 19, _W("F"), mpHandleCamera);
 
 	mpBCameraFocusOnSelection->AddCallback(eGuiMessage_ButtonPressed, this, kGuiCallback(InputCallback));
-	mpBCameraFocusOnSelection->SetToolTip(_W("Focus on selection"));
+	mpBCameraFocusOnSelection->SetToolTip(_W("Focus on selection (F)"));
 	mpBCameraFocusOnSelection->SetToolTipEnabled(true);
 	mpSet->AddGlobalShortcut(0, eKey_F, mpBCameraFocusOnSelection, eGuiMessage_ButtonPressed);
 
