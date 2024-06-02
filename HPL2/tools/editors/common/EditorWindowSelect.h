@@ -67,6 +67,7 @@ protected:
 	eSelectToolMode mToolMode;
 
 	cWidgetGroup* mpObjectTypeGroup;
+	cWidgetGroup* mpTransformModeGroup;
 	std::list<cWidgetButton*> mlstBFilters;
 
 	cWidgetCheckBox* mpCBSelectAll;

@@ -96,9 +96,9 @@ void cEditorWindowSelect::AddFilter(eEditorEntityType aType)
 		return;
 
 	const tWString& sTypeName = pType->GetName();
-	cWidgetButton* pButton = mpSet->CreateWidgetButton(0, cVector2f(17), cString::SubW(sTypeName,0,2), mpObjectTypeGroup, true);
+	cWidgetButton* pButton = mpSet->CreateWidgetButton(0, cVector2f(25), cString::SubW(sTypeName,0,3), mpObjectTypeGroup, true);
 	pButton->SetUserValue(aType);
-	pButton->SetDefaultFontSize(cVector2f(10));
+	pButton->SetDefaultFontSize(cVector2f(14));
 	pButton->SetToolTipEnabled(true);
 	pButton->SetToolTip(sTypeName);
 	pButton->AddCallback(eGuiMessage_ButtonPressed, this, kGuiCallback(FilterButtonPressed));
@@ -133,7 +133,7 @@ void cEditorWindowSelect::UpdateFilterButtons()
 {
 	////////////////////////////////////////////////
 	// Position filter buttons according to the order they were added
-	cVector3f vPos = cVector3f(10,25,0.1f);
+	cVector3f vPos = cVector3f(10, 30, 0.1f);
 	std::list<cWidgetButton*>::iterator it = mlstBFilters.begin();
 
 	for(;it!=mlstBFilters.end();++it)
@@ -244,28 +244,38 @@ kGuiCallbackDeclaredFuncEnd(cEditorWindowSelect, FilterButtonPressed);
 
 void cEditorWindowSelect::OnInitLayout()
 {	
-	mpBGFrame->SetSize(cVector2f(200,95));
+	mpBGFrame->SetSize(cVector2f(200, 170));
 	mpBGFrame->SetClipActive(false);
+	// these are actually consistent across edit modes and should be assigned to a more global setting
+	float vVerticalPadding = 8.0;
+	float vHorizontalPadding = 5.0;
+	float vCheckboxSelectFontSize = 14.0;
+	float vGroupWidth = 190.0;
 
-	mpObjectTypeGroup = mpSet->CreateWidgetGroup(cVector3f(5,8,0.1f), cVector2f(160,80), _W("Select Object Type"), mpBGFrame);
-	mpObjectTypeGroup->SetDefaultFontSize(cVector2f(11.5f));
+	mpTransformModeGroup = mpSet->CreateWidgetGroup(cVector3f(vHorizontalPadding, vVerticalPadding, 0.1f), cVector2f(vGroupWidth, 50), _W("Transform Mode"), mpBGFrame);
+	mpTransformModeGroup->SetDefaultFontSize(cVector2f(14.0f));
 
-	mpCBSelectAll = mpSet->CreateWidgetCheckBox(cVector3f(10,10,0.1f),0,_W("All"), mpObjectTypeGroup);
+	mpObjectTypeGroup = mpSet->CreateWidgetGroup(cVector3f(vHorizontalPadding, 70, 0.1f), cVector2f(vGroupWidth, 90), _W("Selection Filtering"), mpBGFrame);
+	mpObjectTypeGroup->SetDefaultFontSize(cVector2f(14.0f));
+
+	mpCBSelectAll = mpSet->CreateWidgetCheckBox(cVector3f(10, 10, 0.1f),0,_W("All"), mpObjectTypeGroup);
 	mpCBSelectAll->AddCallback(eGuiMessage_CheckChange, this, kGuiCallback(FilterButtonPressed));
-	mpCBSelectAll->SetDefaultFontSize(cVector2f(10));
+	mpCBSelectAll->SetDefaultFontSize(cVector2f(vCheckboxSelectFontSize));
 
-	mpCBSelectMultipleTypes = mpSet->CreateWidgetCheckBox(cVector3f(40,10,0.1f),0,_W("MultiSelect"), mpObjectTypeGroup);
+	mpCBSelectMultipleTypes = mpSet->CreateWidgetCheckBox(cVector3f(60, 10, 0.1f),0,_W("Filtered"), mpObjectTypeGroup);
 	mpCBSelectMultipleTypes->AddCallback(eGuiMessage_CheckChange, this, kGuiCallback(FilterButtonPressed));
-	mpCBSelectMultipleTypes->SetDefaultFontSize(cVector2f(10));
+	mpCBSelectMultipleTypes->SetDefaultFontSize(cVector2f(vCheckboxSelectFontSize));
 
     tString sButtonText[] = { "Translate", "Rotate", "Scale" };
 	eKey vButtonKey[] = { eKey_Q, eKey_W, eKey_E };
 
-	cVector3f vPos = cVector3f(170,8,0.1f);
+	// Start at an X pos that centers the buttons
+	float vTransformButtonSize = 35.0;
+	cVector3f vPos = cVector3f( (vGroupWidth-3*vTransformButtonSize)*0.5 , vVerticalPadding, 0.1f);
 	for(int i=0;i<3;++i)
 	{
 		cGuiGfxElement* pGfx = mpSet->GetGui()->CreateGfxImage("editmode_select_"+cString::ToLowerCase(sButtonText[i])+".tga", eGuiMaterial_Alpha);
-		cWidgetButton* pButton = mpSet->CreateWidgetButton(vPos, cVector2f(25),_W(""), mpBGFrame);
+		cWidgetButton* pButton = mpSet->CreateWidgetButton(vPos, cVector2f(vTransformButtonSize),_W(""), mpTransformModeGroup);
 
 		pButton->SetToolTipEnabled(true);
 		pButton->SetToolTip(cString::To16Char(sButtonText[i]));
@@ -275,7 +285,7 @@ void cEditorWindowSelect::OnInitLayout()
 		mvButtons[i] = pButton;
 		mvShortcuts[i] = mpSet->AddGlobalShortcut(0, vButtonKey[i], pButton, eGuiMessage_ButtonPressed, false, false);
 
-		vPos.y += 28;
+		vPos.x += 40;
 	}
 
 	tIntList& lstTypes = ((cEditorEditModeSelect*)mpEditMode)->GetCurrentFilteredTypes();
