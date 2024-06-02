@@ -201,7 +201,7 @@
 		<Attribute type="ContextMenuItemArrowSize"		value="10"/>
 		<Attribute type="ContextMenuItemCheckSize"		value="18"/>
 		<Attribute type="ContextMenuItemHPadding"		value="5"/>
-		<Attribute type="ContextMenuItemVPadding"		value="2"/>
+		<Attribute type="ContextMenuItemVPadding"		value="6"/>
 		<Attribute type="ContextMenuItemTextLeftPadding"	value="5"/>
 		<Attribute type="ContextMenuItemTextRightPadding"	value="15"/>
 		<Attribute type="ContextMenuItemSeparation" 	value="0"/>
