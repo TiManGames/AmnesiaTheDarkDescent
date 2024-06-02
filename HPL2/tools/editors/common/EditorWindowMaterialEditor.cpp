@@ -1347,7 +1347,7 @@ void cEditorWindowMaterialEditor::Command_SaveAs()
 
 void cEditorWindowMaterialEditor::Reset()
 {
-	mpWindow->SetText(_W("Unnamed material - Material Editor (Community Edition)"));
+	mpWindow->SetText(_W("Unnamed material - HPL Material Editor (Community Edition)"));
 
 	msMatFilename = _W("");
 	mpMaterial->Reset();

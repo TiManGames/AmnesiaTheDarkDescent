@@ -439,7 +439,7 @@ void cModelEditor::OnLoadConfig()
 	}
 
 
-	msCaption = "HPL Model Editor";
+	msCaption = "HPL Model Editor (Community Edition)";
 	SetLogFile(GetHomeDir() + _W("ModelEditor.log"));
 
 	msLastLoadPath = mpLocalConfig->GetStringW("Directories", "LastUsedPath", GetMainLookUpDir(eDir_Maps));
