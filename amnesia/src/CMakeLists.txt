@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE "Release")
 # RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
 # MinSizeRel: same as Release but optimizing for size rather than speed.
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/output)
 
 OPTION(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 

@@ -36,7 +36,7 @@ bld/
 [Ll]og/
 [Ll]ogs/
 amnesia/_temp/
-amnesia/src/*.bin*
+amnesia/src/output
 amnesia/src/core2
 
 # CMake build files
