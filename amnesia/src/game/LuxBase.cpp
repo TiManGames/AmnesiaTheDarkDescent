@@ -403,7 +403,7 @@ bool cLuxBase::Init(const tString &asCommandline) {
     // Load the config files
     if (!InitMainConfig()) return false;
 
-    Log("Version %d.%d \n", kCurrentVersion_Main, kCurrentVersion_Minor);
+    Log("Communty build based on version %d.%d\n", kCurrentVersion_Main, kCurrentVersion_Minor);
 
 #ifdef COPY_PROTECTION_ENABLED
     /////////////////////////////
