@@ -66,7 +66,6 @@ using namespace hpl;
 #include "LevelEditorWorld.h"
 #include "LevelEditorActions.h"
 #include "LevelEditorWindowAbout.h"
-#include "CommunityEdition.h"
 
 #include <algorithm>
 
