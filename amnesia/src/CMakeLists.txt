@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE "Release")
 # RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
 # MinSizeRel: same as Release but optimizing for size rather than speed.
 
-MESSAGE(STATUS "Starting ${CMAKE_BUILD_TYPE} build")
+MESSAGE(STATUS "Starting a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/output)
 
