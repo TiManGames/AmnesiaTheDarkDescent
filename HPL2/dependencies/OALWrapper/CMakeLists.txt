@@ -1,158 +1,159 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.19)
 project (OALWrapper)
-
-set(OALWrapper_VERSION_MAJOR 1)
-set(OALWrapper_VERSION_MINOR 0)
-
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeScripts)
-
-SET(PRIVATE_LIB_DIR ""
-    CACHE PATH "Location of local private library path to use"
-)
-IF(NOT APP_PRIVATE_LIB_DIR AND PRIVATE_LIB_DIR)
-    SET(APP_PRIVATE_LIB_DIR ${PRIVATE_LIB_DIR})
-ENDIF()
 
 OPTION(USE_SDL2 "Use SDL2 instead of SDL1.2" OFF)
 OPTION(FORCE32 "Force a 32 bit build on 64bit linux" OFF)
 
-IF(APP_PRIVATE_LIB_DIR AND "${CMAKE_SYSTEM}" MATCHES "Linux")
-    IF(NOT EXISTS ${APP_PRIVATE_LIB_DIR}/include)
-        MESSAGE(FATAL_ERROR "folder named include not found in private lib dir ${APP_PRIVATE_LIB_DIR}")
-    ENDIF()
-    SET(EXTRA_INCLUDE_DIR ${APP_PRIVATE_LIB_DIR}/include)
-    IF(NOT PRIVATE_LIB_SUFFIX)
-        IF(CMAKE_SIZEOF_VOID_P MATCHES "8" AND NOT(FORCE32))
-            if(EXISTS ${APP_PRIVATE_LIB_DIR}/linux64)
-                SET(PRIVATE_LIB_SUFFIX "linux64")
-            else(EXISTS ${APP_PRIVATE_LIB_DIR}/lib64)
-                SET(PRIVATE_LIB_SUFFIX "lib64")
-            endif()
-        ELSE()
-            if(EXISTS ${APP_PRIVATE_LIB_DIR}/linux32)
-                SET(PRIVATE_LIB_SUFFIX "linux32")
-            elseif(EXISTS ${APP_PRIVATE_LIB_DIR}/linux)
-                SET(PRIVATE_LIB_SUFFIX "linux")
-            else(EXISTS ${APP_PRIVATE_LIB_DIR}/lib)
-                SET(PRIVATE_LIB_SUFFIX "lib")
-            endif()
-        ENDIF()
-    ENDIF()
-    IF(NOT PRIVATE_LIB_SUFFIX)
-        MESSAGE(FATAL_ERROR "could not find lib directory in private lib dir ${APP_PRIVATE_LIB_DIR}")
-    ENDIF()
+set(OALWrapper_VERSION_MAJOR 1)
+set(OALWrapper_VERSION_MINOR 0)
 
-    FIND_LIBRARY(OGG_LIBRARY ogg PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-    FIND_LIBRARY(VORBIS_LIBRARY vorbis PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-    FIND_LIBRARY(VORBISFILE_LIBRARY vorbisfile PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-    
-    FIND_LIBRARY(OPENAL_LIBRARY openal PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeScripts)
 
-    IF(USE_SDL2)
-        FIND_LIBRARY(SDL_LIBRARY SDL2 PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        FIND_PATH(SDL_INCLUDE_DIR SDL.h
-            PATHS ${APP_PRIVATE_LIB_DIR}/include
+
+# Set lib subdir from the dependencies (PRIVATE_LIB_DIR) folder
+if(APPLE)
+    if(IS_APPLE_64)
+        SET(PRIVATE_LIB_SUFFIX "lib/macosx64")
+    else()
+        SET(PRIVATE_LIB_SUFFIX "lib/macosx")
+    endif()
+elseif(LINUX)
+    if(CMAKE_SIZEOF_VOID_P MATCHES "8" AND NOT(FORCE32))
+        SET(PRIVATE_LIB_SUFFIX "lib/linux/lib64")
+    else()
+        SET(PRIVATE_LIB_SUFFIX "lib/linux/lib")
+    endif()
+elseif(WIN32)
+    SET(PRIVATE_LIB_SUFFIX "lib/win32")
+else()
+    message(FATAL_ERROR "unhandled platform")
+endif()
+
+# Validate dependency dir
+if(PRIVATE_LIB_DIR)
+    # Set header folder for dependencies
+    if(NOT EXISTS ${PRIVATE_LIB_DIR}/include)
+        message(FATAL_ERROR "folder named include not found in lib dir ${PRIVATE_LIB_DIR}")
+    endif()
+    set(EXTRA_INCLUDE_DIR ${PRIVATE_LIB_DIR}/include)
+    # Check full dependency dir path
+    if(NOT EXISTS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX})
+        message(FATAL_ERROR "folder ${PRIVATE_LIB_SUFFIX} not found in lib dir ${PRIVATE_LIB_DIR}")
+    endif()
+else()
+    message(WARNING "PRIVATE_LIB_DIR is empty. Build will probably fail to find dependencies in the system.")
+endif()
+
+
+if(PRIVATE_LIB_DIR AND LINUX)
+    find_library(OGG_LIBRARY ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(VORBIS_LIBRARY vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(OPENAL_LIBRARY openal PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+
+    if(USE_SDL2)
+        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+        find_path(SDL_INCLUDE_DIR SDL.h
+            PATHS ${PRIVATE_LIB_DIR}/include
             PATH_SUFFIXES SDL2
             NO_DEFAULT_PATH
         )
-    ELSE()
-        FIND_LIBRARY(SDL_LIBRARY SDL PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        FIND_PATH(SDL_INCLUDE_DIR SDL.h
-            PATHS ${APP_PRIVATE_LIB_DIR}/include
+    else()
+        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+        find_path(SDL_INCLUDE_DIR SDL.h
+            PATHS ${PRIVATE_LIB_DIR}/include
             PATH_SUFFIXES SDL
             NO_DEFAULT_PATH
         )
-    ENDIF()
-ELSEIF(APP_PRIVATE_LIB_DIR AND EMSCRIPTEN)
-    SET(PRIVATE_LIB_SUFFIX emscripten)
-    SET(EXTRA_INCLUDE_DIR ${APP_PRIVATE_LIB_DIR}/include)
-    FIND_LIBRARY(OGG_LIBRARY ogg PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
-    FIND_LIBRARY(VORBIS_LIBRARY vorbis PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
-    FIND_LIBRARY(VORBISFILE_LIBRARY vorbisfile PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+    endif()
+elseif(PRIVATE_LIB_DIR AND WIN32)
+    find_library(OGG_LIBRARY ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(VORBIS_LIBRARY vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_library(OPENAL_LIBRARY OpenAL32 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
 
-    IF(USE_SDL2)
-        FIND_LIBRARY(SDL_LIBRARY SDL2 PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
-    ELSE()
-        MESSAGE(FATAL_ERROR "SDL1.2 not supported on Emscripten")
-    ENDIF()
-
-    FIND_PATH(SDL_INCLUDE_DIR SDL.h
-        PATHS ${APP_PRIVATE_LIB_DIR}/include
-        PATH_SUFFIXES SDL2
-        NO_DEFAULT_PATH
-        NO_CMAKE_FIND_ROOT_PATH
-    )
-
-    #  We don't need to find an OpenAL library as it's built-in to emscripten
-    unset(OPENAL_LIBRARY)
-    unset(OPENAL_INCLUDE_DIR)
-ELSEIF(APP_PRIVATE_LIB_DIR AND APPLE)
-    if(IOS)
-        SET(PRIVATE_LIB_SUFFIX ios)
-        SET(EXTRA_INCLUDE_DIR ${APP_PRIVATE_LIB_DIR}/include)
-        FIND_LIBRARY(OGG_LIBRARY ogg PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        FIND_LIBRARY(VORBIS_LIBRARY vorbis PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        FIND_LIBRARY(VORBISFILE_LIBRARY vorbisfile PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+    if(USE_SDL2)
+        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+        find_path(SDL_INCLUDE_DIR SDL.h
+            PATHS ${PRIVATE_LIB_DIR}/include
+            PATH_SUFFIXES SDL2
+            NO_DEFAULT_PATH
+        )
     else()
-        IF(NOT PRIVATE_LIB_SUFFIX)
-            SET(PRIVATE_LIB_SUFFIX macosx)
-        ENDIF()
-        SET(EXTRA_INCLUDE_DIR ${APP_PRIVATE_LIB_DIR}/include)
-        FIND_LIBRARY(OGG_LIBRARY Ogg PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        FIND_LIBRARY(VORBIS_LIBRARY Vorbis PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+        find_path(SDL_INCLUDE_DIR SDL.h
+            PATHS ${PRIVATE_LIB_DIR}/include
+            PATH_SUFFIXES SDL
+            NO_DEFAULT_PATH
+        )
+    endif()
+elseif(PRIVATE_LIB_DIR AND APPLE)
+    if(IOS)
+        set(PRIVATE_LIB_SUFFIX ios)
+        find_library(OGG_LIBRARY ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+        find_library(VORBIS_LIBRARY vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+        find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+    else()
+        if(NOT PRIVATE_LIB_SUFFIX)
+            set(PRIVATE_LIB_SUFFIX macosx)
+        endif()
+        find_library(OGG_LIBRARY Ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+        find_library(VORBIS_LIBRARY Vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
         if (VORBIS_LIBRARY AND NOT VORBIS_LIBRARY MATCHES /.framework$/)
-            FIND_LIBRARY(VORBISFILE_LIBRARY vorbisfile PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+            find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
         endif()
     endif()
 
-    IF(USE_SDL2)
-        FIND_LIBRARY(SDL_LIBRARY SDL2 PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-    ELSE()
-        FIND_LIBRARY(SDL_LIBRARY SDL PATHS ${APP_PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-    ENDIF()
+    if(USE_SDL2)
+        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+    else()
+        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
+    endif()
 
-    FIND_PATH(SDL_INCLUDE_DIR SDL.h
-        PATHS ${APP_PRIVATE_LIB_DIR}/include
+    find_path(SDL_INCLUDE_DIR SDL.h
+        PATHS ${PRIVATE_LIB_DIR}/include
         PATH_SUFFIXES SDL2
         NO_DEFAULT_PATH
     )
 
-    FIND_PACKAGE(OpenAL)
-ELSE()
-    FIND_PACKAGE(OGG)
-    FIND_PACKAGE(Vorbis)
-    IF(NOT(APPLE))
-        FIND_PACKAGE(VorbisFile)
-    ENDIF()
-    FIND_PACKAGE(OpenAL)
-    IF(USE_SDL2)
-        FIND_PACKAGE(SDL2)
-    ELSE()
-        FIND_PACKAGE(SDL)
-    ENDIF()
+    find_package(OpenAL)
+else()
+    find_package(OGG)
+    find_package(Vorbis)
+    if(NOT(APPLE))
+        find_package(VorbisFile)
+    endif()
+    find_package(OpenAL)
+    if(USE_SDL2)
+        find_package(SDL2)
+    else()
+        find_package(SDL)
+    endif()
 
-    LIST(APPEND OALWRAPPER_INCLUDE_PATHS
+    list(APPEND OALWRAPPER_INCLUDE_PATHS
         PRIVATE ${OGG_INCLUDE_DIR}
         PRIVATE ${VORBIS_INCLUDE_DIR}
         PUBLIC ${OPENAL_INCLUDE_DIR}
     )
     if(VORBISFILE_INCLUDE_DIR)
-        LIST(APPEND OALWRAPPER_INCLUDE_PATHS
+        list(APPEND OALWRAPPER_INCLUDE_PATHS
             PRIVATE ${VORBISFILE_INCLUDE_DIR}
         )
     endif()
-ENDIF()
+endif()
 
-LIST(APPEND OALWRAPPER_INCLUDE_PATHS
+list(APPEND OALWRAPPER_INCLUDE_PATHS
     PUBLIC include
     PRIVATE ${SDL_INCLUDE_DIR}
 )
+
 if(EXTRA_INCLUDE_DIR)
-    LIST(APPEND OALWRAPPER_INCLUDE_PATHS
+    list(APPEND OALWRAPPER_INCLUDE_PATHS
         PRIVATE ${EXTRA_INCLUDE_DIR}
     )
 endif()
-SET(all_sources
+
+set(all_sources
     sources/OAL_AudioData.cpp
     sources/OAL_Buffer.cpp
     sources/OAL_Device.cpp
@@ -178,7 +179,7 @@ SET(all_sources
     sources/OAL_Types.cpp
 )
 
-SET(all_includes
+set(all_includes
     include//OALWrapper/OAL_AudioData.h
     include//OALWrapper/OAL_Buffer.h
     include//OALWrapper/OAL_CustomStream.h
@@ -206,36 +207,36 @@ SET(all_includes
     include//OALWrapper/OAL_WAVSample.h
 )
 
-IF(USE_SDL2)
+if(USE_SDL2)
     add_definitions(-DUSE_SDL2)
-ENDIF()
+endif()
 
 add_library(OALWrapper STATIC
     ${all_sources}
     ${all_includes}
 )
-TARGET_LINK_LIBRARIES(OALWrapper
+target_link_libraries(OALWrapper
     ${VORBISFILE_LIBRARY}
     ${VORBIS_LIBRARY}
     ${OGG_LIBRARY}
     ${OPENAL_LIBRARY}
     ${SDL_LIBRARY}
 )
-TARGET_INCLUDE_DIRECTORIES(OALWrapper
+target_include_directories(OALWrapper
     ${OALWRAPPER_INCLUDE_PATHS}
 )
+message(STATUS "Lib includes: ${OGG_INCLUDE_DIR} ${VORBIS_INCLUDE_DIR} ${VORBISFILE_INCLUDE_DIR} ${OPENAL_INCLUDE_DIR}")
+message(STATUS "Includes: ${OALWRAPPER_INCLUDE_PATHS}")
 
-ADD_EXECUTABLE(SimpleTest EXCLUDE_FROM_ALL tests/Simple/main.cpp)
-TARGET_LINK_LIBRARIES(SimpleTest OALWrapper)
+add_executable(SimpleTest EXCLUDE_FROM_ALL tests/Simple/main.cpp)
+add_executable(PlaySound EXCLUDE_FROM_ALL tests/PlaySound/main.cpp)
+add_executable(Playlist EXCLUDE_FROM_ALL tests/Playlist/main.cpp)
+add_executable(CustomStream EXCLUDE_FROM_ALL tests/CustomStream/main.cpp)
 
-ADD_EXECUTABLE(PlaySound EXCLUDE_FROM_ALL tests/PlaySound/main.cpp)
-TARGET_LINK_LIBRARIES(PlaySound OALWrapper)
-
-ADD_EXECUTABLE(Playlist EXCLUDE_FROM_ALL tests/Playlist/main.cpp)
-TARGET_LINK_LIBRARIES(Playlist OALWrapper)
-
-ADD_EXECUTABLE(CustomStream EXCLUDE_FROM_ALL tests/CustomStream/main.cpp)
-TARGET_LINK_LIBRARIES(CustomStream OALWrapper)
+target_link_libraries(SimpleTest OALWrapper)
+target_link_libraries(PlaySound OALWrapper)
+target_link_libraries(Playlist OALWrapper)
+target_link_libraries(CustomStream OALWrapper)
 
 # Exports
-SET(OALWRAPPER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
+set(OALWRAPPER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)

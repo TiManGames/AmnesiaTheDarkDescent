@@ -24,18 +24,7 @@ mark_as_advanced(
 
 include(UtilityFunctions)
 
-IF(APPLE)
-    if(IS_APPLE_64)
-        SET(PRIVATE_LIB_SUFFIX "lib/macosx64")
-    else()
-        SET(PRIVATE_LIB_SUFFIX "lib/macosx")
-    endif()
-ELSEIF(LINUX)
-    SET(PRIVATE_LIB_SUFFIX "lib/linux")
-ELSEIF(WIN32)
-    SET(PRIVATE_LIB_SUFFIX "lib/win32")
-ENDIF()
-SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "")
+SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Location of local private library path to use")
 
 OPTION(USE_SDL2 "Use SDL2 instead of SDL1.2" ON)
 
