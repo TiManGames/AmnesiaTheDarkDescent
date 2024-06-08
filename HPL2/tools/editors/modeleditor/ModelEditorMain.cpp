@@ -21,7 +21,7 @@
 using namespace hpl;
 
 #include "ModelEditor.h"
-#include "BuildID_ModelEditor.h"
+#include "Versioning.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -40,7 +40,7 @@ int hplMain(const tString& asCommandLine)
 
 	cModelEditor* pEditor = hplNew(cModelEditor, ());
 
-	cEngine* pEngine = pEditor->Init(NULL, "ModelEditor", GetBuildID_ModelEditor(), false);
+	cEngine* pEngine = pEditor->Init(NULL, "ModelEditor", FormatBuildId(__DATE__, __TIME__), false);
 	
     pEngine->Run();	
 

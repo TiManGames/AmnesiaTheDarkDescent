@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.11)
+cmake_minimum_required (VERSION 3.19)
 project(HPL2)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -82,6 +82,7 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     sources/scene/*
     sources/sound/*
 	sources/system/*
+	sources/*.*
 
     include/ai/*
     include/engine/*
@@ -98,7 +99,6 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     include/system/*
     include/*.*
 )
-list(APPEND common_sources include/BuildID_HPL2_0.h)
 list(REMOVE_DUPLICATES common_sources)
 
 #setup various IMPL sources
@@ -173,42 +173,6 @@ ELSEIF(LINUX)
     )
 ENDIF()
 
-# Setup buildID source
-
-IF(APPLE)
-    SET(BUILDID_SUFFIX MacOSX)
-ELSEIF(LINUX)
-    SET(BUILDID_SUFFIX Linux)
-ELSE()
-    message(FATAL_ERROR "Unknown platform")
-ENDIF()
-SET(BUILDID_SUFFIX ${BUILDID_SUFFIX} CACHE STRING "Build ID Suffix")
-find_file(BUILDID_BIN buildcounter.pl
-    PATHS ${CMAKE_CURRENT_SOURCE_DIR}
-    NO_DEFAULT_PATH
-)
-mark_as_advanced(BUILDID_SUFFIX BUILDID_BIN)
-
-function(GenerateBuildID outvar idname includedir sourcedir)
-    add_custom_command(
-        OUTPUT
-            ${sourcedir}/BuildID_${idname}_${BUILDID_SUFFIX}.cpp
-            ${includedir}/BuildID_${idname}.h
-        COMMAND
-            ${BUILDID_BIN}
-        ARGS
-            ${idname} ${includedir} ${sourcedir}
-    )
-    set(${outvar} ${sourcedir}/BuildID_${idname}_${BUILDID_SUFFIX}.cpp
-            ${includedir}/BuildID_${idname}.h PARENT_SCOPE)
-endfunction()
-
-GenerateBuildID(version_source
-    HPL2_0
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/sources
-)
-
 # setup source groups
 source_group("AI" REGULAR_EXPRESSION "\\/ai\\/.+")
 source_group("Engine" REGULAR_EXPRESSION "\\/engine\\/.+")
@@ -253,7 +217,6 @@ mark_as_advanced(NEWTON_LIBRARY ANGELSCRIPT_LIBRARY FBX_LIBRARY GLEW_LIBRARY THE
 
 add_library(HPL2 STATIC
     ${common_sources}
-    ${version_sources}
     ${impl_sources}
 )
 

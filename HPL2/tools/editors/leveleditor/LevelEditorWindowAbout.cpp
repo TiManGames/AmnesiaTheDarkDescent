@@ -1,6 +1,6 @@
 
 #include "LevelEditorWindowAbout.h"
-#include "CommunityEdition.h"
+#include "Versioning.h"
 #include "LevelEditor.h"
 
 //---------------------------------------------------------------------------------

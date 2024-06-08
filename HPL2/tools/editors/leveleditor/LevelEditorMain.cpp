@@ -21,7 +21,7 @@
 using namespace hpl;
 
 #include "LevelEditor.h"
-#include "BuildID_LevelEditor.h"
+#include "Versioning.h"
 
 #ifdef WITH_BINRELOC
 #include "binreloc.h"
@@ -49,7 +49,7 @@ int hplMain(const tString& asCommandLine)
 
 	cLevelEditor* pEditor = hplNew(cLevelEditor, ());
 
-	cEngine* pEngine = pEditor->Init(NULL, "LevelEditor", GetBuildID_LevelEditor(), false);
+	cEngine* pEngine = pEditor->Init(NULL, "LevelEditor", FormatBuildId(__DATE__, __TIME__), false);
 
 	pEngine->Run();
 

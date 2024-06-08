@@ -18,7 +18,7 @@
  */
 
 #include "MaterialEditor.h"
-#include "BuildID_MaterialEditor.h"
+#include "Versioning.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -45,7 +45,7 @@ int hplMain(const tString& asCommandLine)
 	#endif
 	cMaterialEditor* pEditor = hplNew(cMaterialEditor,(cString::ReplaceCharTo(asCommandLine,"\"","")));
 
-	cEngine* pEngine = pEditor->Init(NULL, "MaterialEditor", GetBuildID_MaterialEditor(), false);
+	cEngine* pEngine = pEditor->Init(NULL, "MaterialEditor", FormatBuildId(__DATE__, __TIME__), false);
 	pEngine->Run();
 
 	hplDelete(pEditor);

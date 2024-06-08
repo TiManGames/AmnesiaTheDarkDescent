@@ -701,14 +701,14 @@ bool iEditorBase::OnChangeFlags(int alFlags)
 
 //-----------------------------------------------------------------------
 
-cEngine* iEditorBase::Init(cEngine* apEngine, const char* asName, const char* asBuildDate, bool abDestroyEngineOnExit)
+cEngine* iEditorBase::Init(cEngine* apEngine, const tString asName, const tString asBuildDate, bool abDestroyEngineOnExit)
 {
 	mbDestroyEngineOnExit = abDestroyEngineOnExit;
 
 	LoadConfig();
 
 	bool bEngineWasCreated = apEngine!=NULL; //If engine was supplied as argument or not.
-    	
+
 	////////////////////////////////////////////////////
 	// Engine is already created
 	//  No need to create it, just set the member var
@@ -743,7 +743,7 @@ cEngine* iEditorBase::Init(cEngine* apEngine, const char* asName, const char* as
 	}
 
 	Log("-----------------------------------------------------\n%s Build ID: %s\n-----------------------------------------------------\n", 
-		asName, asBuildDate);
+		asName.c_str(), asBuildDate.c_str());
 	
 	/////////////////////////
 	//Set up engine

@@ -362,7 +362,7 @@ public:
 	 * Init the editor
 	 * \param apEngine If this is null, then the editor will will init engine by itself and use settings from the setting file. Else current settings are used. 
 	 */
-	cEngine* Init(cEngine* apEngine, const char* asName, const char* asBuildDate, bool abDestroyEngineOnExit=false);
+	cEngine* Init(cEngine* apEngine, const tString asName, const tString asBuildDate, bool abDestroyEngineOnExit=false);
 	
 
 	///////////////////////////////////

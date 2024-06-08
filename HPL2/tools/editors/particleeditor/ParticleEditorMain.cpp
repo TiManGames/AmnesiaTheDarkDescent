@@ -18,7 +18,7 @@
  */
 
 #include "ParticleEditor.h"
-#include "BuildID_ParticleEditor.h"
+#include "Versioning.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -40,7 +40,7 @@ int hplMain(const tString& asCommandLine)
 	#endif
 
 	cParticleEditor* pEditor = hplNew(cParticleEditor, ());
-	cEngine* pEngine = pEditor->Init(NULL, "ParticleEditor", GetBuildID_ParticleEditor(), false);
+	cEngine* pEngine = pEditor->Init(NULL, "ParticleEditor", FormatBuildId(__DATE__, __TIME__), false);
 
 	pEngine->Run();
 
