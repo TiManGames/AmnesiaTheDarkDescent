@@ -1,4 +1,4 @@
-# Amnesia: The Dark Descent - HPL Chad Gang Fork
+# Amnesia: The Dark Descent (Community Editors Fork)
 
 This is a fork of the Amnesia the Dark Descent repository from FrictionalGames. We will mostly play with different parts of the engine and perhaps even fix some bugs :)
 
@@ -61,22 +61,26 @@ Copy `Amnesia.exe` into your Amnesia game folder and launch it. The main menu sh
 
 ## Building & Playing (Linux)
 
-There are a few extra steps required to be able to successfully build everything on Linux compared to Windows.
+There are a few extra steps required to be able to successfully build everything on Linux.
 
 ### Building the Engine, Game & Editors
 
 1. Ensure you have `make` and `cmake` installed.
 2. Clone the project and enter the folder
-3. Extract `./HPL2/dependencies.zip` to the same folder it's in
+3. Extract `./HPL2/dependencies.zip` to the same folder it's in. **DO NOT** overwrite anything.
 4. Run the script file at `./HPL2/dependencies/lib/linux/lib64/fix_symlinks.sh` to fix broken symlinks from the .zip file
 5. Open a terminal in `./amnesia/src` and run `cmake .`
-6. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads)
+6. With a terminal in `./amnesia/src` do `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads; e.g. `make -j4`).
 7. The build should compile and the resulting binaries will be found in `./amnesia/src/output`.
 You can put some editor and game files there for faster testing.
 
-### Playing the Game
+To run the compiled binary, copy it to your Amnesia installation folder.
+For example copy the `Amnesia.bin.x86_64` to your game folder. Run it, and the game should start directly.
 
-To run the compiled binary, copy it to your Amnesia installation folder. For example copy the `Amnesia.bin.x86_64` to your game folder. Run it, and the game should start directly.
+### Crosscompiling for Windows
+
+You will need to delete `CMakeCache.txt` and run `cmake --toolchain XCompileToWindows.toolchain .`.
+Then use `make` as usual.
 
 ## Troubleshooting
 * **"When I compile `Lux`, I get an error message "fatal error RC1015: cannot open include file 'afxres.h'".**"
