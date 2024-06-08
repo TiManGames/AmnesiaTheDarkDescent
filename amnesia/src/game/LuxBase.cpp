@@ -96,6 +96,7 @@
 #include "LuxCommentaryIcon.h"
 #include "LuxAchievementHandler.h"
 
+#include "Versioning.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -404,6 +405,7 @@ bool cLuxBase::Init(const tString &asCommandline) {
     if (!InitMainConfig()) return false;
 
     Log("Communty build based on version %d.%d\n", kCurrentVersion_Main, kCurrentVersion_Minor);
+    Log("Game Build ID: %s\n", FormatBuildId(__DATE__, __TIME__).c_str());
 
 #ifdef COPY_PROTECTION_ENABLED
     /////////////////////////////
