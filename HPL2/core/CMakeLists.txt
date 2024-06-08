@@ -25,7 +25,6 @@ mark_as_advanced(
 include(UtilityFunctions)
 
 IF(APPLE)
-    SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "")
     if(IS_APPLE_64)
         SET(PRIVATE_LIB_SUFFIX "lib/macosx64")
     else()
@@ -33,8 +32,10 @@ IF(APPLE)
     endif()
 ELSEIF(LINUX)
     SET(PRIVATE_LIB_SUFFIX "lib/linux")
-    SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "")
+ELSEIF(WIN32)
+    SET(PRIVATE_LIB_SUFFIX "lib/win32")
 ENDIF()
+SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "")
 
 OPTION(USE_SDL2 "Use SDL2 instead of SDL1.2" ON)
 
@@ -199,10 +200,19 @@ source_group("Platform" REGULAR_EXPRESSION "\\/impl\\/Platform.+")
 
 # setup libs
 
-FindPrebuiltLibrary(NEWTON_LIBRARY Newton)
+if (WIN32)
+    FindPrebuiltLibrary(NEWTON_LIBRARY newton)
+    FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
+    FindPrebuiltLibrary(GLEW_LIBRARY glew32)
+    FindPrebuiltLibrary(DEVIL_LIBRARY DevIL)
+else()
+    FindPrebuiltLibrary(NEWTON_LIBRARY Newton)
+    FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-static)
+    FindPrebuiltLibrary(GLEW_LIBRARY GLEW)
+    FindPrebuiltLibrary(DEVIL_LIBRARY IL)
+endif()
+
 FindPrebuiltLibrary(ANGELSCRIPT_LIBRARY angelscript)
-FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-static)
-FindPrebuiltLibrary(GLEW_LIBRARY GLEW)
 FindPrebuiltLibrary(THEORA_LIBRARY theora)
 FindPrebuiltLibrary(DEVIL_LIBRARY IL)
 
