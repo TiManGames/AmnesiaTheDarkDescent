@@ -21,8 +21,9 @@ It's a bug which was present in the source code and is being currently examined.
 
 # Changelog
 
-v0.4.0
+v0.4.1
 - Made the editors use the system mouse instead of a simulated one
+- Unified build versioning (hpl.log now will have updated build IDs after each compilation)
 - Fix a few source code issues
 - Added a missing shortcut label (F for focusing on selection)
 - Increased menu widget spacing

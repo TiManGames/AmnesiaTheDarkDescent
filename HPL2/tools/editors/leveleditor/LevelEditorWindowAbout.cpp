@@ -24,7 +24,7 @@ void cLevelEditorWindowAbout::OnInitLayout()
 
     mpLabelTitle = mpSet->CreateWidgetLabel(cVector3f(16, 30, 0.1), 0, _W("HPL Level Editor - Community Edition"), mpWindow);
 
-    mpLabelVersion = mpSet->CreateWidgetLabel(cVector3f(mpWindow->GetSize().x-16, 30, 0.1), 0, COMMUNITY_VERSION, mpWindow);
+    mpLabelVersion = mpSet->CreateWidgetLabel(cVector3f(mpWindow->GetSize().x-16, 30, 0.1), 0, GetCommunityWString(), mpWindow);
     mpLabelVersion->SetTextAlign(eFontAlign_Right);
 
 	mpLabelDescription = mpSet->CreateWidgetLabel(cVector3f(32, 80, 0.1), cVector2f(340, 200), _W("You can reach the creators of the community edition on GitHub using the button below."), mpWindow);

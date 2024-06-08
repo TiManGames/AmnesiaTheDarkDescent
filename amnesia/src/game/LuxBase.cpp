@@ -103,13 +103,6 @@
 // GLOBAL FUNCTIONS
 //////////////////////////////////////////////////////////////////////////
 
-//-----------------------------------------------------------------------
-
-#define kCurrentVersion_Main 1
-#define kCurrentVersion_Minor 4
-
-//-----------------------------------------------------------------------
-
 extern tString gsSerialKey;
 
 //-----------------------------------------------------------------------
@@ -404,7 +397,7 @@ bool cLuxBase::Init(const tString &asCommandline) {
     // Load the config files
     if (!InitMainConfig()) return false;
 
-    Log("Communty build based on version %d.%d\n", kCurrentVersion_Main, kCurrentVersion_Minor);
+    Log("Communty build based on version %d.%d\n", MAIN_VERSION_MAJOR, MAIN_VERSION_MINOR);
     Log("Game Build ID: %s\n", FormatBuildId(__DATE__, __TIME__).c_str());
 
 #ifdef COPY_PROTECTION_ENABLED

@@ -2,14 +2,21 @@
 #ifndef VERSIONING_H
 #define VERSIONING_H
 
-#define COMMUNITY_VERSION L"0.4.0"
+// main game version
+#define MAIN_VERSION_MAJOR 1
+#define MAIN_VERSION_MINOR 4
 
-#include "system/SystemTypes.h"  // tString aka std:string
+// community edition versioning
+#define CE_VERSION_MAJOR 0
+#define CE_VERSION_MINOR 4
+#define CE_VERSION_PATCH 1
+
+#include "system/String.h"
 
 using namespace hpl;
 
-//20101027185544
-
 tString FormatBuildId(const char* date, const char* time);
+tWString GetCommunityWString();
+tString GetCommunityString();
 
 #endif //VERSIONING_H
