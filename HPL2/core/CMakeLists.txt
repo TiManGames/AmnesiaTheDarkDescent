@@ -4,8 +4,6 @@ project(HPL2)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoilerPlate)
 
-set(HPL2_VERSION_MAJOR 2)
-set(HPL2_VERSION_MINOR 0)
 if(IS_APPLE_64)
     set(BIN_LIBROOT "${PLATFORM_PREFIX}64")
 else()

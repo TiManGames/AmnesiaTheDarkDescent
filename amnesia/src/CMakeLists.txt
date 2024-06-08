@@ -7,6 +7,8 @@ set(CMAKE_BUILD_TYPE "Release")
 # RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
 # MinSizeRel: same as Release but optimizing for size rather than speed.
 
+MESSAGE(STATUS "Starting ${CMAKE_BUILD_TYPE} build")
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/output)
 
 OPTION(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
@@ -37,7 +39,8 @@ if(USERDIR_RESOURCES)
     )
 endif()
 
-set(VERSION "1.3.1")
+# Used seemingly only for Mac build stuff
+set(VERSION "1.4")
 
 add_subdirectory(game game)
 
