@@ -315,8 +315,24 @@ _Pvt_Extensions
 .paket/paket.exe
 paket-files/
 
-# Extracted Dependencies folder
-HPL2/dependencies/
+# Extracted Dependencies folder; we need to change some stuff though so can't exclude whole thing
+HPL2/dependencies/BlackBox
+HPL2/dependencies/include
+HPL2/dependencies/lib
+HPL2/dependencies/sources
+
+!HPL2/dependencies/OALWrapper/CMakeLists.txt
+
+HPL2/dependencies/OALWrapper/LICENSE
+HPL2/dependencies/OALWrapper/OALWrapper.sln
+HPL2/dependencies/OALWrapper/OALWrapper.vcproj
+HPL2/dependencies/OALWrapper/README.markdown
+HPL2/dependencies/OALWrapper/TODO
+HPL2/dependencies/OALWrapper/include
+HPL2/dependencies/OALWrapper/sources
+HPL2/dependencies/OALWrapper/tests
+HPL2/dependencies/OALWrapper/CMakeScripts
+
 
 # FAKE - F# Make
 .fake/
