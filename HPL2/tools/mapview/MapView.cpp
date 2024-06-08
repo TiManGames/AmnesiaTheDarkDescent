@@ -18,6 +18,7 @@
  */
 
 #include "hpl.h"
+#include "Versioning.h"
 #include "scene/RenderableContainer_DynBoxTree.h"
 
 #include "../../tests/Common/SimpleCamera.h"
@@ -2037,6 +2038,7 @@ int hplMain(const tString &asCommandline)
 	CreateBaseDirs(vDirs, sPersonalDir);
 
 	SetLogFile(sPersonalDir + PERSONAL_RELATIVEROOT _W("HPL2/mapview.log"));
+	Log("Map Viewer Build ID: %s\n", FormatBuildId(__DATE__, __TIME__).c_str());
 
 	gpConfig = hplNew( cConfigFile, (sPersonalDir + PERSONAL_RELATIVEROOT _W("HPL2/mapview.cfg") ));
 

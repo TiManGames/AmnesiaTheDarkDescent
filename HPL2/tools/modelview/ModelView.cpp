@@ -18,7 +18,7 @@
  */
 
 #include "hpl.h"
-
+#include "Versioning.h"
 #include "../../tests/Common/SimpleCamera.h"
 
 using namespace hpl;
@@ -2310,6 +2310,7 @@ int hplMain(const tString &asCommandline)
 	CreateBaseDirs(vDirs, sPersonalDir);
 
 	SetLogFile(sPersonalDir + PERSONAL_RELATIVEROOT _W("HPL2/modelview.log"));
+	Log("Model Viewer Build ID: %s\n", FormatBuildId(__DATE__, __TIME__).c_str());
 
 	//Init the game engine
 	cEngineInitVars vars;
