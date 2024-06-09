@@ -682,7 +682,7 @@ public:
 //-----------------------------------------------------------------------
 
 #ifdef WIN32
-	#include <Windows.h>
+	#include <windows.h>
 #endif
 
 int hplMain(const tString &asCommandline)

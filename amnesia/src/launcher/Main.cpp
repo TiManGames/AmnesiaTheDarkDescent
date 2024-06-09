@@ -24,7 +24,7 @@
 #include "FL/fl_ask.H"
 
 #ifdef WIN32
-	#include <Windows.h>
+	#include <windows.h>
 #endif
 #include <GL/gl.h>
 #include <GL/glu.h>

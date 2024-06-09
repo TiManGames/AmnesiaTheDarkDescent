@@ -51,8 +51,8 @@
 #include "SDL/SDL_syswm.h"
 #endif
 #ifdef WIN32
-#include "Windows.h"
-#include "Dbt.h"
+#include "windows.h"
+#include "dbt.h"
 #endif
 
 namespace hpl {

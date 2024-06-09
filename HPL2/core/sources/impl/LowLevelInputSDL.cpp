@@ -38,8 +38,8 @@
 #endif
 
 #if defined WIN32 && !SDL_VERSION_ATLEAST(2,0,0)
-#include <Windows.h>
-#include <Dbt.h>
+#include <windows.h>
+#include <dbt.h>
 #endif
 
 namespace hpl {
