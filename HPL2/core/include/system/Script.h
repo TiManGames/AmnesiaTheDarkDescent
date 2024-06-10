@@ -26,7 +26,9 @@
 #if defined __ppc__ || defined(__LP64__)
 #define __stdcall
 #else
+#ifndef __stdcall
 #define __stdcall __attribute__((stdcall))
+#endif
 #endif
 #endif
 
