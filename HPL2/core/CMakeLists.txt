@@ -250,10 +250,29 @@ target_link_libraries(HPL2
     ${GLEW_LIBRARY}
     ${THEORA_LIBRARY}
     ${DEVIL_LIBRARY}
-    z
     ${FBX_LIBRARY}
     ${PLATFORM_LIBS}
 )
+
+message(STATUS
+    "Core libs:
+    ${NEWTON_LIBRARY}
+    ${ANGELSCRIPT_LIBRARY}
+    ${OPENGL_gl_LIBRARY}
+    ${OPENGL_glu_LIBRARY}
+    ${GLEW_LIBRARY}
+    ${THEORA_LIBRARY}
+    ${DEVIL_LIBRARY}
+    ${FBX_LIBRARY}
+    ${PLATFORM_LIBS}"
+)
+
+if(WIN32)
+    find_library(ZLIB zlib PATHS ${DEP_LIB_DIR} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    target_link_libraries(HPL2 ${ZLIB})
+else()
+    target_link_libraries(HPL2 z)
+endif()
 
 
 if(APPLE)
