@@ -240,17 +240,6 @@ else()
     target_link_libraries(HPL2 z)
 endif()
 
-FUNCTION(AddTestTarget target_name)
-    add_executable(${target_name} EXCLUDE_FROM_ALL
-        ${ARGN}
-    )
-    target_link_libraries(${target_name} HPL2)
-    set_target_properties(${target_name} PROPERTIES
-        XCODE_ATTRIBUTE_LD_RUNPATH_SEARCH_PATHS "${DEP_LIB_DIR}"
-        INSTALL_RPATH "${DEP_LIB_DIR}"
-    )
-ENDFUNCTION()
-
 add_subdirectory(../tools tools)
 
 set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")
