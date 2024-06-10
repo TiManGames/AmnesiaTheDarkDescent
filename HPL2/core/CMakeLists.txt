@@ -4,11 +4,7 @@ project(HPL2)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoilerPlate)
 
-if(IS_APPLE_64)
-    set(BIN_LIBROOT "${PLATFORM_PREFIX}64")
-else()
-    set(BIN_LIBROOT ${PLATFORM_PREFIX})
-endif()
+set(BIN_LIBROOT ${PLATFORM_PREFIX})
 
 set(DEP_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/lib/${BIN_LIBROOT}")
 set(DEP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include")
@@ -142,19 +138,7 @@ file(GLOB impl_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     sources/impl/MeshLoaderFBX.cpp
 )
 
-IF(APPLE)
-    LIST(APPEND impl_sources
-        sources/impl/PlatformMacOSX.mm
-        sources/impl/PlatformUnix.cpp
-        sources/impl/PlatformSDL.cpp
-    )
-    IF(NOT USE_SDL2)
-        LIST(APPEND impl_sources
-            SDLMain.m
-            SDLMain.h
-        )
-    ENDIF()
-ELSEIF(LINUX)
+IF(LINUX)
     LIST(APPEND impl_sources
         sources/impl/PlatformUnix.cpp
         sources/impl/PlatformSDL.cpp
@@ -231,15 +215,6 @@ if(LINUX)
         pthread
         dl
     )
-elseif(APPLE)
-    FIND_LIBRARY(SC_LIBRARY SystemConfiguration)
-    FIND_LIBRARY(COCOA_LIBRARY Cocoa)
-    mark_as_advanced(COCOA_LIBRARY THEORA_LIBRARY SC_LIBRARY)
-
-    set(PLATFORM_LIBS
-        iconv ${SC_LIBRARY}
-        ${COCOA_LIBRARY}
-    )
 endif()
 
 target_link_libraries(HPL2
@@ -273,46 +248,6 @@ if(WIN32)
 else()
     target_link_libraries(HPL2 z)
 endif()
-
-
-if(APPLE)
-    # helper function to copy the needed frameworks in at build time
-    SET(HPL2_FRAMEWORKS ${HPL2_FRAMEWORKS} CACHE STRING "HPL2 copy frameworks")
-    SET(HPL2_LIBRARIES libSDL2.dylib libIL.1.dylib)
-    SET(HPL2_LIBRARIES ${HPL2_LIBRARIES}  CACHE STRING "HPL2 copy libs")
-    mark_as_advanced(HPL2_FRAMEWORKS HPL2_LIBRARIES)
-
-    FUNCTION(PostBuildMacBundle APP_TARGET framework_list lib_list)
-        INCLUDE(BundleUtilities)
-        GET_TARGET_PROPERTY(_BIN_NAME ${APP_TARGET} LOCATION)
-        GET_DOTAPP_DIR(${_BIN_NAME} _BUNDLE_DIR)
-
-        set(_SCRIPT_FILE ${CMAKE_CURRENT_BINARY_DIR}/${APP_TARGET}_prep.cmake)
-        file(WRITE ${_SCRIPT_FILE}
-            "# Generated Script file\n"
-            "include(BundleUtilities)\n"
-            "get_bundle_and_executable(\"\${BUNDLE_APP}\" bundle executable valid)\n"
-            "if(valid)\n"
-            "  set(framework_path \"\${bundle}/Contents/Frameworks\")\n"
-            "  foreach(framework ${framework_list})\n"
-            "    file(MAKE_DIRECTORY \"\${framework_path}/\${framework}.framework/Versions/A/\")\n"
-            "    copy_resolved_framework_into_bundle(\${DEP_LIB_DIR}/\${framework}.framework/Versions/A/\${framework} \${framework_path}/\${framework}.framework/Versions/A/\${framework})\n"
-            "  endforeach()\n"
-            "  foreach(lib ${lib_list})\n"
-            "    copy_resolved_item_into_bundle(\${DEP_LIB_DIR}/\${lib} \${framework_path}/\${lib})\n"
-            "  endforeach()\n"
-            "else()\n"
-            "  message(ERROR \"App Not found? \${BUNDLE_APP}\")\n"
-            "endif()\n"
-            "#fixup_bundle(\"\${BUNDLE_APP}\" \"\" \"\${DEP_LIB_DIR}\")\n"
-        )
-
-        ADD_CUSTOM_COMMAND(TARGET ${APP_TARGET}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -DBUNDLE_APP="${_BUNDLE_DIR}" -DDEP_LIB_DIR="${DEP_LIB_DIR}" -P "${_SCRIPT_FILE}"
-        )
-    ENDFUNCTION()
-ENDIF()
 
 FUNCTION(AddTestTarget target_name)
     add_executable(${target_name} EXCLUDE_FROM_ALL

@@ -101,12 +101,4 @@ target_link_libraries(Launcher
     HPL2_Minimal
 )
 
-IF(APPLE)
-	PostBuildMacBundle(Launcher "" "libSDL2.dylib")
-	install(TARGETS Launcher
-		RUNTIME DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../../redist"
-		BUNDLE DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}/../../redist"
-	)
-ENDIF()
-
 # vim: et ts=4

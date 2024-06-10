@@ -8,24 +8,8 @@ find_file(TOOLINFO_PLIST Tool-Info.plist
 mark_as_advanced(TOOLINFO_PLIST)
 
 function(AddToolTarget target)
-    add_executable(${target} MACOSX_BUNDLE
-        ${ARGN}
-    )
+    add_executable(${target} ${ARGN})
     target_link_libraries(${target} HPL2)
-
-    set_target_properties(${target} PROPERTIES
-        MACOSX_BUNDLE_INFO_PLIST "${TOOLINFO_PLIST}"
-        MACOSX_BUNDLE_BUNDLE_VERSION ${VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${VERSION}
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.frictionalgames.HPL2.${target}"
-        MACOSX_BUNDLE_DISPLAY_NAME "${target}"
-        MACOSX_BUNDLE_BUNDLE_NAME "HPL2: ${target}"
-    )
-
-    if(APPLE)
-        PostBuildMacBundle(${target} "${HPL2_FRAMEWORKS}" "${HPL2_LIBRARIES}")
-    endif()
-
 endfunction()
 
 if(USERDIR_RESOURCES)

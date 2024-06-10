@@ -11,13 +11,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeScripts)
 
 
 # Set lib subdir from the dependencies (PRIVATE_LIB_DIR) folder
-if(APPLE)
-    if(IS_APPLE_64)
-        SET(PRIVATE_LIB_SUFFIX "lib/macosx64")
-    else()
-        SET(PRIVATE_LIB_SUFFIX "lib/macosx")
-    endif()
-elseif(LINUX)
+if(LINUX)
     if(CMAKE_SIZEOF_VOID_P MATCHES "8" AND NOT(FORCE32))
         SET(PRIVATE_LIB_SUFFIX "lib/linux/lib64")
     else()
@@ -87,42 +81,10 @@ elseif(PRIVATE_LIB_DIR AND WIN32)
             NO_DEFAULT_PATH
         )
     endif()
-elseif(PRIVATE_LIB_DIR AND APPLE)
-    if(IOS)
-        set(PRIVATE_LIB_SUFFIX ios)
-        find_library(OGG_LIBRARY ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        find_library(VORBIS_LIBRARY vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-    else()
-        if(NOT PRIVATE_LIB_SUFFIX)
-            set(PRIVATE_LIB_SUFFIX macosx)
-        endif()
-        find_library(OGG_LIBRARY Ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        find_library(VORBIS_LIBRARY Vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        if (VORBIS_LIBRARY AND NOT VORBIS_LIBRARY MATCHES /.framework$/)
-            find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-        endif()
-    endif()
-
-    if(USE_SDL2)
-        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-    else()
-        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} NO_DEFAULT_PATH)
-    endif()
-
-    find_path(SDL_INCLUDE_DIR SDL.h
-        PATHS ${PRIVATE_LIB_DIR}/include
-        PATH_SUFFIXES SDL2
-        NO_DEFAULT_PATH
-    )
-
-    find_package(OpenAL)
 else()
     find_package(OGG)
     find_package(Vorbis)
-    if(NOT(APPLE))
-        find_package(VorbisFile)
-    endif()
+    find_package(VorbisFile)
     find_package(OpenAL)
     if(USE_SDL2)
         find_package(SDL2)
