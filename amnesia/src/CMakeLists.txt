@@ -9,7 +9,7 @@ set(CMAKE_BUILD_TYPE "Release")
 
 MESSAGE(STATUS "Starting a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/output)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
 OPTION(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 

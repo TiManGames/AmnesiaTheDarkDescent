@@ -35,9 +35,10 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-amnesia/_temp/
-amnesia/src/output
-amnesia/src/core2
+
+output/*.*
+output/
+build/
 
 # CMake build files
 CMakeFiles/
