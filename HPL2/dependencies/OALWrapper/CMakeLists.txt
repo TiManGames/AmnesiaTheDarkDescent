@@ -225,8 +225,21 @@ target_link_libraries(OALWrapper
 target_include_directories(OALWrapper
     ${OALWRAPPER_INCLUDE_PATHS}
 )
-message(STATUS "Lib includes: ${OGG_INCLUDE_DIR} ${VORBIS_INCLUDE_DIR} ${VORBISFILE_INCLUDE_DIR} ${OPENAL_INCLUDE_DIR}")
-message(STATUS "Includes: ${OALWRAPPER_INCLUDE_PATHS}")
+message(STATUS
+    "OAL libs:
+    ${OGG_LIBRARY}
+    ${VORBIS_LIBRARY}
+    ${VORBISFILE_LIBRARY}
+    ${OPENAL_LIBRARY}"
+)
+message(STATUS
+    "OAL lib includes:
+    ${OGG_INCLUDE_DIR}
+    ${VORBIS_INCLUDE_DIR}
+    ${VORBISFILE_INCLUDE_DIR}
+    ${OPENAL_INCLUDE_DIR}"
+)
+message(STATUS "OAL all includes: ${OALWRAPPER_INCLUDE_PATHS}")
 
 add_executable(SimpleTest EXCLUDE_FROM_ALL tests/Simple/main.cpp)
 add_executable(PlaySound EXCLUDE_FROM_ALL tests/PlaySound/main.cpp)
