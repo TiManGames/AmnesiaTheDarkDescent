@@ -5,13 +5,14 @@ option(FORCE32 "Force a 32bit compile on 64bit" OFF)
 # this adds the build directory to the include path automatically
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+# Unlike APPLE and WIN32, built-in LINUX var was added only in CMake 3.25
 if ("${CMAKE_SYSTEM}" MATCHES "Linux")
     set(LINUX ON)
 endif ()
 
 if (FORCE32)
     if (LINUX)
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+        set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -m32")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
     elseif (APPLE)
         set(CMAKE_OSX_ARCHITECTURES "i386")
@@ -19,16 +20,12 @@ if (FORCE32)
 endif ()
 
 if (FULL_WARNINGS)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
+    set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wall -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 endif ()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -fno-strict-aliasing")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
-
-if (APPLE)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
-endif ()
 
 if (LINUX)
     set(PLATFORM_PREFIX "linux")
@@ -42,7 +39,7 @@ if (LINUX)
         set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS OFF)
 
         ### Ensure LargeFileSupport on 32bit linux
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_FILE_OFFSET_BITS=64")
+        set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -D_FILE_OFFSET_BITS=64")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_FILE_OFFSET_BITS=64")
     endif ()
 
@@ -52,6 +49,7 @@ if (LINUX)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 elseif (APPLE)
     set(PLATFORM_PREFIX "macosx")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.6")
 
     ## NOTE setting the rpath this way only works with CMAKE 2.8.12+
     # A workaround for 2.8.11 is do also set 
