@@ -6,13 +6,15 @@ Currently mainly working on improving the engine tools.
 ## New editor features
 
 * Use system mouse instead of a simulated one - significantly improves comfort because the system mouse is more precise
-* A much more comfortable color picker (it is included in the official 1.5 editors, but was not in 1.3)
-* New keyboard shortcuts - including standard ones which were missing.
-Check button hover tips to see if a button has a shortcut, or the release changelog for a full list.
-* Dark theme
 * Bigger GUI - the original one was developed for screens which were twice smaller and became uncomfortable.
 We are bringing the GUI sizing closer to HPL3 editors.
+* New keyboard shortcuts - including standard ones which were missing.
+* Dark theme
+* A much more comfortable color picker (it is included in the official 1.5 editors, but was not in 1.3)
+Check button hover tips to see if a button has a shortcut, or the release changelog for a full list.
 * Semi-compability with Machine For Pigs - maps can be opened without crashing, but lights are inaccurate because of rendering differences between MFP and TDD
+
+![](screenshot.png)
 
 ## Building (Linux)
 
