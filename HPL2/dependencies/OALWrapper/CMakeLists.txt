@@ -1,7 +1,6 @@
 cmake_minimum_required (VERSION 3.19)
 project (OALWrapper)
 
-OPTION(USE_SDL2 "Use SDL2 instead of SDL1.2" OFF)
 OPTION(FORCE32 "Force a 32 bit build on 64bit linux" OFF)
 
 set(OALWrapper_VERSION_MAJOR 1)
@@ -45,52 +44,30 @@ if(PRIVATE_LIB_DIR AND LINUX)
     find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
     find_library(OPENAL_LIBRARY openal PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
 
-    if(USE_SDL2)
-        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        find_path(SDL_INCLUDE_DIR SDL.h
-            PATHS ${PRIVATE_LIB_DIR}/include
-            PATH_SUFFIXES SDL2
-            NO_DEFAULT_PATH
-        )
-    else()
-        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        find_path(SDL_INCLUDE_DIR SDL.h
-            PATHS ${PRIVATE_LIB_DIR}/include
-            PATH_SUFFIXES SDL
-            NO_DEFAULT_PATH
-        )
-    endif()
+    find_library(SDL2_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_path(SDL2_INCLUDE_DIR SDL.h
+        PATHS ${PRIVATE_LIB_DIR}/include
+        PATH_SUFFIXES SDL2
+        NO_DEFAULT_PATH
+    )
 elseif(PRIVATE_LIB_DIR AND WIN32)
     find_library(OGG_LIBRARY ogg PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
     find_library(VORBIS_LIBRARY vorbis PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
     find_library(VORBISFILE_LIBRARY vorbisfile PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
     find_library(OPENAL_LIBRARY OpenAL32 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
 
-    if(USE_SDL2)
-        find_library(SDL_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        find_path(SDL_INCLUDE_DIR SDL.h
-            PATHS ${PRIVATE_LIB_DIR}/include
-            PATH_SUFFIXES SDL2
-            NO_DEFAULT_PATH
-        )
-    else()
-        find_library(SDL_LIBRARY SDL PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-        find_path(SDL_INCLUDE_DIR SDL.h
-            PATHS ${PRIVATE_LIB_DIR}/include
-            PATH_SUFFIXES SDL
-            NO_DEFAULT_PATH
-        )
-    endif()
+    find_library(SDL2_LIBRARY SDL2 PATHS ${PRIVATE_LIB_DIR}/${PRIVATE_LIB_SUFFIX} PATH_SUFFIXES lib NO_DEFAULT_PATH)
+    find_path(SDL2_INCLUDE_DIR SDL.h
+        PATHS ${PRIVATE_LIB_DIR}/include
+        PATH_SUFFIXES SDL2
+        NO_DEFAULT_PATH
+    )
 else()
     find_package(OGG)
     find_package(Vorbis)
     find_package(VorbisFile)
     find_package(OpenAL)
-    if(USE_SDL2)
-        find_package(SDL2)
-    else()
-        find_package(SDL)
-    endif()
+    find_package(SDL2)
 
     list(APPEND OALWRAPPER_INCLUDE_PATHS
         PRIVATE ${OGG_INCLUDE_DIR}
@@ -106,7 +83,7 @@ endif()
 
 list(APPEND OALWRAPPER_INCLUDE_PATHS
     PUBLIC include
-    PRIVATE ${SDL_INCLUDE_DIR}
+    PRIVATE ${SDL2_INCLUDE_DIR}
 )
 
 if(EXTRA_INCLUDE_DIR)
@@ -169,9 +146,7 @@ set(all_includes
     include//OALWrapper/OAL_WAVSample.h
 )
 
-if(USE_SDL2)
-    add_definitions(-DUSE_SDL2)
-endif()
+add_definitions(-DUSE_SDL2)
 
 add_library(OALWrapper STATIC
     ${all_sources}
@@ -182,7 +157,7 @@ target_link_libraries(OALWrapper
     ${VORBIS_LIBRARY}
     ${OGG_LIBRARY}
     ${OPENAL_LIBRARY}
-    ${SDL_LIBRARY}
+    ${SDL2_LIBRARY}
 )
 target_include_directories(OALWrapper
     ${OALWRAPPER_INCLUDE_PATHS}
@@ -203,6 +178,7 @@ message(STATUS
 )
 message(STATUS "OAL all includes: ${OALWRAPPER_INCLUDE_PATHS}")
 
+# TODO these could probably be done using CTest instead of add_executable
 add_executable(SimpleTest EXCLUDE_FROM_ALL tests/Simple/main.cpp)
 add_executable(PlaySound EXCLUDE_FROM_ALL tests/PlaySound/main.cpp)
 add_executable(Playlist EXCLUDE_FROM_ALL tests/Playlist/main.cpp)

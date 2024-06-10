@@ -22,17 +22,12 @@ include(UtilityFunctions)
 
 SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Location of local private library path to use")
 
-OPTION(USE_SDL2 "Use SDL2 instead of SDL1.2" ON)
 
 add_subdirectory(../dependencies/OALWrapper OALWrapper)
 
-SET(HPL2_DEFINES
-    PUBLIC $<$<BOOL:${USE_SDL2}>:USE_SDL2>
-)
-
-add_definitions(
-    -DUSE_OALWRAPPER
-)
+# We use SDL2 by default in CMake now, but in the code 1.2 is also supported and we need to instruct it to use 2
+add_definitions(-DUSE_SDL2)
+add_definitions(-DUSE_OALWRAPPER)
 
 set(HPL2_INCLUDES
     PUBLIC include
@@ -203,10 +198,6 @@ add_library(HPL2 STATIC
 
 target_include_directories(HPL2
     ${HPL2_INCLUDES}
-)
-
-target_compile_definitions(HPL2
-    ${HPL2_DEFINES}
 )
 
 if(LINUX)
