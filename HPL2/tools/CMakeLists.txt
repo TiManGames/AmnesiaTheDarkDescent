@@ -52,4 +52,3 @@ add_executable(MshConverter
 )
 target_link_libraries(MshConverter HPL2)
 
-set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")

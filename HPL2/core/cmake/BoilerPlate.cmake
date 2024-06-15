@@ -1,5 +1,4 @@
 ### setup options
-option(FULL_WARNINGS "Enable full warnings" OFF)
 
 # this adds the build directory to the include path automatically
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -8,14 +7,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 if ("${CMAKE_SYSTEM}" MATCHES "Linux")
     set(LINUX ON)
 endif ()
-
-if (FULL_WARNINGS)
-    set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -Wall -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-endif ()
-
-set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -fno-strict-aliasing")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
 
 if (LINUX)
     set(PLATFORM_PREFIX "linux")
@@ -29,8 +20,7 @@ if (LINUX)
         set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS OFF)
 
         ### Ensure LargeFileSupport on 32bit linux
-        set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -D_FILE_OFFSET_BITS=64")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_FILE_OFFSET_BITS=64")
+        add_compile_definitions(-D_FILE_OFFSET_BITS=64)
     endif ()
 
     set(CMAKE_SKIP_BUILD_RPATH TRUE)
@@ -53,10 +43,6 @@ if (NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(PLATFORM_PREFIX ${PLATFORM_PREFIX} PARENT_SCOPE)
 
     set(CMAKE_INCLUDE_CURRENT_DIR ${CMAKE_INCLUDE_CURRENT_DIR} PARENT_SCOPE)
-
-    set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} PARENT_SCOPE)
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} PARENT_SCOPE)
-
     set(CMAKE_SKIP_BUILD_RPATH ${CMAKE_SKIP_BUILD_RPATH} PARENT_SCOPE)
     set(CMAKE_BUILD_WITH_INSTALL_RPATH ${CMAKE_BUILD_WITH_INSTALL_RPATH} PARENT_SCOPE)
     set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_RPATH} PARENT_SCOPE)

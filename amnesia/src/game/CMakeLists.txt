@@ -42,6 +42,3 @@ add_executable(AmnesiaDemo EXCLUDE_FROM_ALL ${all_sources})
 target_link_libraries(AmnesiaDemo HPL2)
 set_target_properties(AmnesiaDemo PROPERTIES COMPILE_DEFINITIONS "${demo_compile_defs}")
 
-# vim: noet ts=4:
-
-set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")

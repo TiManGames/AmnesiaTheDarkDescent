@@ -242,4 +242,3 @@ endif()
 
 add_subdirectory(../tools tools)
 
-set(CMAKE_CXX_FLAGS "-fpermissive -no-pie")
