@@ -122,8 +122,8 @@ iWidget* iEditorWindowLowerToolbar::AddGridControls()
 
 	// Height and sep.
 	mpInpPlaneHeight = CreateInputNumber(cVector3f(65,5,0.1f), _W("Height"), "", mpGridControlsGroup, 50, 0.25f);
-	mpInpSnapSep = CreateInputNumber(cVector3f(120,5,0.1f), _W("Snap sep."), "", mpGridControlsGroup, 50, 0.25f); 
-
+	mpInpSnapSep = CreateInputNumber(cVector3f(120,5,0.1f), _W("Snap sep."), "", mpGridControlsGroup, 50, 0.25f);
+	mpInpSnapSep->SetLowerBound(true, 0.01f);
 	
 	mpGridPresetLabel = mpSet->CreateWidgetLabel(cVector3f(179, 4, 0.1f), cVector2f(32, 20), _W("Grid presets"), mpGridControlsGroup);
 
@@ -278,7 +278,7 @@ iWidget* iEditorWindowLowerToolbar::AddCommunityCredits()
 
 void iEditorWindowLowerToolbar::SetFocusedClipPlane(int alX)
 {
-	if(mpInpClipPlanes)
+	if(mpGClipPlanes)
 		mpInpClipPlanes->SetValue(alX);
 }
 
@@ -286,7 +286,7 @@ void iEditorWindowLowerToolbar::SetFocusedClipPlane(int alX)
 
 int iEditorWindowLowerToolbar::GetFocusedClipPlane()
 {
-	if(mpInpClipPlanes)
+	if(mpGClipPlanes)
 		return mpInpClipPlanes->GetValue();
 
 	return -1;
@@ -375,7 +375,7 @@ bool iEditorWindowLowerToolbar::WindowSpecificInputCallback(iEditorInput* apInpu
 	iEditorAction* pAction = NULL;
 
 	int lClipPlaneIdx = -1;
-	if(mpInpClipPlanes) lClipPlaneIdx = mpInpClipPlanes->GetValue();
+	if(mpGClipPlanes) lClipPlaneIdx = mpInpClipPlanes->GetValue();
 	cEditorClipPlane* pClipPlane = pWorld->GetClipPlane(lClipPlaneIdx);
 
 	if(apInput==mpInpPlaneHeight)
