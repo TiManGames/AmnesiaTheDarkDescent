@@ -30,9 +30,9 @@ else ()
 endif ()
 
 
-add_executable(Amnesia ${full_sources})
-target_link_libraries(Amnesia HPL2)
-set_target_properties(Amnesia PROPERTIES COMPILE_DEFINITIONS "${compile_defs}")
+add_executable(AmnesiaCE ${full_sources})
+target_link_libraries(AmnesiaCE HPL2)
+set_target_properties(AmnesiaCE PROPERTIES COMPILE_DEFINITIONS "${compile_defs}")
 
 if(LINUX)
     add_definitions(-DLINUX)

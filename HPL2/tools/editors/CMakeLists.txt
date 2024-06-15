@@ -115,7 +115,7 @@ file(GLOB_RECURSE leveleditor_sources
     LevelEditorWorld.cpp
     )
 
-AddToolTarget(LevelEditor
+AddToolTarget(LevelEditorCE
     ${leveleditor_sources}
 )
 
@@ -227,7 +227,7 @@ file(GLOB_RECURSE modeleditor_sources
     ModelEditorWorld.cpp
 )
 
-AddToolTarget(ModelEditor
+AddToolTarget(ModelEditorCE
     ${modeleditor_sources}
 )
 
@@ -292,7 +292,7 @@ file(GLOB_RECURSE particleeditor_sources
     ParticleEditorWorld.cpp
 )
 
-AddToolTarget(ParticleEditor
+AddToolTarget(ParticleEditorCE
     ${particleeditor_sources}
 )
 
@@ -352,7 +352,7 @@ file(GLOB_RECURSE materialeditor_sources
     MaterialEditorMain.cpp
 )
 
-AddToolTarget(MaterialEditor
+AddToolTarget(MaterialEditorCE
     ${materialeditor_sources}
 )
 

@@ -26,29 +26,29 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 ### MapViewer
 
-AddToolTarget(MapViewer
+AddToolTarget(MapViewerCE
     mapview/MapView.cpp
     ${common_sources}
 )
 
 ### ModelViewer
 
-AddToolTarget(ModelViewer
+AddToolTarget(ModelViewerCE
     modelview/ModelView.cpp
     ${common_sources}
 )
 
 ### ParticleViewer
 
-#AddToolTarget(ParticleViewer
+# AddToolTarget(ParticleViewer
 #    particleview/ParticleView.cpp
 #    ${common_sources}
-#)
+# )
 
 ##  Mesh Converter
 
-add_executable(MshConverter
-    mshconverter/MshConverter.cpp
-)
-target_link_libraries(MshConverter HPL2)
+# add_executable(MshConverter
+#     mshconverter/MshConverter.cpp
+# )
+# target_link_libraries(MshConverter HPL2)
 
