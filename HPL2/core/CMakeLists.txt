@@ -23,7 +23,7 @@ include(UtilityFunctions)
 SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Location of local private library path to use")
 
 
-add_subdirectory(../dependencies/OALWrapper OALWrapper)
+add_subdirectory(../dependencies/OALWrapper build_oalwrapper)
 
 # We use SDL2 by default in CMake now, but in the code 1.2 is also supported and we need to instruct it to use 2
 add_definitions(-DUSE_SDL2)
@@ -240,5 +240,5 @@ else()
     target_link_libraries(HPL2 z)
 endif()
 
-add_subdirectory(../tools tools)
+add_subdirectory(../tools build_tools)
 

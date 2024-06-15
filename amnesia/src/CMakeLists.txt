@@ -4,7 +4,6 @@ project(Lux)
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
 option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 
-# set(CMAKE_CXX_FLAGS "-fpermissive -no-pie -std=c++17")
 add_compile_options(
     -std=c++20
     -fno-strict-aliasing
@@ -42,7 +41,7 @@ set(CMAKE_BUILD_TYPE "Release")
 # RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
 # MinSizeRel: same as Release but optimizing for size rather than speed.
 
-message(STATUS "Starting a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
+message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
@@ -52,9 +51,9 @@ if(USERDIR_RESOURCES)
     )
 endif()
 
-add_subdirectory(../../HPL2/core core2)
-add_subdirectory(game game)
-add_subdirectory(launcher launcher)
+add_subdirectory(../../HPL2/core build_core)
+add_subdirectory(game build_game)
+add_subdirectory(launcher build_launcher)
 
 add_custom_target(GameRelease
     DEPENDS Amnesia Launcher

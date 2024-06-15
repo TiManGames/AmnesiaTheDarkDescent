@@ -18,7 +18,7 @@ if(USERDIR_RESOURCES)
     )
 endif()
 
-add_subdirectory(editors)
+add_subdirectory(editors build_editors)
 
 file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     ../tests/Common/*.*
