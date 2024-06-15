@@ -12,10 +12,18 @@ add_compile_options(
 
 # silence some annoying warnings
 add_compile_options(
-    -Wno-switch
-    -Wno-reorder
-    -Wno-unused-variable
-    -Wno-unused-function
+    -Wno-unused-result  # just annoying
+    -Wno-aggressive-loop-optimizations  # shows false positive errors about simple loops being unpredictable
+    -Wno-write-strings  # don't convert const string to char* because the boogeyman will get you!
+    # TODO fix these:
+    -Wno-deprecated-enum-float-conversion
+    -Wno-narrowing
+    -Wno-int-to-pointer-cast
+    -Wno-format-security
+    -Wno-delete-incomplete
+    # Retarded shit done by the FBX SDK:
+    -Wno-literal-suffix  # missing spaces between stuff
+    -Wno-deprecated-enum-enum-conversion  # bitwise operation between different enumeration types
 )
 
 # Required by the libGLEW dependency, although it seems to be only used by the Level Editor?
