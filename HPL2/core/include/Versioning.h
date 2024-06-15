@@ -9,7 +9,7 @@
 // community edition versioning
 #define CE_VERSION_MAJOR 0
 #define CE_VERSION_MINOR 4
-#define CE_VERSION_PATCH 2
+#define CE_VERSION_PATCH 3
 
 #include "system/String.h"
 

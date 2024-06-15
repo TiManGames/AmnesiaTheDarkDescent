@@ -21,7 +21,7 @@ It's a bug which was present in the source code and is being currently examined.
 
 # Changelog
 
-v0.4.2
+v0.4.3
 - Made the editors use the system mouse instead of a simulated one
 - Unified build versioning (hpl.log now will have updated build IDs after each compilation)
 - Fix a few source code issues
@@ -29,6 +29,7 @@ v0.4.2
 - Increased menu widget spacing
 - Increased the size of edit mode buttons
 - Fixed a bug where the new color picker couldn't set a full white color (#39)
+- Fixed Model Editor crash when changing grid settings (#16)
 
 v0.2.3
 - Added exit shortcuts to the Material Editor
