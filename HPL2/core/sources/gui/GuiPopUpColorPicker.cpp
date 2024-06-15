@@ -1405,7 +1405,7 @@ namespace hpl {
 	{
 		///////////////////////////////////////////////////////////////
 		// Compare old color to new and set up stuff if different
-		if((mColor == mpFPreviousColor->GetBackGroundColor()) == false)
+		if(!(mColor == mpFPreviousColor->GetBackGroundColor()))
 		{
 			if(mpDestColor)
 				*mpDestColor = mColor;
