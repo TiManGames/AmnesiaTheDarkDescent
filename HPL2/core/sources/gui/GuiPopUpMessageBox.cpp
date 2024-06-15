@@ -82,6 +82,7 @@ namespace hpl {
 			mvButtons[0]->AddCallback(eGuiMessage_ButtonPressed,this, kGuiCallback(ButtonPress));
 			mvButtons[0]->AddCallback(eGuiMessage_UIButtonPress,this, kGuiCallback(GamepadButtonPress));
 			mvButtons[0]->SetGlobalUIInputListener(true);
+			mvButtons[0]->AddShortcut(eKeyModifier_None, eKey_Return);
 
 			mvButtons[1] = NULL;
 		}
@@ -92,12 +93,14 @@ namespace hpl {
 			mvButtons[0]->AddCallback(eGuiMessage_ButtonPressed,this, kGuiCallback(ButtonPress));
 			mvButtons[0]->AddCallback(eGuiMessage_UIButtonPress,this, kGuiCallback(GamepadButtonPress));
 			mvButtons[0]->SetGlobalUIInputListener(true);
+			mvButtons[0]->AddShortcut(eKeyModifier_None, eKey_Return);
 
 			vPos.x += 80+20;
 			mvButtons[1] = mpSet->CreateWidgetButton(vPos,cVector2f(80,30),asButton2,mpWindow);
 			mvButtons[1]->AddCallback(eGuiMessage_ButtonPressed,this, kGuiCallback(ButtonPress));
 			mvButtons[1]->AddCallback(eGuiMessage_UIButtonPress,this, kGuiCallback(GamepadButtonPress));
 			mvButtons[1]->SetGlobalUIInputListener(true);
+			mvButtons[1]->AddShortcut(eKeyModifier_None, eKey_Escape);
 			
 			mvButtons[0]->SetFocusNavigation(eUIArrow_Right, mvButtons[1]);
 			mvButtons[1]->SetFocusNavigation(eUIArrow_Left, mvButtons[0]);

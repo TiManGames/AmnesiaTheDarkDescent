@@ -23,13 +23,14 @@ It's a bug which was present in the source code and is being currently examined.
 
 v0.4.3
 - Made the editors use the system mouse instead of a simulated one
-- Unified build versioning (hpl.log now will have updated build IDs after each compilation)
-- Fix a few source code issues
-- Added a missing shortcut label (F for focusing on selection)
 - Increased menu widget spacing
 - Increased the size of edit mode buttons
+- Added Enter and Escape shortcuts for pop-up windows (e.g. warnings, exit confirmation)
+- Added a missing shortcut label (F for focusing on selection)
 - Fixed a bug where the new color picker couldn't set a full white color (#39)
-- Fixed Model Editor crash when changing grid settings (#16)
+- Fixed a Model Editor crash when changing grid settings (#16)
+- Unified build versioning (hpl.log now will have updated build IDs after each compilation)
+- Fix a few source code issues
 
 v0.2.3
 - Added exit shortcuts to the Material Editor
