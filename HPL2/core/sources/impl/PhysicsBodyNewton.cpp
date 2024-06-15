@@ -106,7 +106,8 @@ namespace hpl {
 		if(cPhysicsBodyNewton::mbUseCallback==false) return;
 
 		cPhysicsBodyNewton *pRigidBody = static_cast<cPhysicsBodyNewton*>(apEntity);
-		NewtonBodySetMatrix(pRigidBody->mpNewtonBody, &apEntity->GetLocalMatrix().GetTranspose().m[0][0]);
+		dFloat matrix = apEntity->GetLocalMatrix().GetTranspose().m[0][0];
+		NewtonBodySetMatrix(pRigidBody->mpNewtonBody, &matrix);
 	}
 
 	//-----------------------------------------------------------------------

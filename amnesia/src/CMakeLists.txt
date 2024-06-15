@@ -6,7 +6,6 @@ option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 
 # set(CMAKE_CXX_FLAGS "-fpermissive -no-pie -std=c++17")
 add_compile_options(
-    -fpermissive
     -std=c++20
     -fno-strict-aliasing
 )

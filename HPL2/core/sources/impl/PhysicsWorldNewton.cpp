@@ -602,9 +602,11 @@ namespace hpl {
 					cCollideShapeNewton *pSubShapeA = static_cast<cCollideShapeNewton*>(pNewtonShapeA->GetSubShape(a));
 					cCollideShapeNewton *pSubShapeB = static_cast<cCollideShapeNewton*>(pNewtonShapeB->GetSubShape(b));
 					
+					dFloat matrixA = mtxTransposeA.m[0][0];
+					dFloat matrixB = mtxTransposeB.m[0][0];
 					int lNum = NewtonCollisionCollide(mpNewtonWorld, alMaxPoints,
-												pSubShapeA->GetNewtonCollision(), &(mtxTransposeA.m[0][0]),
-												pSubShapeB->GetNewtonCollision(), &(mtxTransposeB.m[0][0]),
+												pSubShapeA->GetNewtonCollision(), &matrixA,
+												pSubShapeB->GetNewtonCollision(), &matrixB,
 												mpTempPoints, mpTempNormals, mpTempDepths, 0);
 					if(lNum<1) continue;
 					if(lNum > alMaxPoints )lNum = alMaxPoints;
@@ -652,9 +654,11 @@ namespace hpl {
 		else 
 		{
 			//Log(" 1\n");
+			dFloat matrixA = mtxTransposeA.m[0][0];
+			dFloat matrixB = mtxTransposeB.m[0][0];
 			int lNum = NewtonCollisionCollide(mpNewtonWorld, alMaxPoints,
-										pNewtonShapeA->GetNewtonCollision(), &(mtxTransposeA.m[0][0]),
-										pNewtonShapeB->GetNewtonCollision(), &(mtxTransposeB.m[0][0]),
+										pNewtonShapeA->GetNewtonCollision(), &matrixA,
+										pNewtonShapeB->GetNewtonCollision(), &matrixB,
 										mpTempPoints, mpTempNormals, mpTempDepths, 0);
 			
 			if(lNum<1) return false;
@@ -720,8 +724,9 @@ namespace hpl {
 		gDebugColor = aColor;
 
 		cCollideShapeNewton *pNewtonShape = static_cast<cCollideShapeNewton*>(apShape);
+		dFloat matrix = a_mtxTransform.GetTranspose().m[0][0];
 		NewtonCollisionForEachPolygonDo (	pNewtonShape->GetNewtonCollision(), 
-											&(a_mtxTransform.GetTranspose().m[0][0]), 
+											&matrix, 
 											RenderDebugPolygon,
 											NULL);
 	}
