@@ -1,6 +1,5 @@
 ### setup options
 option(FULL_WARNINGS "Enable full warnings" OFF)
-option(FORCE32 "Force a 32bit compile on 64bit" OFF)
 
 # this adds the build directory to the include path automatically
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -8,15 +7,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Unlike APPLE and WIN32, built-in LINUX var was added only in CMake 3.25
 if ("${CMAKE_SYSTEM}" MATCHES "Linux")
     set(LINUX ON)
-endif ()
-
-if (FORCE32)
-    if (LINUX)
-        set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -m32")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
-    elseif (APPLE)
-        set(CMAKE_OSX_ARCHITECTURES "i386")
-    endif ()
 endif ()
 
 if (FULL_WARNINGS)
@@ -29,7 +19,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
 
 if (LINUX)
     set(PLATFORM_PREFIX "linux")
-    if (CMAKE_SIZEOF_VOID_P MATCHES "8" AND NOT (FORCE32))
+    if (CMAKE_SIZEOF_VOID_P MATCHES "8")
         set(CMAKE_EXECUTABLE_SUFFIX ".bin.x86_64")
         set(BIN_RPATH "\$ORIGIN/lib64")
         set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS ON)
@@ -60,7 +50,6 @@ if (NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     message(STATUS "Exporting variables to parent scope")
 
     set(LINUX ${LINUX} PARENT_SCOPE)
-    set(FORCE32 ${FORCE32} PARENT_SCOPE)
     set(PLATFORM_PREFIX ${PLATFORM_PREFIX} PARENT_SCOPE)
 
     set(CMAKE_INCLUDE_CURRENT_DIR ${CMAKE_INCLUDE_CURRENT_DIR} PARENT_SCOPE)

@@ -1,8 +1,6 @@
 cmake_minimum_required (VERSION 3.19)
 project (OALWrapper)
 
-OPTION(FORCE32 "Force a 32 bit build on 64bit linux" OFF)
-
 set(OALWrapper_VERSION_MAJOR 1)
 set(OALWrapper_VERSION_MINOR 0)
 
@@ -11,7 +9,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeScripts)
 
 # Set lib subdir from the dependencies (PRIVATE_LIB_DIR) folder
 if(LINUX)
-    if(CMAKE_SIZEOF_VOID_P MATCHES "8" AND NOT(FORCE32))
+    if(CMAKE_SIZEOF_VOID_P MATCHES "8")
         SET(PRIVATE_LIB_SUFFIX "lib/linux/lib64")
     else()
         SET(PRIVATE_LIB_SUFFIX "lib/linux/lib")
