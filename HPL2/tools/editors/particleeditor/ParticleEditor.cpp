@@ -508,7 +508,7 @@ void cParticleEditor::OnLoadConfig()
 	}
 
 	// Window caption
-	msCaption = "HPL Particle Editor";
+	msCaption = "HPL Particle Editor (Community Edition)";
 	
 	SetLogFile(GetHomeDir() + _W("ParticleEditor.log"));
 

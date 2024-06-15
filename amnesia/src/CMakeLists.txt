@@ -4,6 +4,12 @@ project(Lux)
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
 option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 
+set(CMAKE_BUILD_TYPE "Release")
+# Release: high optimization level, no debug info, code or asserts.
+# Debug: No optimization, asserts enabled, debug info included in executable (so you can step through the code with a debugger and have address to source-file:line-number translation).
+# RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
+# MinSizeRel: same as Release but optimizing for size rather than speed.
+
 add_compile_options(
     -std=c++20
     -fno-strict-aliasing
@@ -25,7 +31,7 @@ add_compile_options(
     -Wno-deprecated-enum-enum-conversion  # bitwise operation between different enumeration types
 )
 
-# Required by the libGLEW dependency, although it seems to be only used by the Level Editor?
+# Required by the libGLEW dependency
 add_link_options(
     -no-pie
 )
@@ -33,13 +39,6 @@ add_link_options(
 if (FULL_WARNINGS)
     add_compile_options(-Wall -Wextra)
 endif ()
-
-
-set(CMAKE_BUILD_TYPE "Release")
-# Release: high optimization level, no debug info, code or asserts.
-# Debug: No optimization, asserts enabled, debug info included in executable (so you can step through the code with a debugger and have address to source-file:line-number translation).
-# RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
-# MinSizeRel: same as Release but optimizing for size rather than speed.
 
 message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
