@@ -1,12 +1,6 @@
 cmake_minimum_required (VERSION 3.19)
 project(Tools)
 
-find_file(TOOLINFO_PLIST Tool-Info.plist
-    PATHS ${CMAKE_CURRENT_SOURCE_DIR}
-    NO_DEFAULT_PATH
-)
-mark_as_advanced(TOOLINFO_PLIST)
-
 function(AddToolTarget target)
     add_executable(${target} ${ARGN})
     target_link_libraries(${target} HPL2)
