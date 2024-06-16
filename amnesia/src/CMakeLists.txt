@@ -17,7 +17,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
 add_compile_options(
     -std=c++20
-    -fno-strict-aliasing
+    -fno-strict-aliasing  # required by AngelScript
 )
 
 # silence some annoying warnings
