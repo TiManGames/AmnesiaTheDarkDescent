@@ -132,7 +132,7 @@ ELSEIF(WIN32)
     )
 ENDIF()
 
-if (FBX_SUPPORT)
+if(FBX_SUPPORT)
     list(APPEND impl_sources
     sources/impl/MeshLoaderFBX.cpp
     )
@@ -166,7 +166,7 @@ source_group("Platform" REGULAR_EXPRESSION "\\/impl\\/Platform.+")
 
 # setup libs
 
-if (WIN32)
+if(WIN32)
     FindPrebuiltLibrary(NEWTON_LIBRARY newton)
     FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
@@ -213,11 +213,10 @@ target_link_libraries(HPL2
     ${GLEW_LIBRARY}
     ${THEORA_LIBRARY}
     ${DEVIL_LIBRARY}
-    ${FBX_LIBRARY}
     ${PLATFORM_LIBS}
 )
 
-if (FBX_SUPPORT)
+if(FBX_SUPPORT)
     target_link_libraries(HPL2 ${FBX_LIBRARY})
 endif()
 
