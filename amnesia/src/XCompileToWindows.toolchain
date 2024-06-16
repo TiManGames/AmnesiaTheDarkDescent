@@ -2,11 +2,18 @@
 set(CMAKE_SYSTEM_NAME Windows)
 
 # which compilers to use for C and C++
-set(CMAKE_C_COMPILER   x86_64-w64-mingw32-gcc-win32)
-set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++-win32)
+# set(CMAKE_C_COMPILER   x86_64-w64-mingw32-gcc-win32)  # 64 bit but the windows version was made for 32 only
+# set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++-win32)  # 64 bit
+set(CMAKE_C_COMPILER   i686-w64-mingw32-gcc-win32)
+set(CMAKE_CXX_COMPILER i686-w64-mingw32-g++-win32)
 
-# where is the target environment located
-#set(CMAKE_FIND_ROOT_PATH  /usr/i586-mingw32msvc /home/alex/mingw-install)
+# these shouldn't be necessary, in theory...
+# add_compile_options(-m32)
+# add_link_options(-m32)
+
+# where the target environment is located
+set(CMAKE_FIND_ROOT_PATH  /usr/i686-w64-mingw32/)
+
 
 # Note: I set these to NEVER without a thorough understanding of what it does:
 

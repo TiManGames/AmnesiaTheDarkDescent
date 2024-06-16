@@ -4,7 +4,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Unlike APPLE and WIN32, built-in LINUX var was added only in CMake 3.25
-if ("${CMAKE_SYSTEM}" MATCHES "Linux")
+if ("${CMAKE_SYSTEM_NAME}" MATCHES "Linux")
     set(LINUX ON)
 endif ()
 
@@ -29,6 +29,8 @@ if (LINUX)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 elseif (WIN32)
     set(PLATFORM_PREFIX "win32")
+    set(CMAKE_EXECUTABLE_SUFFIX ".exe")
+    add_compile_definitions(WIN32)  # FG's flag used instead of the predefined C++ macro _WIN32
 
     MESSAGE(FATAL_ERROR "TODO Windows specific stuff")
 else ()
