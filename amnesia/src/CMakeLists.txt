@@ -5,7 +5,7 @@ message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
 option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
-option(FBX_SUPPORT "Add FBX support during compilation" OFF)
+option(FBX_SUPPORT "Add FBX support during compilation" ON)
 
 set(CMAKE_BUILD_TYPE "Release")
 # Release: high optimization level, no debug info, code or asserts.
