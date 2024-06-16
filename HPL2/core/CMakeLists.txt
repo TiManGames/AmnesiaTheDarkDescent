@@ -4,24 +4,11 @@ project(HPL2)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoilerPlate)
 
-set(BIN_LIBROOT ${PLATFORM_PREFIX})
-
-set(DEP_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/lib/${BIN_LIBROOT}")
-set(DEP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include")
-find_path(PREBUILT_PLATFORM_ROOT .
-    PATHS "${DEP_LIB_DIR}"
-    NO_DEFAULT_PATH
-)
-set(DEP_LIB_DIR ${DEP_LIB_DIR} PARENT_SCOPE)
-set(DEP_INCLUDE_DIR ${DEP_INCLUDE_DIR} PARENT_SCOPE)
-mark_as_advanced(
-    PREBUILT_PLATFORM_ROOT
-)
+# Set up dependencies dirs (CACHE = global scope)
+set(DEPENDENCIES_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Dir which holds dependencies - libs and headers")
+set(DEPENDENCIES_PLATFORM_LIBS ${DEPENDENCIES_ROOT}/lib/${PLATFORM_PREFIX} CACHE PATH "Dir which holds prebuilt libraries for target system")
 
 include(UtilityFunctions)
-
-SET(PRIVATE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Location of local private library path to use")
-
 
 add_subdirectory(../dependencies/OALWrapper build_oalwrapper)
 
@@ -212,7 +199,8 @@ target_link_libraries(HPL2
     OALWrapper # also pulls in ogg,vorbis,SDL
     ${NEWTON_LIBRARY}
     ${ANGELSCRIPT_LIBRARY}
-    ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
+    ${OPENGL_gl_LIBRARY}
+    ${OPENGL_glu_LIBRARY}
     ${GLEW_LIBRARY}
     ${THEORA_LIBRARY}
     ${DEVIL_LIBRARY}
@@ -220,8 +208,17 @@ target_link_libraries(HPL2
     ${PLATFORM_LIBS}
 )
 
+if(WIN32)
+    FindPrebuiltLibrary(ZLIB zlib)
+    target_link_libraries(HPL2 ${ZLIB})
+else()
+    find_library(ZLIB z)
+    target_link_libraries(HPL2 z)
+endif()
+
 message(STATUS
     "Core libs:
+    ${ZLIB}
     ${NEWTON_LIBRARY}
     ${ANGELSCRIPT_LIBRARY}
     ${OPENGL_gl_LIBRARY}
@@ -232,13 +229,6 @@ message(STATUS
     ${FBX_LIBRARY}
     ${PLATFORM_LIBS}"
 )
-
-if(WIN32)
-    find_library(ZLIB zlib PATHS ${DEP_LIB_DIR} PATH_SUFFIXES lib NO_DEFAULT_PATH)
-    target_link_libraries(HPL2 ${ZLIB})
-else()
-    target_link_libraries(HPL2 z)
-endif()
 
 add_subdirectory(../tools build_tools)
 
