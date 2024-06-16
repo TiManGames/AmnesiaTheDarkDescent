@@ -175,7 +175,9 @@ bool cModelEditor::MainMenu_ItemClick(iWidget* apWidget, const cGuiMessageData& 
 	else if(apWidget==mpMainMenuImport)
 	{
 		tWStringList vFilters = tWStringList(1,_W("*.dae"));
+		#ifdef FBX_SUPPORT
 		vFilters.push_back(_W("*.fbx"));
+		#endif
 		ShowLoadFilePicker(mvLoadFilenames, msLastMeshPath,this, kGuiCallback(MeshImport_Callback), _W("Meshes"), vFilters);
 	}
 	/////////////////////////////////////////////////////////////////

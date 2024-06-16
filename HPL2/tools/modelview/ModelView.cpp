@@ -1645,7 +1645,9 @@ public:
 		cGuiPopUpFilePicker* pPicker = pSet->CreatePopUpLoadFilePicker(mvPickedFiles,false,msCurrentFilePath,false, this, kGuiCallback(LoadModelFromFilePicker));
 		int lCat = pPicker->AddCategory(_W("Models"),_W("*.dae"));
 		pPicker->AddFilter(lCat,_W("*.ent"));
+		#ifdef FBX_SUPPORT
 		pPicker->AddFilter(lCat,_W("*.fbx"));
+		#endif
 
 		return true;
 	}
@@ -1916,8 +1918,9 @@ public:
 		cGuiPopUpFilePicker* pPicker = pSet->CreatePopUpLoadFilePicker(mvPickedFiles,false,msCurrentFilePath,false, this, kGuiCallback(LoadAnimationFromFilePicker));
 		int lCat = pPicker->AddCategory(_W("Animation"),_W("*.dae"));
 		pPicker->AddFilter(lCat,_W("*.dae_anim"));
+		#ifdef FBX_SUPPORT
 		pPicker->AddFilter(lCat,_W("*.fbx"));
-
+		#endif
 		
 		return true;
 	}

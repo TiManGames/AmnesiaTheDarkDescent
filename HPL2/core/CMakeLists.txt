@@ -117,7 +117,6 @@ file(GLOB impl_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     sources/impl/MeshLoaderColladaHelpers.cpp
     sources/impl/MeshLoaderColladaLoader.cpp
     sources/impl/MeshLoaderMSH.cpp
-    sources/impl/MeshLoaderFBX.cpp
 )
 
 IF(LINUX)
@@ -125,7 +124,19 @@ IF(LINUX)
         sources/impl/PlatformUnix.cpp
         sources/impl/PlatformSDL.cpp
     )
+ELSEIF(WIN32)
+    LIST(APPEND impl_sources
+        sources/impl/MutexWin32.cpp
+        sources/impl/ThreadWin32.cpp
+        sources/impl/PlatformWin32.cpp
+    )
 ENDIF()
+
+if (FBX_SUPPORT)
+    list(APPEND impl_sources
+    sources/impl/MeshLoaderFBX.cpp
+    )
+endif()
 
 # setup source groups
 source_group("AI" REGULAR_EXPRESSION "\\/ai\\/.+")
@@ -172,9 +183,7 @@ FindPrebuiltLibrary(THEORA_LIBRARY theora)
 FindPrebuiltLibrary(DEVIL_LIBRARY IL)
 
 set(OpenGL_GL_PREFERENCE LEGACY)
-
 find_package(OpenGL)
-mark_as_advanced(NEWTON_LIBRARY ANGELSCRIPT_LIBRARY FBX_LIBRARY GLEW_LIBRARY THEORA_LIBRARY DEVIL_LIBRARY)
 
 # setup HPL2 compile target
 
@@ -207,6 +216,10 @@ target_link_libraries(HPL2
     ${FBX_LIBRARY}
     ${PLATFORM_LIBS}
 )
+
+if (FBX_SUPPORT)
+    target_link_libraries(HPL2 ${FBX_LIBRARY})
+endif()
 
 if(WIN32)
     FindPrebuiltLibrary(ZLIB zlib)
