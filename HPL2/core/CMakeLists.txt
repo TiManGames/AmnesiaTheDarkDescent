@@ -16,23 +16,6 @@ add_subdirectory(../../dependencies/OALWrapper build_oalwrapper)
 add_definitions(-DUSE_SDL2)
 add_definitions(-DUSE_OALWRAPPER)
 
-set(HPL2_INCLUDES
-    PUBLIC include
-    #Important that this is before dependencies so the correct OpenAL headers are used
-    PRIVATE ${OALWRAPPER_INCLUDE_DIR}
-    PRIVATE ../../dependencies/AngelScript/include
-    PUBLIC ${DEPENDENCIES_ROOT}/include
-)
-
-IF(LINUX)
-    add_library(binreloc STATIC ../../dependencies/binreloc/binreloc.c)
-    set_target_properties(binreloc PROPERTIES COMPILE_DEFINITIONS "ENABLE_BINRELOC")
-
-    list(APPEND HPL2_INCLUDES
-        ../../dependencies/binreloc/
-    )
-ENDIF()
-
 
 # common shared source
 file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -171,6 +154,23 @@ add_library(HPL2 STATIC
     ${impl_sources}
 )
 
+set(HPL2_INCLUDES
+    PUBLIC include
+    # Important that this is before dependencies so the correct OpenAL headers are used
+    PRIVATE ${OALWRAPPER_INCLUDE_DIR}
+    PRIVATE ../../dependencies/AngelScript/include
+    PUBLIC ${DEPENDENCIES_ROOT}/include
+)
+
+if(LINUX)
+    add_library(binreloc STATIC ../../dependencies/binreloc/binreloc.c)
+    set_target_properties(binreloc PROPERTIES COMPILE_DEFINITIONS "ENABLE_BINRELOC")
+
+    list(APPEND HPL2_INCLUDES
+        ../../dependencies/binreloc/
+    )
+endif()
+
 target_include_directories(HPL2
     ${HPL2_INCLUDES}
 )
@@ -225,9 +225,10 @@ if(FBX_SUPPORT)
 endif()
 
 if(WIN32)
+    # Normally we'd use prebuilt DLLs
     # FindPrebuiltLibrary(ZLIB zlib)
     # target_link_libraries(HPL2 ${ZLIB})
-
+    # For MinGW - build libz from scratch
     add_subdirectory(../../dependencies/zlib build_zlib)
     target_link_libraries(HPL2 zlib)
     find_path(ZCONF_DIR zconf.h PATHS ${CMAKE_CURRENT_BINARY_DIR}/build_zlib REQUIRED NO_DEFAULT_PATH)
@@ -237,13 +238,17 @@ if(WIN32)
         PRIVATE ${ZCONF_DIR}
     )
 else()
-    find_library(ZLIB z REQUIRED)
-    target_link_libraries(HPL2 ${ZLIB})
+    # Use system libz
+    find_package(ZLIB REQUIRED)
+    target_link_libraries(HPL2 ${ZLIB_LIBRARIES})
+    target_include_directories(HPL2
+        PRIVATE ${ZLIB_INCLUDE_DIRS}
+    )
 endif()
 
 message(STATUS
     "Core libs:
-    ${ZLIB}
+    ${ZLIB_LIBRARIES}
     ${NEWTON_LIBRARY}
     ${ANGELSCRIPT_LIBRARY}
     ${OPENGL_gl_LIBRARY}
