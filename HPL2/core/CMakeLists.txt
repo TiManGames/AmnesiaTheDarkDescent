@@ -178,7 +178,8 @@ else()
     FindPrebuiltLibrary(DEVIL_LIBRARY IL)
 endif()
 
-FindPrebuiltLibrary(ANGELSCRIPT_LIBRARY angelscript)
+# FindPrebuiltLibrary(ANGELSCRIPT_LIBRARY angelscript)
+add_subdirectory(../../dependencies/AngelScript build_angelscript)
 FindPrebuiltLibrary(THEORA_LIBRARY theora)
 FindPrebuiltLibrary(DEVIL_LIBRARY IL)
 
@@ -207,7 +208,7 @@ endif()
 target_link_libraries(HPL2
     OALWrapper # also pulls in ogg,vorbis,SDL
     ${NEWTON_LIBRARY}
-    ${ANGELSCRIPT_LIBRARY}
+    angelscript
     ${OPENGL_gl_LIBRARY}
     ${OPENGL_glu_LIBRARY}
     ${GLEW_LIBRARY}

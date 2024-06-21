@@ -2,13 +2,20 @@ cmake_minimum_required(VERSION 3.19)
 project(angelscript)
 
 set(ANGELSCRIPT_SOURCE
+    source/as_arrayobject.cpp
     source/as_atomic.cpp
     source/as_builder.cpp
     source/as_bytecode.cpp
+    source/as_callfunc_arm.cpp
     source/as_callfunc.cpp
-    source/as_callfunc_x86.cpp
+    source/as_callfunc_mips.cpp
+    source/as_callfunc_ppc_64.cpp
+    source/as_callfunc_ppc.cpp
+    source/as_callfunc_sh4.cpp
     source/as_callfunc_x64_gcc.cpp
     source/as_callfunc_x64_msvc.cpp
+    source/as_callfunc_x86.cpp
+    source/as_callfunc_xenon.cpp
     source/as_compiler.cpp
     source/as_configgroup.cpp
     source/as_context.cpp
@@ -38,16 +45,20 @@ set(ANGELSCRIPT_SOURCE
 set(ANGELSCRIPT_HEADERS
     include/angelscript.h
     source/as_array.h
+    source/as_arrayobject.h
+    source/as_atomic.h
     source/as_builder.h
     source/as_bytecode.h
     source/as_callfunc.h
+    source/as_callfunc_sh4.cpp
     source/as_compiler.h
-    source/as_config.h
     source/as_configgroup.h
+    source/as_config.h
     source/as_context.h
     source/as_criticalsection.h
     source/as_datatype.h
     source/as_debug.h
+    source/as_gc.h
     source/as_generic.h
     source/as_map.h
     source/as_memory.h
@@ -65,6 +76,7 @@ set(ANGELSCRIPT_HEADERS
     source/as_string.h
     source/as_string_util.h
     source/as_texts.h
+    source/as_thread.cpp
     source/as_thread.h
     source/as_tokendef.h
     source/as_tokenizer.h
@@ -83,12 +95,12 @@ if(MSVC AND CMAKE_CL_64)
     endif()
 endif()
 
-add_definitions("-DANGELSCRIPT_EXPORT")
+# add_definitions("-DANGELSCRIPT_EXPORT")
 
 # Fix x64 issues on Linux
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
-    add_definitions(-fPIC)
-endif()
+# if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
+#     add_definitions(-fPIC)
+# endif()
 
 add_library(angelscript STATIC ${ANGELSCRIPT_SOURCE} ${ANGELSCRIPT_HEADERS})
 
