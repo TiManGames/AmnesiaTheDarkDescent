@@ -5,12 +5,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoilerPlate)
 
 # Set up dependencies dirs (CACHE = global scope)
-set(DEPENDENCIES_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../dependencies CACHE PATH "Dir which holds dependencies - libs and headers")
+set(DEPENDENCIES_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/precompiled CACHE PATH "Dir which holds precompiled dependencies - libs and headers")
 set(DEPENDENCIES_PLATFORM_LIBS ${DEPENDENCIES_ROOT}/lib/${PLATFORM_PREFIX} CACHE PATH "Dir which holds prebuilt libraries for target system")
 
 include(UtilityFunctions)
 
-add_subdirectory(../dependencies/OALWrapper build_oalwrapper)
+add_subdirectory(../../dependencies/OALWrapper build_oalwrapper)
 
 # We use SDL2 by default in CMake now, but in the code 1.2 is also supported and we need to instruct it to use 2
 add_definitions(-DUSE_SDL2)
@@ -21,15 +21,15 @@ set(HPL2_INCLUDES
     #Important that this is before dependencies so the correct OpenAL headers are used
     PRIVATE ${OALWRAPPER_INCLUDE_DIR}
     PRIVATE ../../dependencies/AngelScript/include
-    PUBLIC ../dependencies/include
+    PUBLIC ${DEPENDENCIES_ROOT}/include
 )
 
 IF(LINUX)
-    add_library(binreloc STATIC ../dependencies/sources/binreloc/binreloc.c)
+    add_library(binreloc STATIC ../../dependencies/binreloc/binreloc.c)
     set_target_properties(binreloc PROPERTIES COMPILE_DEFINITIONS "ENABLE_BINRELOC")
 
     list(APPEND HPL2_INCLUDES
-        ../dependencies/sources/binreloc/
+        ../../dependencies/binreloc/
     )
 ENDIF()
 
