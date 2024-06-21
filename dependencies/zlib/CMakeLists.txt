@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 2.4.4)
+cmake_minimum_required(VERSION 3.19)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 project(zlib C)
 
 if(NOT DEFINED BUILD_SHARED_LIBS)
-    option(BUILD_SHARED_LIBS "Build a shared library form of zlib" ON)
+    option(BUILD_SHARED_LIBS "Build a shared library form of zlib" OFF)
 endif()
 
 include(CheckTypeSize)
@@ -110,7 +110,7 @@ set(ZLIB_SRCS
     trees.c
     uncompr.c
     zutil.c
-    win32/zlib1.rc
+    # win32/zlib1.rc
 )
 
 # parse the full version number from zlib.h and include in ZLIB_FULL_VERSION
@@ -118,20 +118,20 @@ file(READ ${CMAKE_CURRENT_SOURCE_DIR}/zlib.h _zlib_h_contents)
 string(REGEX REPLACE ".*#define[ \t]+ZLIB_VERSION[ \t]+\"([0-9A-Za-z.]+)\".*"
     "\\1" ZLIB_FULL_VERSION ${_zlib_h_contents})
 
-if(MINGW)
-    # This gets us DLL resource information when compiling on MinGW.
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
-                       COMMAND windres.exe
-                            -D GCC_WINDRES
-                            -I ${CMAKE_CURRENT_SOURCE_DIR}
-                            -I ${CMAKE_CURRENT_BINARY_DIR}
-                            -o ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
-                            -i ${CMAKE_CURRENT_SOURCE_DIR}/win32/zlib1.rc)
-    set(ZLIB_SRCS ${ZLIB_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj)
-endif(MINGW)
+# if(MINGW)
+#     # This gets us DLL resource information when compiling on MinGW.
+#     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
+#                        COMMAND windres.exe
+#                             -D GCC_WINDRES
+#                             -I ${CMAKE_CURRENT_SOURCE_DIR}
+#                             -I ${CMAKE_CURRENT_BINARY_DIR}
+#                             -o ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
+#                             -i ${CMAKE_CURRENT_SOURCE_DIR}/win32/zlib1.rc)
+#     set(ZLIB_SRCS ${ZLIB_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj)
+# endif(MINGW)
 
 add_library(zlib ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
-set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
+# set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 
 set_target_properties(zlib PROPERTIES SOVERSION 1)
 
@@ -152,27 +152,4 @@ if(UNIX)
 elseif(BUILD_SHARED_LIBS AND WIN32)
     # Creates zlib1.dll when building shared library version
     set_target_properties(zlib PROPERTIES SUFFIX "1.dll")
-endif()
-
-
-#============================================================================
-# Example binaries
-#============================================================================
-
-add_executable(example example.c)
-target_link_libraries(example zlib)
-add_test(example example)
-
-add_executable(minigzip minigzip.c)
-target_link_libraries(minigzip zlib)
-
-if(HAVE_OFF64_T)
-    add_executable(example64 example.c)
-    target_link_libraries(example64 zlib)
-    set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
-    add_test(example64 example64)
-
-    add_executable(minigzip64 minigzip.c)
-    target_link_libraries(minigzip64 zlib)
-    set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
 endif()
