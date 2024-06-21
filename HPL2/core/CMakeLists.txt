@@ -20,7 +20,7 @@ set(HPL2_INCLUDES
     PUBLIC include
     #Important that this is before dependencies so the correct OpenAL headers are used
     PRIVATE ${OALWRAPPER_INCLUDE_DIR}
-    PUBLIC ../../dependencies/AngelScript/include
+    PRIVATE ../../dependencies/AngelScript/include
     PUBLIC ../dependencies/include
 )
 
