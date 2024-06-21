@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(Angelscript)
+project(angelscript)
 
 set(ANGELSCRIPT_SOURCE
     source/as_atomic.cpp
@@ -90,7 +90,7 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
     add_definitions(-fPIC)
 endif()
 
-add_library(Angelscript STATIC ${ANGELSCRIPT_SOURCE} ${ANGELSCRIPT_HEADERS})
+add_library(angelscript STATIC ${ANGELSCRIPT_SOURCE} ${ANGELSCRIPT_HEADERS})
 
 # find_package(Threads)
 # target_link_libraries(Angelscript ${CMAKE_THREAD_LIBS_INIT})
