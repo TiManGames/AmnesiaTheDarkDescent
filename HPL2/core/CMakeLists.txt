@@ -226,13 +226,15 @@ endif()
 
 if(WIN32)
     # FindPrebuiltLibrary(ZLIB zlib)
+    # target_link_libraries(HPL2 ${ZLIB})
+
     add_subdirectory(../../dependencies/zlib build_zlib)
     target_link_libraries(HPL2 zlib)
-    find_file(ZCONF_DIR zconf.h PATHS ${CMAKE_CURRENT_BINARY_DIR}/build_zlib REQUIRED NO_DEFAULT_PATH)
+    find_path(ZCONF_DIR zconf.h PATHS ${CMAKE_CURRENT_BINARY_DIR}/build_zlib REQUIRED NO_DEFAULT_PATH)
     message(STATUS "zconfdir ${ZCONF_DIR}")
     target_include_directories(HPL2
-        PUBLIC ../../dependencies/zlib
-        ${ZCONF_DIR}
+        PRIVATE ../../dependencies/zlib
+        PRIVATE ${ZCONF_DIR}
     )
 else()
     find_library(ZLIB z REQUIRED)
