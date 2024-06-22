@@ -177,7 +177,7 @@ target_include_directories(HPL2
 
 # setup libs
 
-if(WIN32)
+if(MINGW)
     FindPrebuiltLibrary(NEWTON_LIBRARY newton)
     FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
@@ -185,6 +185,14 @@ if(WIN32)
 
     add_subdirectory(../../dependencies/AngelScript build_angelscript)
     target_link_libraries(HPL2 angelscript)
+elseif(WIN32)
+    FindPrebuiltLibrary(NEWTON_LIBRARY newton)
+    FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
+    FindPrebuiltLibrary(GLEW_LIBRARY glew32)
+    FindPrebuiltLibrary(DEVIL_LIBRARY DevIL)
+
+    FindPrebuiltLibrary(ANGELSCRIPT_LIBRARY angelscript)
+    target_link_libraries(HPL2 ${ANGELSCRIPT_LIBRARY})
 else()
     FindPrebuiltLibrary(NEWTON_LIBRARY Newton)
     FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-static)
@@ -224,11 +232,7 @@ if(FBX_SUPPORT)
     target_link_libraries(HPL2 ${FBX_LIBRARY})
 endif()
 
-if(WIN32)
-    # Normally we'd use prebuilt DLLs
-    # FindPrebuiltLibrary(ZLIB zlib)
-    # target_link_libraries(HPL2 ${ZLIB})
-    # For MinGW - build libz from scratch
+if(MINGW)
     add_subdirectory(../../dependencies/zlib build_zlib)
     target_link_libraries(HPL2 zlib)
     find_path(ZCONF_DIR zconf.h PATHS ${CMAKE_CURRENT_BINARY_DIR}/build_zlib REQUIRED NO_DEFAULT_PATH)
@@ -237,6 +241,9 @@ if(WIN32)
         PRIVATE ../../dependencies/zlib
         PRIVATE ${ZCONF_DIR}
     )
+elseif(WIN32)
+    FindPrebuiltLibrary(ZLIB zlib)
+    target_link_libraries(HPL2 ${ZLIB})
 else()
     # Use system libz
     find_package(ZLIB REQUIRED)

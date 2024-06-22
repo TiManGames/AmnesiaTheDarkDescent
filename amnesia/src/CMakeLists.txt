@@ -15,7 +15,7 @@ set(CMAKE_BUILD_TYPE "Release")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
-if(WIN32)
+if(MINGW)
     # There is some stuff that breaks in mingw in newer standards
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
     add_compile_options(-std=c++11)
@@ -63,8 +63,8 @@ endif()
 add_subdirectory(../../HPL2/core build_core)
 add_subdirectory(game build_game)
 
-if(WIN32)
-    message(WARNING "Launcher target is not ready on Windows/MinGW yet and will not be built.")
+if(MINGW)
+    message(WARNING "Launcher target is not ready on MinGW yet and will not be built.")
 else()
     add_subdirectory(launcher build_launcher)
 endif()
