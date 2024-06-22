@@ -62,7 +62,12 @@ endif()
 
 add_subdirectory(../../HPL2/core build_core)
 add_subdirectory(game build_game)
-add_subdirectory(launcher build_launcher)
+
+if(WIN32)
+    message(WARNING "Launcher target is not ready on Windows/MinGW yet and will not be built.")
+else()
+    add_subdirectory(launcher build_launcher)
+endif()
 
 add_custom_target(GameRelease
     DEPENDS Amnesia Launcher

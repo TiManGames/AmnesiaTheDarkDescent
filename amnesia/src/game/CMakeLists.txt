@@ -29,14 +29,16 @@ else ()
     set(full_sources ${all_sources})
 endif ()
 
+if(LINUX)
+    add_compile_definitions(-DLINUX)
+elseif(WIN32)
+    # This does not propagate from BoilerPlate
+    add_compile_definitions(WIN32)
+endif()
 
 add_executable(AmnesiaCE ${full_sources})
 target_link_libraries(AmnesiaCE HPL2)
 set_target_properties(AmnesiaCE PROPERTIES COMPILE_DEFINITIONS "${compile_defs}")
-
-if(LINUX)
-    add_definitions(-DLINUX)
-endif()
 
 add_executable(AmnesiaDemo EXCLUDE_FROM_ALL ${all_sources})
 target_link_libraries(AmnesiaDemo HPL2)
