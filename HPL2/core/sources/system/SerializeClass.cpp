@@ -33,7 +33,11 @@
 
 #include "resources/BinaryBuffer.h"
 
-#define ZLIB_WINAPI
+#ifdef WIN32
+#ifndef __MINGW32__
+	#define ZLIB_WINAPI
+#endif
+#endif
 #include <zlib.h>
 #include <stdio.h>
 
