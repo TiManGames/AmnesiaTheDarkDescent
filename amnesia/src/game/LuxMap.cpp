@@ -266,6 +266,7 @@ bool cLuxMap::LoadFromFile(const tString &asFile, bool abLoadEntities) {
         //////////////////////////
         // Print what i've done
 #if not MAC_OS && not LINUX
+        tWString sDebugMsg = std::to_wstring(static_cast<long long>(lNumRemovedTinderboxes));
         sDebugMsg += L" of ";
         sDebugMsg += std::to_wstring(static_cast<long long>(lNumTotalTinderboxes));
         sDebugMsg += L" tinderboxes removed, ";
