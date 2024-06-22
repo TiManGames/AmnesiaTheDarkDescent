@@ -71,8 +71,6 @@ list(APPEND OALWRAPPER_INCLUDE_PATHS
     PRIVATE ${SDL2_INCLUDE_DIR}
 )
 
-# TODO: this is where the fbx sdk and other stuff is actually included from
-# TODO: actually this is done in core, but this is still kinda bad
 if(EXTRA_INCLUDE_DIR)
     list(APPEND OALWRAPPER_INCLUDE_PATHS
         PRIVATE ${EXTRA_INCLUDE_DIR}
