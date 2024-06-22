@@ -20,11 +20,10 @@ Check button hover tips to see if a button has a shortcut, or the release change
 
 1. Ensure you have `make` and `cmake` installed
 1. Clone the project and enter the folder
-1. Extract `./HPL2/dependencies.zip` to the same folder it's in. **DO NOT** overwrite anything
-1. Run the script file at `./HPL2/dependencies/lib/linux/lib64/fix_symlinks.sh` to fix broken symlinks from the .zip file
+1. Run the script file at `./dependencies/precompiled/lib/linux/lib64/fix_symlinks.sh` to fix broken symlinks from the .zip file
 1. Create a `build` folder and open a terminal in it
 1. Run `cmake -S ../amnesia/src/` - this is called an out-of-source build, which basically means that CMake won't pollute the source code with its files. When there's an issue caused by CMake, you can empty this directory and rerun CMake.
-1. With a terminal still in `./build` run `make` (or use `make -jX` where X is the number of jobs you want to run to speed things up, based on your CPU threads; e.g. `make -j4`).
+1. With a terminal still in `./build` run `make` (or use `make -jX` to speed things up, where X is the number of jobs; e.g. `make -j4`).
 1. The build should compile and the resulting binaries will be found in `./output`.
 
 To run the compiled binary, copy it to your Amnesia installation folder.

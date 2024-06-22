@@ -5,7 +5,7 @@ message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
 option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
-option(FBX_SUPPORT "Add FBX support during compilation" ON)
+option(FBX_SUPPORT "Add FBX support during compilation" OFF)
 
 set(CMAKE_BUILD_TYPE "Release")
 # Release: high optimization level, no debug info, code or asserts.
@@ -15,10 +15,13 @@ set(CMAKE_BUILD_TYPE "Release")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
-add_compile_options(
-    -std=c++20
-    -fno-strict-aliasing  # required by AngelScript
-)
+if(MINGW)
+    # There is some stuff that breaks in mingw in newer standards
+    # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
+    add_compile_options(-std=c++11)
+else()
+    add_compile_options(-std=c++20)
+endif()
 
 # silence some annoying warnings
 add_compile_options(
@@ -33,10 +36,10 @@ add_compile_options(
     -Wno-delete-incomplete
 )
 
+# required by AngelScript
+add_compile_options(-fno-strict-aliasing)
 # Required by the libGLEW dependency
-add_link_options(
-    -no-pie
-)
+add_link_options(-no-pie)
 
 if (FULL_WARNINGS)
     add_compile_options(-Wall -Wextra)
@@ -59,7 +62,12 @@ endif()
 
 add_subdirectory(../../HPL2/core build_core)
 add_subdirectory(game build_game)
-add_subdirectory(launcher build_launcher)
+
+if(MINGW)
+    message(WARNING "Launcher target is not ready on MinGW yet and will not be built.")
+else()
+    add_subdirectory(launcher build_launcher)
+endif()
 
 add_custom_target(GameRelease
     DEPENDS Amnesia Launcher
