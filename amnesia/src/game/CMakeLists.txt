@@ -30,7 +30,7 @@ else ()
 endif ()
 
 if(LINUX)
-    add_compile_definitions(-DLINUX)
+    add_compile_definitions(LINUX)
 elseif(WIN32)
     # This does not propagate from BoilerPlate
     add_compile_definitions(WIN32)
