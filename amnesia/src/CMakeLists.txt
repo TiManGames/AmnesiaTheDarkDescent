@@ -18,22 +18,27 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 if(MINGW)
     # There is some stuff that breaks in mingw in newer standards
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
-    add_compile_options(-std=c++11)
+    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
 else()
-    add_compile_options(-std=c++20)
+    set(CMAKE_CXX_STANDARD 20)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
-# silence some annoying warnings
+# silence some annoying warnings that are language-agnostic
 add_compile_options(
-    -Wno-unused-result  # just annoying
-    -Wno-aggressive-loop-optimizations  # shows false positive errors about simple loops being unpredictable
-    -Wno-write-strings  # don't convert const string to char* because the boogeyman will get you!
-    # TODO fix these:
-    -Wno-deprecated-enum-float-conversion
-    -Wno-narrowing
-    -Wno-int-to-pointer-cast
-    -Wno-format-security
-    -Wno-delete-incomplete
+    -Wno-unused-result  # suppress warnings about unused return values
+    -Wno-aggressive-loop-optimizations  # suppress false positive warnings about loop optimizations
+    -Wno-write-strings  # allow converting const string literals to char* (non-const)
+    -Wno-format-security  # suppress format security warnings (e.g., printf format vulnerabilities)
+    -Wno-int-to-pointer-cast  # suppress warnings about casting integers to pointers
+    -Wno-attributes  # suppress warnings about ignored attributes in the code
+)
+
+# silence C++ specific warnings
+add_compile_options(
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # suppress warnings about narrowing conversions
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # suppress warnings about deleting incomplete types
 )
 
 # required by AngelScript
