@@ -32,7 +32,7 @@ elseif (WIN32)
     set(CMAKE_EXECUTABLE_SUFFIX ".exe")
     add_compile_definitions(WIN32)  # FG's flag used instead of the predefined C++ macro _WIN32
 
-    MESSAGE(FATAL_ERROR "TODO Windows specific stuff")
+    # TODO Windows specific stuff
 else ()
     MESSAGE(FATAL_ERROR "Unhandled Platform")
 endif ()
