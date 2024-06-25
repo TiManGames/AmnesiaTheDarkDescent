@@ -210,8 +210,10 @@ namespace hpl {
 	{
 		char text[4096];
 		va_list ap;	
-		if (fmt == NULL)
-			return;	
+        	if (fmt == NULL) {
+            		// fmt being NULL is an unusual case; handle it appropriately if needed
+            		exit(1);  // Exit immediately if fmt is NULL
+        	}
 		va_start(ap, fmt);
 		vsprintf(text, fmt, ap);
 		va_end(ap);
