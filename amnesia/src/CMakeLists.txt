@@ -27,9 +27,11 @@ endif()
 
 # silence some annoying warnings that are language-agnostic
 add_compile_options(
+    # False Positive or Pedantic Warnings
     -Wno-unused-result  # suppress warnings about unused return values
     -Wno-aggressive-loop-optimizations  # suppress false positive warnings about loop optimizations
     -Wno-write-strings  # allow converting const string literals to char* (non-const)
+    # TODO fix these:
     -Wno-format-security  # suppress format security warnings (e.g., printf format vulnerabilities)
     -Wno-int-to-pointer-cast  # suppress warnings about casting integers to pointers
     -Wno-attributes  # suppress warnings about ignored attributes in the code
@@ -37,6 +39,7 @@ add_compile_options(
 
 # silence C++ specific warnings
 add_compile_options(
+    # TODO fix these:
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # suppress warnings about narrowing conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # suppress warnings about deleting incomplete types
 )
