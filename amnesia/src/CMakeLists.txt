@@ -40,6 +40,7 @@ add_compile_options(
 # silence C++ specific warnings
 add_compile_options(
     # TODO fix these:
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # suppress warnings about deprecated enum to float conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # suppress warnings about narrowing conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # suppress warnings about deleting incomplete types
 )
