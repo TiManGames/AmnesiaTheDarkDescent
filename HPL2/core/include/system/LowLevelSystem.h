@@ -22,11 +22,6 @@
 
 #include "system/MemoryManager.h"
 #include "system/SystemTypes.h"
-#if defined(__clang__) || defined(__GNUC__)
-#define NORETURN __attribute((__noreturn__))
-#else
-#define NORETURN
-#endif
 
 namespace hpl {
 
@@ -56,7 +51,7 @@ namespace hpl {
 	//--------------------------------------------------------
 
 	extern void SetLogFile(const tWString &asFile);
-	extern void FatalError(const char* fmt,... ) NORETURN;
+	extern void FatalError(const char* fmt,... );
 	extern void Error(const char* fmt, ...);
 	extern void Warning(const char* fmt, ...);
 	extern void Log(const char* fmt, ...);

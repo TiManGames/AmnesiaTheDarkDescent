@@ -211,7 +211,7 @@ namespace hpl {
 		char text[4096];
 		va_list ap;	
 		if (fmt == NULL)
-			return;	
+			return;
 		va_start(ap, fmt);
 		vsprintf(text, fmt, ap);
 		va_end(ap);
@@ -240,7 +240,7 @@ namespace hpl {
 		char text[2048];
 		va_list ap;	
 		if (fmt == NULL)
-			return;	
+			return;
 		va_start(ap, fmt);
 		vsprintf(text, fmt, ap);
 		va_end(ap);

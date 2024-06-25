@@ -25,6 +25,8 @@ if(WIN32)
     list(APPEND launcher_sources ${WINDOWS_RESOURCE_FILE})
 endif()
 
+add_executable(Launcher ${launcher_sources})
+
 target_link_libraries(Launcher HPL2 ${FLTK_IMAGES_LIBRARY} ${FLTK_LIBRARY} ${JPEG_LIBRARY})
 
 if (LINUX)
