@@ -13,11 +13,18 @@ else()
     FindPrebuiltLibrary(JPEG_LIBRARY jpeg)
 endif()
 
-add_executable(Launcher
+set(launcher_sources
     launcher.cpp
     Main.cpp
     QualityChooser.cpp
     LauncherHelper.cpp)
+
+# Include the resource file for Windows builds
+if(WIN32)
+    set(WINDOWS_RESOURCE_FILE "Launcher.rc")
+    list(APPEND launcher_sources ${WINDOWS_RESOURCE_FILE})
+endif()
+
 target_link_libraries(Launcher HPL2 ${FLTK_IMAGES_LIBRARY} ${FLTK_LIBRARY} ${JPEG_LIBRARY})
 
 if (LINUX)

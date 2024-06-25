@@ -34,6 +34,9 @@ if(LINUX)
 elseif(WIN32)
     # This does not propagate from BoilerPlate
     add_compile_definitions(WIN32)
+    # Include the resource file for Windows builds
+    set(WINDOWS_RESOURCE_FILE "Lux.rc")
+    list(APPEND full_sources ${WINDOWS_RESOURCE_FILE})
 endif()
 
 add_executable(AmnesiaCE ${full_sources})
