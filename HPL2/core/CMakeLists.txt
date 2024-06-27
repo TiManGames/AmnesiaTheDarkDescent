@@ -6,7 +6,11 @@ include(BoilerPlate)
 
 # Set up dependencies dirs (CACHE = global scope)
 set(DEPENDENCIES_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/precompiled CACHE PATH "Dir which holds precompiled dependencies - libs and headers")
-set(DEPENDENCIES_PLATFORM_LIBS ${DEPENDENCIES_ROOT}/lib/${PLATFORM_PREFIX} CACHE PATH "Dir which holds prebuilt libraries for target system")
+if(MINGW)
+    set(DEPENDENCIES_PLATFORM_LIBS "${DEPENDENCIES_ROOT}/lib/mingw32;${DEPENDENCIES_ROOT}/lib/win32" CACHE PATH "Dir which holds prebuilt libraries for target system")
+else()
+    set(DEPENDENCIES_PLATFORM_LIBS ${DEPENDENCIES_ROOT}/lib/${PLATFORM_PREFIX} CACHE PATH "Dir which holds prebuilt libraries for target system")
+endif()
 
 include(UtilityFunctions)
 
@@ -185,7 +189,7 @@ if(MINGW)
 
     add_subdirectory(../../dependencies/AngelScript build_angelscript)
     target_link_libraries(HPL2 angelscript)
-elseif(WIN32)
+elseif(WIN32 AND NOT MINGW)
     FindPrebuiltLibrary(NEWTON_LIBRARY newton)
     FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
@@ -241,7 +245,7 @@ if(MINGW)
         PRIVATE ../../dependencies/zlib
         PRIVATE ${ZCONF_DIR}
     )
-elseif(WIN32)
+elseif(WIN32 AND NOT MINGW)
     FindPrebuiltLibrary(ZLIB zlib)
     target_link_libraries(HPL2 ${ZLIB})
 else()

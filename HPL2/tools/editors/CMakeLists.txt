@@ -115,7 +115,7 @@ file(GLOB_RECURSE leveleditor_sources
     LevelEditorWorld.cpp
     )
 
-if(WIN32)
+if(MINGW)
     # Level Editor Icon
     list(APPEND leveleditor_sources "leveleditor/LevelEditor.rc")
 endif()
@@ -232,7 +232,7 @@ file(GLOB_RECURSE modeleditor_sources
     ModelEditorWorld.cpp
 )
 
-if(WIN32)
+if(MINGW)
     # Model Editor Icon
     list(APPEND modeleditor_sources "modeleditor/ModelEditor.rc")
 endif()
@@ -302,7 +302,7 @@ file(GLOB_RECURSE particleeditor_sources
     ParticleEditorWorld.cpp
 )
 
-if(WIN32)
+if(MINGW)
     # Particle Editor Icon
     list(APPEND particleeditor_sources "particleeditor/ParticleEditor.rc")
 endif()
@@ -367,7 +367,7 @@ file(GLOB_RECURSE materialeditor_sources
     MaterialEditorMain.cpp
 )
 
-if(WIN32)
+if(MINGW)
     # Material Editor Icon
     list(APPEND materialeditor_sources "materialeditor/MaterialEditor.rc")
 endif()
