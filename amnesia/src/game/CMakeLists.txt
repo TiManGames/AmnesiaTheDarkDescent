@@ -29,14 +29,14 @@ else ()
     set(full_sources ${all_sources})
 endif ()
 
-if(LINUX)
-    add_compile_definitions(LINUX)
-elseif(WIN32)
+if(MINGW)
     # This does not propagate from BoilerPlate
     add_compile_definitions(WIN32)
-    # Include the resource file for Windows builds
+    # Include the Windows resource file for MinGW builds
     set(WINDOWS_RESOURCE_FILE "Lux.rc")
     list(APPEND full_sources ${WINDOWS_RESOURCE_FILE})
+elseif(LINUX)
+    add_compile_definitions(LINUX)
 endif()
 
 add_executable(AmnesiaCE ${full_sources})

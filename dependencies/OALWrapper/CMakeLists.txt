@@ -17,9 +17,15 @@ else()
     message(WARNING "DEPENDENCIES_ROOT not set. Build will probably fail to find dependencies in the system.")
 endif()
 
-# Check platform lib dir
-if(NOT EXISTS ${DEPENDENCIES_PLATFORM_LIBS})
-    message(FATAL_ERROR "Platform lib dir (DEPENDENCIES_PLATFORM_LIBS) not found")
+# Check platform lib dirs individually
+if(DEPENDENCIES_PLATFORM_LIBS)
+    foreach(DIR ${DEPENDENCIES_PLATFORM_LIBS})
+        if(NOT EXISTS ${DIR})
+            message(FATAL_ERROR "Platform lib dir (${DIR}) not found")
+        endif()
+    endforeach()
+else()
+    message(FATAL_ERROR "DEPENDENCIES_PLATFORM_LIBS is not set.")
 endif()
 
 
