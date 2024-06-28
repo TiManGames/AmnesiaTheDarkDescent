@@ -4,7 +4,7 @@ project(HPL2)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(BoilerPlate)
 
-# Set up dependencies dirs (CACHE = global scope)
+# Set up dependency directories (CACHE = global scope)
 set(DEPENDENCIES_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies/precompiled CACHE PATH "Dir which holds precompiled dependencies - libs and headers")
 if(MINGW)
     set(DEPENDENCIES_PLATFORM_LIBS "${DEPENDENCIES_ROOT}/lib/mingw32;${DEPENDENCIES_ROOT}/lib/win32" CACHE PATH "Dir which holds prebuilt libraries for target system")
@@ -12,16 +12,19 @@ else()
     set(DEPENDENCIES_PLATFORM_LIBS ${DEPENDENCIES_ROOT}/lib/${PLATFORM_PREFIX} CACHE PATH "Dir which holds prebuilt libraries for target system")
 endif()
 
+# Specify the static linking options for GCC and C++ runtimes
+if(MINGW)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+endif()
+
 include(UtilityFunctions)
 
 add_subdirectory(../../dependencies/OALWrapper build_oalwrapper)
 
-# We use SDL2 by default in CMake now, but in the code 1.2 is also supported and we need to instruct it to use 2
-add_definitions(-DUSE_SDL2)
-add_definitions(-DUSE_OALWRAPPER)
+# We use SDL2 by default in CMake now, but SDL 1.2 is also supported in the code. We need to instruct it to use SDL2.
+add_definitions(-DUSE_SDL2 -DUSE_OALWRAPPER)
 
-
-# common shared source
+# Common shared source
 file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     sources/ai/*
     sources/engine/*
@@ -55,23 +58,23 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 list(REMOVE_DUPLICATES common_sources)
 
-#setup various IMPL sources
+# Setup various implementation sources
 file(GLOB impl_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     include/impl/tinyXML/*
     include/impl/*.*
 
-    # tinyXML
+    # TinyXML
     sources/impl/tinyXml/*
     sources/impl/XmlDocumentTiny.cpp
-    # scripting
+    # Scripting
     sources/impl/SqScript.cpp
     sources/impl/scriptarray.cpp
     sources/impl/scripthelper.cpp
     sources/impl/scriptstring.cpp
     sources/impl/scriptstring_utils.cpp
-    # Image loading
+    # Image Loading
     sources/impl/BitmapLoader*
-    # theora video
+    # Theora Video
     sources/impl/VideoStreamTheora.cpp
     # Newton
     sources/impl/*Newton.cpp
@@ -100,25 +103,25 @@ file(GLOB impl_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     # OpenAL
     sources/impl/LowLevelSoundOpenAL.cpp
     sources/impl/OpenAL*
-    # mesh loader
+    # Mesh Loader
     sources/impl/MeshLoaderCollada.cpp
     sources/impl/MeshLoaderColladaHelpers.cpp
     sources/impl/MeshLoaderColladaLoader.cpp
     sources/impl/MeshLoaderMSH.cpp
 )
 
-IF(LINUX)
+if(LINUX)
     LIST(APPEND impl_sources
         sources/impl/PlatformUnix.cpp
         sources/impl/PlatformSDL.cpp
     )
-ELSEIF(WIN32)
+elseif(WIN32)
     LIST(APPEND impl_sources
         sources/impl/MutexWin32.cpp
         sources/impl/ThreadWin32.cpp
         sources/impl/PlatformWin32.cpp
     )
-ENDIF()
+endif()
 
 if(FBX_SUPPORT)
     list(APPEND impl_sources
@@ -126,7 +129,7 @@ if(FBX_SUPPORT)
     )
 endif()
 
-# setup source groups
+# Setup source groups
 source_group("AI" REGULAR_EXPRESSION "\\/ai\\/.+")
 source_group("Engine" REGULAR_EXPRESSION "\\/engine\\/.+")
 source_group("Generate" REGULAR_EXPRESSION "\\/generate\\/.+")
@@ -151,16 +154,13 @@ source_group("OpenAL Specific" REGULAR_EXPRESSION "\\/impl\\/.*OpenAL.+")
 source_group("Win32" REGULAR_EXPRESSION "\\/impl\\/.+Win32.+")
 source_group("Platform" REGULAR_EXPRESSION "\\/impl\\/Platform.+")
 
-# setup HPL2 compile target
+# Setup HPL2 compile target
 
-add_library(HPL2 STATIC
-    ${common_sources}
-    ${impl_sources}
-)
+add_library(HPL2 STATIC ${common_sources} ${impl_sources})
 
 set(HPL2_INCLUDES
     PUBLIC include
-    # Important that this is before dependencies so the correct OpenAL headers are used
+    # Ensure this is listed before dependencies to use the correct OpenAL headers
     PRIVATE ${OALWRAPPER_INCLUDE_DIR}
     PRIVATE ../../dependencies/AngelScript/include
     PUBLIC ${DEPENDENCIES_ROOT}/include
@@ -175,11 +175,9 @@ if(LINUX)
     )
 endif()
 
-target_include_directories(HPL2
-    ${HPL2_INCLUDES}
-)
+target_include_directories(HPL2 ${HPL2_INCLUDES})
 
-# setup libs
+# Setup libs
 
 if(MINGW)
     FindPrebuiltLibrary(NEWTON_LIBRARY newton)
@@ -187,9 +185,10 @@ if(MINGW)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
     FindPrebuiltLibrary(DEVIL_LIBRARY DevIL)
 
+    # Add AngelScript subdirectory and link with HPL2
     add_subdirectory(../../dependencies/AngelScript build_angelscript)
     target_link_libraries(HPL2 angelscript)
-elseif(WIN32 AND NOT MINGW)
+elseif(WIN32)
     FindPrebuiltLibrary(NEWTON_LIBRARY newton)
     FindPrebuiltLibrary(FBX_LIBRARY fbxsdk-2012.2-md)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
@@ -222,7 +221,7 @@ if(LINUX)
 endif()
 
 target_link_libraries(HPL2
-    OALWrapper # also pulls in ogg,vorbis,SDL
+    OALWrapper # Links OGG, Vorbis, and SDL
     ${NEWTON_LIBRARY}
     ${OPENGL_gl_LIBRARY}
     ${OPENGL_glu_LIBRARY}
@@ -245,16 +244,14 @@ if(MINGW)
         PRIVATE ../../dependencies/zlib
         PRIVATE ${ZCONF_DIR}
     )
-elseif(WIN32 AND NOT MINGW)
+elseif(WIN32)
     FindPrebuiltLibrary(ZLIB zlib)
     target_link_libraries(HPL2 ${ZLIB})
 else()
-    # Use system libz
+    # Use system ZLIB
     find_package(ZLIB REQUIRED)
     target_link_libraries(HPL2 ${ZLIB_LIBRARIES})
-    target_include_directories(HPL2
-        PRIVATE ${ZLIB_INCLUDE_DIRS}
-    )
+    target_include_directories(HPL2 PRIVATE ${ZLIB_INCLUDE_DIRS})
 endif()
 
 message(STATUS

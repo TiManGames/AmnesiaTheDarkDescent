@@ -1,26 +1,29 @@
-# the name of the target operating system
+# The name of the target operating system
 set(CMAKE_SYSTEM_NAME Windows)
 
-# which compilers to use for C and C++
-# set(CMAKE_C_COMPILER   x86_64-w64-mingw32-gcc-win32)  # 64 bit but the windows version was made for 32 only
-# set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++-win32)  # 64 bit
-set(CMAKE_C_COMPILER   i686-w64-mingw32-gcc-win32)
-set(CMAKE_CXX_COMPILER i686-w64-mingw32-g++-win32)
+# Which compilers to use for C and C++
+# Uncomment these lines for 64-bit compilation, though these are set for a 32-bit Windows environment
+# set(CMAKE_C_COMPILER   x86_64-w64-mingw32-gcc-win32)  # 64-bit GCC compiler, targeting 32-bit Windows
+# set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++-win32)  # 64-bit G++ compiler
 
-# these shouldn't be necessary, in theory...
+# Use these lines for 32-bit compilation
+set(CMAKE_C_COMPILER   i686-w64-mingw32-gcc-win32)     # 32-bit GCC compiler
+set(CMAKE_CXX_COMPILER i686-w64-mingw32-g++-win32)     # 32-bit G++ compiler
+
+# These options force 32-bit compilation, which shouldn't be necessary as the compilers specified are already for 32-bit
 # add_compile_options(-m32)
 # add_link_options(-m32)
 
-# where the target environment is located
-set(CMAKE_FIND_ROOT_PATH  /usr/i686-w64-mingw32/)
+# Specify where the target environment is located
+set(CMAKE_FIND_ROOT_PATH /usr/i686-w64-mingw32/)
 
+# Adjust the default behavior of the FIND_XXX() commands:
+# Note: These settings are crucial for cross-compilation and should be set carefully
 
-# Note: I set these to NEVER without a thorough understanding of what it does:
-
-# adjust the default behavior of the FIND_XXX() commands:
-# search programs in the host environment
+# Search programs in the host environment
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 
-# search headers and libraries in the target environment
+# Search headers and libraries in both the host and target environments
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
+

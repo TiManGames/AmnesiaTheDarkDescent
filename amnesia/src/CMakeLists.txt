@@ -8,71 +8,71 @@ option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 option(FBX_SUPPORT "Add FBX support during compilation" OFF)
 
 set(CMAKE_BUILD_TYPE "Release")
-# Release: high optimization level, no debug info, code or asserts.
-# Debug: No optimization, asserts enabled, debug info included in executable (so you can step through the code with a debugger and have address to source-file:line-number translation).
-# RelWithDebInfo: optimized, *with* debug info, but no debug (output) code or asserts.
-# MinSizeRel: same as Release but optimizing for size rather than speed.
+# Release: High optimization level, no debug info, no debug code, no asserts.
+# Debug: No optimization, asserts enabled, debug info included (enables stepping through code with a debugger and source-file:line-number translation).
+# RelWithDebInfo: Optimized with debug info, but no debug output code or asserts.
+# MinSizeRel: Same as Release but optimized for size rather than speed.
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
 if(MINGW)
-    # There is some stuff that breaks in mingw in newer standards
+    # There are some issues that break in MinGW with newer standards.
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
     set(CMAKE_CXX_STANDARD 11)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    # Specify the static linking options for GCC and C++ runtimes
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 else()
     set(CMAKE_CXX_STANDARD 20)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
-# silence some annoying warnings that are language-agnostic
+# Silence some annoying warnings that are language-agnostic
 add_compile_options(
-    # False Positive or Pedantic Warnings
-    -Wno-unused-result  # suppress warnings about unused return values
-    -Wno-aggressive-loop-optimizations  # suppress false positive warnings about loop optimizations
-    -Wno-write-strings  # allow converting const string literals to char* (non-const)
+    # False positive or pedantic warnings
+    -Wno-unused-result  # Suppress warnings about unused return values
+    -Wno-aggressive-loop-optimizations  # Suppress false positive warnings about loop optimizations
+    -Wno-write-strings  # Allow converting const string literals to char* (non-const)
+
     # TODO fix these:
-    -Wno-format-security  # suppress format security warnings (e.g., printf format vulnerabilities)
-    -Wno-int-to-pointer-cast  # suppress warnings about casting integers to pointers
-    -Wno-attributes  # suppress warnings about ignored attributes in the code
+    -Wno-format-security  # Suppress format security warnings (e.g., printf format vulnerabilities)
+    -Wno-int-to-pointer-cast  # Suppress warnings about casting integers to pointers
+    -Wno-attributes  # Suppress warnings about ignored attributes in the code
 )
 
-# silence C++ specific warnings
+# Silence C++ specific warnings
 add_compile_options(
     # TODO fix these:
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # suppress warnings about deprecated enum to float conversions
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # suppress warnings about narrowing conversions
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # suppress warnings about deleting incomplete types
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # Suppress warnings about deprecated enum to float conversions
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # Suppress warnings about narrowing conversions
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # Suppress warnings about deleting incomplete types
 )
 
-# required by AngelScript
+# Required by AngelScript
 add_compile_options(-fno-strict-aliasing)
 # Required by the libGLEW dependency
 add_link_options(-no-pie)
 
-if (FULL_WARNINGS)
+if(FULL_WARNINGS)
     add_compile_options(-Wall -Wextra)
-endif ()
+endif()
 
 if (FBX_SUPPORT)
     add_compile_definitions(FBX_SUPPORT)
-    # Ignore retarded shit done by the FBX SDK:
+    # FBX SDK warnings
     add_compile_options(
-        -Wno-literal-suffix  # missing spaces between stuff
-        -Wno-deprecated-enum-enum-conversion  # bitwise operation between different enumeration types
+        -Wno-literal-suffix  # Suppresses warnings for missing spaces between literal suffixes and the literals themselves
+        -Wno-deprecated-enum-enum-conversion  # Suppresses warnings for bitwise operations between different enumeration types
     )
 endif()
 
 if(USERDIR_RESOURCES)
-    add_definitions(
-        -DUSERDIR_RESOURCES
-    )
+    add_definitions(-DUSERDIR_RESOURCES)
 endif()
 
 add_subdirectory(../../HPL2/core build_core)
 add_subdirectory(game build_game)
 add_subdirectory(launcher build_launcher)
 
-add_custom_target(GameRelease
-    DEPENDS Amnesia Launcher
-)
+add_custom_target(GameRelease DEPENDS Amnesia Launcher)
+
