@@ -10,13 +10,13 @@ option(FBX_SUPPORT "Add FBX support during compilation" OFF)
 set(CMAKE_BUILD_TYPE "Release")
 # Release: High optimization level, no debug info, no debug code, no asserts.
 # Debug: No optimization, asserts enabled, debug info included (enables stepping through code with a debugger and source-file:line-number translation).
-# RelWithDebInfo: Optimized with debug info, but no debug output code or asserts.
+# RelWithDebInfo: Optimized build with embedded debug information, excluding debug output code and asserts.
 # MinSizeRel: Same as Release but optimized for size rather than speed.
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 
 if(MINGW)
-    # There are some issues that break in MinGW with newer standards.
+    # There are compatibility issues in MinGW with newer standards.
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
     set(CMAKE_CXX_STANDARD 11)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -67,7 +67,7 @@ if (FBX_SUPPORT)
 endif()
 
 if(USERDIR_RESOURCES)
-    add_definitions(-DUSERDIR_RESOURCES)
+    add_compile_definitions(-DUSERDIR_RESOURCES)
 endif()
 
 add_subdirectory(../../HPL2/core build_core)
