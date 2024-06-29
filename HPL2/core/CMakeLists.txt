@@ -22,7 +22,7 @@ include(UtilityFunctions)
 add_subdirectory(../../dependencies/OALWrapper build_oalwrapper)
 
 # We use SDL2 by default in CMake now, but SDL 1.2 is also supported in the code. We need to instruct it to use SDL2.
-add_definitions(-DUSE_SDL2 -DUSE_OALWRAPPER)
+add_compile_definitions(-DUSE_SDL2 -DUSE_OALWRAPPER)
 
 # Common shared source
 file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -185,7 +185,6 @@ if(MINGW)
     FindPrebuiltLibrary(GLEW_LIBRARY glew32)
     FindPrebuiltLibrary(DEVIL_LIBRARY DevIL)
 
-    # Add AngelScript subdirectory and link with HPL2
     add_subdirectory(../../dependencies/AngelScript build_angelscript)
     target_link_libraries(HPL2 angelscript)
 elseif(WIN32)
