@@ -22,7 +22,7 @@ include(UtilityFunctions)
 add_subdirectory(../../dependencies/OALWrapper build_oalwrapper)
 
 # We use SDL2 by default in CMake now, but SDL 1.2 is also supported in the code. We need to instruct it to use SDL2.
-add_compile_definitions(-DUSE_SDL2 -DUSE_OALWRAPPER)
+add_compile_definitions(USE_SDL2 USE_OALWRAPPER)
 
 # Common shared source
 file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
