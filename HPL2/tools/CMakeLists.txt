@@ -7,7 +7,7 @@ function(AddToolTarget target)
 endfunction()
 
 if(USERDIR_RESOURCES)
-    add_compile_definitions(-DUSERDIR_RESOURCES)
+    add_compile_definitions(DUSERDIR_RESOURCES)
 endif()
 
 add_subdirectory(editors build_editors)
