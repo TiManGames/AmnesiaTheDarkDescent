@@ -16,25 +16,25 @@ set(compile_defs "")
 set(demo_compile_defs "LUX_DEMO_VERSION")
 
 option(USE_GAMEPAD "Enable gamepad support" ON)
-if (USE_GAMEPAD)
+if(USE_GAMEPAD)
     list(APPEND compile_defs USE_GAMEPAD)
     list(APPEND demo_compile_defs USE_GAMEPAD)
-endif ()
+endif()
 
 option(AMNESIA_WITH_SERIAL "Enable Serial Key Checking" OFF)
-if (AMNESIA_WITH_SERIAL)
+if(AMNESIA_WITH_SERIAL)
     list(APPEND compile_defs COPY_PROTECTION_ENABLED)
     set(full_sources ${all_sources} ${serial_source})
-else ()
+else()
     set(full_sources ${all_sources})
-endif ()
+endif()
 
 if(MINGW)
-    # This does not propagate from BoilerPlate
-    add_compile_definitions(WIN32)
     # Include the Windows resource file for MinGW builds
     set(WINDOWS_RESOURCE_FILE "Lux.rc")
     list(APPEND full_sources ${WINDOWS_RESOURCE_FILE})
+    # This does not propagate from BoilerPlate
+    add_compile_definitions(WIN32)
 elseif(LINUX)
     add_compile_definitions(LINUX)
 endif()
@@ -43,7 +43,7 @@ add_executable(AmnesiaCE ${full_sources})
 target_link_libraries(AmnesiaCE HPL2)
 set_target_properties(AmnesiaCE PROPERTIES COMPILE_DEFINITIONS "${compile_defs}")
 
-add_executable(AmnesiaDemo EXCLUDE_FROM_ALL ${all_sources})
-target_link_libraries(AmnesiaDemo HPL2)
-set_target_properties(AmnesiaDemo PROPERTIES COMPILE_DEFINITIONS "${demo_compile_defs}")
+add_executable(AmnesiaDemoCE EXCLUDE_FROM_ALL ${all_sources})
+target_link_libraries(AmnesiaDemoCE HPL2)
+set_target_properties(AmnesiaDemoCE PROPERTIES COMPILE_DEFINITIONS "${demo_compile_defs}")
 
