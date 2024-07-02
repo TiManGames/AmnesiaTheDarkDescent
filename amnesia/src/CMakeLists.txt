@@ -48,6 +48,19 @@ add_compile_options(
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # Suppress warnings about deleting incomplete types
 )
 
+# Define LINUX if we are on a Linux system
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif()
+# This condition ensures that the LINUX variable is set on Unix-like systems excluding macOS.
+
+# Suppress specific warning only on Linux
+if(LINUX)
+    add_compile_options(
+        "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-enum-conversion>"  # Suppress warnings about deprecated enum to enum conversions
+    )
+endif()
+
 # Required by AngelScript
 add_compile_options(-fno-strict-aliasing)
 # Required by the libGLEW dependency
@@ -67,7 +80,7 @@ if (FBX_SUPPORT)
 endif()
 
 if(USERDIR_RESOURCES)
-    add_compile_definitions(-DUSERDIR_RESOURCES)
+    add_compile_definitions(USERDIR_RESOURCES)
 endif()
 
 add_subdirectory(../../HPL2/core build_core)
