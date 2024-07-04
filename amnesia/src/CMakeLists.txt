@@ -46,20 +46,8 @@ add_compile_options(
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # Suppress warnings about deprecated enum to float conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # Suppress warnings about narrowing conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # Suppress warnings about deleting incomplete types
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-enum-conversion>"  # Suppress warnings about deprecated enum to enum conversions
 )
-
-# Define LINUX if we are on a Linux system
-if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-endif()
-# This condition ensures that the LINUX variable is set on Unix-like systems excluding macOS.
-
-# Suppress specific warning only on Linux
-if(LINUX)
-    add_compile_options(
-        "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-enum-conversion>"  # Suppress warnings about deprecated enum to enum conversions
-    )
-endif()
 
 # Required by AngelScript
 add_compile_options(-fno-strict-aliasing)
