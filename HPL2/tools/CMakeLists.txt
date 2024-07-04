@@ -7,9 +7,7 @@ function(AddToolTarget target)
 endfunction()
 
 if(USERDIR_RESOURCES)
-    add_definitions(
-        -DUSERDIR_RESOURCES
-    )
+    add_compile_definitions(USERDIR_RESOURCES)
 endif()
 
 add_subdirectory(editors build_editors)
@@ -19,30 +17,15 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 ### MapViewer
-
-AddToolTarget(MapViewerCE
-    mapview/MapView.cpp
-    ${common_sources}
-)
+AddToolTarget(MapViewerCE mapview/MapView.cpp ${common_sources})
 
 ### ModelViewer
-
-AddToolTarget(ModelViewerCE
-    modelview/ModelView.cpp
-    ${common_sources}
-)
+AddToolTarget(ModelViewerCE modelview/ModelView.cpp ${common_sources})
 
 ### ParticleViewer
+# AddToolTarget(ParticleViewer particleview/ParticleView.cpp ${common_sources})
 
-# AddToolTarget(ParticleViewer
-#    particleview/ParticleView.cpp
-#    ${common_sources}
-# )
-
-##  Mesh Converter
-
-# add_executable(MshConverter
-#     mshconverter/MshConverter.cpp
-# )
+### Mesh Converter
+# add_executable(MshConverter mshconverter/MshConverter.cpp)
 # target_link_libraries(MshConverter HPL2)
 

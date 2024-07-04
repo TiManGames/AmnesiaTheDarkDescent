@@ -1,13 +1,13 @@
-## Find a prebuiltlib
-## Must set a cache/global var of DEPENDENCIES_PLATFORM_LIBS so this function knows where to find the libraries.
-## the epected structure is simply to have the libs/frameworks in the directory pointed to by that variable.
-## for multi-arch linux putting libs in two subdirectories of lib and lib64 will allow cmake to find the right ones
+## Find a prebuilt library
+## Must set a cache/global variable of DEPENDENCIES_PLATFORM_LIBS so this function knows where to find the libraries.
+## The expected structure is to have the libraries/frameworks in the directory pointed to by that variable.
+## For multi-arch Linux, putting libraries in two subdirectories, lib and lib64, will allow CMake to find the right ones.
 function(FindPrebuiltLibrary result_var libname)
-    if (NOT DEPENDENCIES_PLATFORM_LIBS)
+    if(NOT DEPENDENCIES_PLATFORM_LIBS)
         message(FATAL_ERROR "Must set DEPENDENCIES_PLATFORM_LIBS before using this function")
-    endif ()
+    endif()
 
-    # check prebuilt directory first
+    # Check prebuilt directory first
     find_library(${result_var}
             NAMES ${libname}
             PATHS ${DEPENDENCIES_PLATFORM_LIBS}/lib ${DEPENDENCIES_PLATFORM_LIBS}
@@ -15,7 +15,7 @@ function(FindPrebuiltLibrary result_var libname)
     # Check system dir
     find_library(${result_var}
             NAMES ${libname})
-    if (NOT ${result_var})
+    if(NOT ${result_var})
         message(FATAL_ERROR "Could not find library ${libname} in prebuilt folder ${DEPENDENCIES_PLATFORM_LIBS}")
-    endif ()
+    endif()
 endfunction()

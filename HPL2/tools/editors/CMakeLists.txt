@@ -113,15 +113,6 @@ file(GLOB_RECURSE leveleditor_sources
     LevelEditorWindowLevelSettings.cpp
     LevelEditorWindowAbout.cpp
     LevelEditorWorld.cpp
-    )
-
-if(MINGW)
-    # Level Editor Icon
-    list(APPEND leveleditor_sources "leveleditor/LevelEditor.rc")
-endif()
-
-AddToolTarget(LevelEditorCE
-    ${leveleditor_sources}
 )
 
 ### ModelEditor
@@ -232,15 +223,6 @@ file(GLOB_RECURSE modeleditor_sources
     ModelEditorWorld.cpp
 )
 
-if(MINGW)
-    # Model Editor Icon
-    list(APPEND modeleditor_sources "modeleditor/ModelEditor.rc")
-endif()
-
-AddToolTarget(ModelEditorCE
-    ${modeleditor_sources}
-)
-
 ### ParticleEditor
 
 file(GLOB_RECURSE particleeditor_sources
@@ -302,15 +284,6 @@ file(GLOB_RECURSE particleeditor_sources
     ParticleEditorWorld.cpp
 )
 
-if(MINGW)
-    # Particle Editor Icon
-    list(APPEND particleeditor_sources "particleeditor/ParticleEditor.rc")
-endif()
-
-AddToolTarget(ParticleEditorCE
-    ${particleeditor_sources}
-)
-
 ### MaterialEditor
 
 file(GLOB_RECURSE materialeditor_sources
@@ -368,11 +341,19 @@ file(GLOB_RECURSE materialeditor_sources
 )
 
 if(MINGW)
+    # Level Editor Icon
+    list(APPEND leveleditor_sources "leveleditor/LevelEditor.rc")
+    # Model Editor Icon
+    list(APPEND modeleditor_sources "modeleditor/ModelEditor.rc")
+    # Particle Editor Icon
+    list(APPEND particleeditor_sources "particleeditor/ParticleEditor.rc")
     # Material Editor Icon
     list(APPEND materialeditor_sources "materialeditor/MaterialEditor.rc")
 endif()
 
-AddToolTarget(MaterialEditorCE
-    ${materialeditor_sources}
-)
+# Add targets
+AddToolTarget(LevelEditorCE ${leveleditor_sources})
+AddToolTarget(ModelEditorCE ${modeleditor_sources})
+AddToolTarget(ParticleEditorCE ${particleeditor_sources})
+AddToolTarget(MaterialEditorCE ${materialeditor_sources})
 
