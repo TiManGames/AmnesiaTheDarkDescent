@@ -4,8 +4,12 @@ project(Lux)
 message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
-option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
 option(FBX_SUPPORT "Add FBX support during compilation" OFF)
+if(MINGW)
+    option(USERDIR_RESOURCES "Allow using local userdirectory resources" OFF)
+else()
+    option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
+endif()
 
 set(CMAKE_BUILD_TYPE "Release")
 # Release: High optimization level, no debug info, no debug code, no asserts.
@@ -18,7 +22,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 if(MINGW)
     # There are compatibility issues in MinGW with newer standards.
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
-    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     # Specify the static linking options for GCC and C++ runtimes
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
