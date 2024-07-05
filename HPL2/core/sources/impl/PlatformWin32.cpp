@@ -258,13 +258,18 @@ namespace hpl {
 		wchar_t sSpec[256];
 		wchar_t end = sDir[sDir.size()-1];
 
-		if(end == _W('\\') || end== _W('/'))
-			swprintf(sSpec,256,_W("%s%s"),sDir.c_str(),asMask.c_str());
-		else
-		{
-			//these windows functions only works with "\".. sucks ...
-			swprintf(sSpec,256,_W("%s\\%s"),sDir.c_str(),asMask.c_str());
-		}
+    #ifdef __MINGW32__
+        if (end == L'\\' || end == L'/')
+            _swprintf(sSpec, L"%s%s", sDir.c_str(), asMask.c_str());
+        else
+            _swprintf(sSpec, L"%s\\%s", sDir.c_str(), asMask.c_str());
+    #else
+        if(end == _W('\\') || end== _W('/'))
+            swprintf(sSpec,256,_W("%s%s"),sDir.c_str(),asMask.c_str());
+        else
+            //these windows functions only works with "\".. sucks ...
+            swprintf(sSpec,256,_W("%s\\%s"),sDir.c_str(),asMask.c_str());
+    #endif
 
 		//The needed structs
 		intptr_t lHandle;
@@ -327,13 +332,18 @@ namespace hpl {
 		wchar_t sSpec[256];
 		wchar_t end = sDir[sDir.size()-1];
 
-		if(end == _W('\\') || end== _W('/'))
-			swprintf(sSpec,256,_W("%s%s"),sDir.c_str(),_W("*.*"));
-		else
-		{
-			//these windows functions only works with "\".. sucks ...
-			swprintf(sSpec,256,_W("%s\\%s"),sDir.c_str(),_W("*.*"));
-		}
+    #ifdef __MINGW32__
+        if (end == L'\\' || end == L'/')
+            _swprintf(sSpec, L"%s%s", sDir.c_str(), L"*.*");
+        else
+            _swprintf(sSpec, L"%s\\%s", sDir.c_str(), L"*.*");
+    #else
+        if(end == _W('\\') || end== _W('/'))
+            swprintf(sSpec,256,_W("%s%s"),sDir.c_str(),_W("*.*"));
+        else
+            //these windows functions only works with "\".. sucks ...
+            swprintf(sSpec,256,_W("%s\\%s"),sDir.c_str(),_W("*.*"));
+    #endif
 
 		//The needed structs
 		intptr_t lHandle;
