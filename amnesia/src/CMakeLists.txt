@@ -46,7 +46,6 @@ add_compile_options(
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # Suppress warnings about deprecated enum to float conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # Suppress warnings about narrowing conversions
     "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # Suppress warnings about deleting incomplete types
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-enum-conversion>"  # Suppress warnings about deprecated enum to enum conversions
 )
 
 # Required by AngelScript
