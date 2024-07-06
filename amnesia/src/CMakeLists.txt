@@ -27,7 +27,7 @@ else()
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
-# Silence some annoying warnings that are language-agnostic
+# Silence some annoying warnings that are present both in C and C++
 add_compile_options(
     # False positive or pedantic warnings
     -Wno-unused-result  # Suppress warnings about unused return values
@@ -35,17 +35,16 @@ add_compile_options(
     -Wno-write-strings  # Allow converting const string literals to char* (non-const)
 
     # TODO fix these:
-    -Wno-format-security  # Suppress format security warnings (e.g., printf format vulnerabilities)
-    -Wno-int-to-pointer-cast  # Suppress warnings about casting integers to pointers
-    -Wno-attributes  # Suppress warnings about ignored attributes in the code
+    -Wno-format-security  # Suppress "warning: format not a string literal and no format arguments" in FL kit usage
+    -Wno-int-to-pointer-cast  # Suppress "warning: cast to pointer from integer of different size" (these were the same size on 32 bit but aren't on 64)
+    -Wno-attributes  # Suppress "visibility attribute not supported in this configuration" in zlib (MinGW-specific because zlib is precompiled elsewhere)
 )
 
 # Silence C++ specific warnings
 add_compile_options(
     # TODO fix these:
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"  # Suppress warnings about deprecated enum to float conversions
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # Suppress warnings about narrowing conversions
-    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-delete-incomplete>"  # Suppress warnings about deleting incomplete types
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-enum-float-conversion>"
+    "$<$<COMPILE_LANGUAGE:CXX>:-Wno-narrowing>"  # Narrowing type conversions
 )
 
 # Required by AngelScript
