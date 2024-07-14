@@ -58,6 +58,14 @@ file(GLOB common_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 list(REMOVE_DUPLICATES common_sources)
 
+# Implementation unfinished
+if(NOT COLORGRADING_SUPPORT)
+    list(REMOVE_ITEM common_sources
+        sources/graphics/PostEffect_ColorGrading.cpp
+        include/graphics/PostEffect_ColorGrading.h
+    )
+endif()
+
 # Setup various implementation sources
 file(GLOB impl_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     include/impl/tinyXML/*
@@ -125,7 +133,7 @@ endif()
 
 if(FBX_SUPPORT)
     list(APPEND impl_sources
-    sources/impl/MeshLoaderFBX.cpp
+        sources/impl/MeshLoaderFBX.cpp
     )
 endif()
 

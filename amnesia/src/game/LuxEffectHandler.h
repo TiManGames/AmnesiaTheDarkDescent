@@ -171,6 +171,7 @@ private:
     float mfFadeSpeed;
 };
 
+#ifdef COLORGRADING_SUPPORT
 //-----------------------------------------
 
 class cLuxEffect_ColorGrading : public iLuxEffect
@@ -212,6 +213,7 @@ private:
 };
 
 //-----------------------------------------
+#endif
 
 class cLuxEffect_ShakeScreen_Shake {
 public:
@@ -480,7 +482,9 @@ public:
 
     cLuxEffect_PlayCommentary *GetPlayCommentary() { return mpPlayCommentary; }
 
+#ifdef COLORGRADING_SUPPORT
 	cLuxEffect_ColorGrading *GetColorGrading() { return mpColorGrading; }
+#endif
 
 private:
     cLuxEffect_Fade *mpFade;
@@ -493,7 +497,9 @@ private:
     cLuxEffect_RadialBlur *mpRadialBlur;
     cLuxEffect_EmotionFlash *mpEmotionFlash;
     cLuxEffect_PlayCommentary *mpPlayCommentary;
+#ifdef COLORGRADING_SUPPORT
 	cLuxEffect_ColorGrading *mpColorGrading;
+#endif
 
     std::vector<iLuxEffect *> mvEffects;
 

@@ -4,12 +4,14 @@ project(Lux)
 message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
-option(FBX_SUPPORT "Add FBX support during compilation" OFF)
-if(MINGW)
-    option(USERDIR_RESOURCES "Allow using local userdirectory resources" OFF)
-else()
-    option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
+option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
+# USERDIR_RESOURCES is not appropriate for Windows
+if(WIN32)
+    option(USERDIR_RESOURCES OFF)
 endif()
+option(FBX_SUPPORT "Add FBX support during compilation" OFF)
+# Implementation unfinished
+option(COLORGRADING_SUPPORT "Add support for color grading areas during compilation" OFF)
 
 set(CMAKE_BUILD_TYPE "Release")
 # Release: High optimization level, no debug info, no debug code, no asserts.

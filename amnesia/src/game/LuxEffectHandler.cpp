@@ -56,9 +56,11 @@ cLuxEffectHandler::cLuxEffectHandler() : iLuxUpdateable("LuxEffectHandler")
 	mpSepiaColor = hplNew( cLuxEffect_SepiaColor, () );
 	mvEffects.push_back(mpSepiaColor);
 
+#ifdef COLORGRADING_SUPPORT
 	mpColorGrading = hplNew(cLuxEffect_ColorGrading, ());
 	mpColorGrading->SetActive(true);
 	mvEffects.push_back(mpColorGrading);
+#endif
 
 	mpRadialBlur = hplNew( cLuxEffect_RadialBlur, () );
 	mvEffects.push_back(mpRadialBlur);
@@ -498,6 +500,7 @@ void cLuxEffect_SepiaColor::Reset()
 	gpBase->mpMapHandler->GetPostEffect_Sepia()->SetActive(false);
 }
 
+#ifdef COLORGRADING_SUPPORT
 //-----------------------------------------------------------------------
 
 //////////////////////////////////////////////////////////////////////////
@@ -721,6 +724,7 @@ void cLuxEffect_ColorGrading::Reset()
 }
 
 //-----------------------------------------------------------------------
+#endif
 
 //////////////////////////////////////////////////////////////////////////
 // SCREEN SHAKE

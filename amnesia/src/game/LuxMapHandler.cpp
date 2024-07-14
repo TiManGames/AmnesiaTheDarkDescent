@@ -183,7 +183,7 @@ cLuxMapHandler::cLuxMapHandler() : iLuxUpdateable("LuxMapHandler") {
     mpPostEffect_Sepia->SetActive(false);
 
 	//Color Grading
-#ifndef __MINGW32__
+#ifdef COLORGRADING_SUPPORT
 	cPostEffectParams_ColorGrading colorGradingParams;
 	colorGradingParams.msTextureFile1 = "colorgrading_base.png";
 	colorGradingParams.msTextureFile2 = "";
@@ -525,7 +525,7 @@ void cLuxMapHandler::LoadMainConfig() {
     mpPostEffect_ImageTrail->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectImageTrail", true) == false);
     mpPostEffect_Sepia->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectSepia", true) == false);
     mpPostEffect_RadialBlur->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectRadialBlur", true) == false);
-#ifndef __MINGW32__
+#ifdef COLORGRADING_SUPPORT
 	mpPostEffect_ColorGrading->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectColorGrading", true) == false);
 #endif
 
@@ -538,7 +538,7 @@ void cLuxMapHandler::SaveMainConfig() {
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectImageTrail", mpPostEffect_ImageTrail->IsDisabled() == false);
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectSepia", mpPostEffect_Sepia->IsDisabled() == false);
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectRadialBlur", mpPostEffect_RadialBlur->IsDisabled() == false);
-#ifndef __MINGW32__
+#ifdef COLORGRADING_SUPPORT
 	gpBase->mpMainConfig->SetBool("Graphics", "PostEffectColorGrading", mpPostEffect_ColorGrading->IsDisabled() == false);
 #endif
 }

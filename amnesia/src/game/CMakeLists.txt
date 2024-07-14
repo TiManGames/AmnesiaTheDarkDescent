@@ -21,6 +21,14 @@ if(USE_GAMEPAD)
     list(APPEND demo_compile_defs USE_GAMEPAD)
 endif()
 
+# Implementation unfinished
+if(NOT COLORGRADING_SUPPORT)
+    list(REMOVE_ITEM all_sources
+        LuxArea_ColorGrading.cpp
+        LuxArea_ColorGrading.h
+    )
+endif()
+
 option(AMNESIA_WITH_SERIAL "Enable Serial Key Checking" OFF)
 if(AMNESIA_WITH_SERIAL)
     list(APPEND compile_defs COPY_PROTECTION_ENABLED)
