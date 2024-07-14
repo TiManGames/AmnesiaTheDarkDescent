@@ -5,7 +5,13 @@ message(STATUS "Configuring a ${CMAKE_SYSTEM} ${CMAKE_BUILD_TYPE} build")
 
 option(FULL_WARNINGS "Enable full compiler warnings" OFF)
 option(USERDIR_RESOURCES "Allow using local userdirectory resources" ON)
+# USERDIR_RESOURCES is not appropriate for Windows
+if(WIN32)
+    option(USERDIR_RESOURCES OFF)
+endif()
 option(FBX_SUPPORT "Add FBX support during compilation" OFF)
+# Implementation unfinished
+option(COLORGRADING_SUPPORT "Add support for color grading areas during compilation" OFF)
 
 set(CMAKE_BUILD_TYPE "Release")
 # Release: High optimization level, no debug info, no debug code, no asserts.
@@ -18,7 +24,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR}/../output)
 if(MINGW)
     # There are compatibility issues in MinGW with newer standards.
     # https://stackoverflow.com/questions/58059048/ambiguous-byte-definition-in-rpcndr-and-cstddef
-    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     # Specify the static linking options for GCC and C++ runtimes
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")

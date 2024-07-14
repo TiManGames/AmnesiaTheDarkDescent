@@ -183,6 +183,7 @@ cLuxMapHandler::cLuxMapHandler() : iLuxUpdateable("LuxMapHandler") {
     mpPostEffect_Sepia->SetActive(false);
 
 	//Color Grading
+#ifdef COLORGRADING_SUPPORT
 	cPostEffectParams_ColorGrading colorGradingParams;
 	colorGradingParams.msTextureFile1 = "colorgrading_base.png";
 	colorGradingParams.msTextureFile2 = "";
@@ -191,6 +192,7 @@ cLuxMapHandler::cLuxMapHandler() : iLuxUpdateable("LuxMapHandler") {
 	mpPostEffect_ColorGrading = pGraphics->CreatePostEffect(&colorGradingParams);
 	pPostEffectComp->AddPostEffect(mpPostEffect_ColorGrading, 3);
 	mpPostEffect_ColorGrading->SetActive(true);
+#endif
 
     //////////////////////////
     //Saving
@@ -395,7 +397,7 @@ void cLuxMapHandler::ChangeMap(const tString &asMapName, const tString &asStartP
 cLuxMap *cLuxMapHandler::LoadMap(const tString &asFileName, bool abLoadEntities) {
 	const tString & mapname = FileToMapName(asFileName);
 
-	gpBase->mpEffectHandler->GetColorGrading()->InitializeLUT(mapname + "_colorgrading.png");
+	//gpBase->mpEffectHandler->GetColorGrading()->InitializeLUT(mapname + "_colorgrading.png");
 
 	cLuxMap *pMap = hplNew(cLuxMap, (mapname));
 
@@ -523,7 +525,9 @@ void cLuxMapHandler::LoadMainConfig() {
     mpPostEffect_ImageTrail->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectImageTrail", true) == false);
     mpPostEffect_Sepia->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectSepia", true) == false);
     mpPostEffect_RadialBlur->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectRadialBlur", true) == false);
+#ifdef COLORGRADING_SUPPORT
 	mpPostEffect_ColorGrading->SetDisabled(gpBase->mpMainConfig->GetBool("Graphics", "PostEffectColorGrading", true) == false);
+#endif
 
     cRenderSettings *pRenderSettings = mpViewport->GetRenderSettings();
     pRenderSettings->mbUseEdgeSmooth = gpBase->mpConfigHandler->mbEdgeSmooth; //This is saved in config handler!
@@ -534,7 +538,9 @@ void cLuxMapHandler::SaveMainConfig() {
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectImageTrail", mpPostEffect_ImageTrail->IsDisabled() == false);
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectSepia", mpPostEffect_Sepia->IsDisabled() == false);
     gpBase->mpMainConfig->SetBool("Graphics", "PostEffectRadialBlur", mpPostEffect_RadialBlur->IsDisabled() == false);
+#ifdef COLORGRADING_SUPPORT
 	gpBase->mpMainConfig->SetBool("Graphics", "PostEffectColorGrading", mpPostEffect_ColorGrading->IsDisabled() == false);
+#endif
 }
 
 //-----------------------------------------------------------------------
