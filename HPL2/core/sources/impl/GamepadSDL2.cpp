@@ -139,7 +139,8 @@ namespace hpl {
 		mlstButtonsReleased.clear();
 
 		bool bDeviceRemoved = false;
-		int lFlushed = 0;
+		int lAxisFlushed = 0;
+		int lButtonsFlushed = 0;
 
 		std::list<SDL_Event>::iterator it = mpLowLevelInputSDL->mlstEvents.begin();
 		for(; it != mpLowLevelInputSDL->mlstEvents.end(); ++it)
@@ -166,7 +167,7 @@ namespace hpl {
 						mlstInputUpdates.push_back(inputUpdate);
 					}
 
-					if(pEvent->caxis.value == 0 || pEvent->caxis.value == 16384) lFlushed++;
+					if(pEvent->caxis.value == 0 || pEvent->caxis.value == 16384) lAxisFlushed++;
 
 					mvAxisArray[axis] = fAxisValue;                        
 				}
@@ -195,7 +196,7 @@ namespace hpl {
 						mvButtonArray[button] = bPressed;         
 					}
 
-					if(bPressed == false) lFlushed++;
+					if(bPressed == false) lButtonsFlushed++;
 				}
 				break;
 			}
@@ -213,7 +214,7 @@ namespace hpl {
 			UpdateAxis(5, mvAxisArray[5]);
 		}
 
-		if(bDeviceRemoved || lFlushed >= (SDL_CONTROLLER_BUTTON_MAX + SDL_CONTROLLER_AXIS_MAX)) // if flushed is 21 then all buttons have been reset which means that the controller has been disconnected in some way
+		if(bDeviceRemoved || (lButtonsFlushed >= SDL_CONTROLLER_BUTTON_MAX && lAxisFlushed >= SDL_CONTROLLER_AXIS_MAX)) // if both all axes and all buttons have been unset, it means that the controller has been disconnected in some way
 		{
 			mlstInputUpdates.clear();
 			mlstButtonsPressed.clear();
